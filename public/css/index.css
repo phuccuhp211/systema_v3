@@ -1,0 +1,270 @@
+body {
+    background: #ffffff;
+    line-height: 1.5;
+}
+
+.banner .btn.btn-lg.btn-primary {
+    background: #745caf;
+    border: none;
+}
+
+.banner .btn.btn-lg.btn-primary:hover {
+    background: #745cafbd;
+}
+
+.soluong {
+    width: 70px;
+    text-align: center;
+}
+/*san pham dc quan tam nhat*/
+.poster h1 {
+    margin: 0 0 2%;
+    color: white;
+    font-size: 2rem;
+    color: #745CAF;
+}
+
+.poster {
+    margin: 2% 0 0;
+    padding-top: 20px;
+}
+
+.khung-poster {
+    position: relative;
+    height: 300px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.chu-poster {
+    color: white;
+    background: #0000008c;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.chu-poster p {
+    margin: 0;
+}
+
+.poster .btn.btn-outline-light {
+    background: #745caf;
+    border: 1px solid #745caf;
+}
+
+.poster .btn.btn-outline-light:hover {
+    color: white;
+    background: #745cafbd;
+}
+
+.phai-poster {
+    top: 14%;
+    right: 11%;
+}
+
+.trai-poster {
+    top: 14%;
+    left: 53%;
+}
+
+.anh-poster {
+    width: 100%;
+    scale: 1;
+}
+
+.phai-poster1 {
+    top: 14%;
+    right: 14%;
+}
+
+.trai-poster1 {
+    top: 14%;
+    left: 53%;
+}
+/*san pham dc quan tam nhat*/
+
+/*top nav*/
+.banner {margin: 1% 0 0 0;}
+
+.bg_color{
+    background: #745CAF !important; 
+}
+
+.khung {
+    width: 100%;
+}
+
+.khung2-mb {
+    width: 44%;
+}
+.anh{
+    width: 100%;
+}
+
+.nut{
+    background: #000;
+    border-color: #000;
+}
+.nut:hover {  
+}
+
+/*modalshop*/
+.hinhsp-giohang {
+    width: 100%;
+    max-width: 130px;
+    max-height: 100px;
+}
+.chu-giohang {
+    padding: 1.5% 1%;
+}
+.p-tt-giohang {
+    margin: 0;
+    padding: 0;
+}
+.gia-giohang {
+    padding: 1% 5%;
+}
+.gia_sp {
+    color: #745CAF;
+}
+.md-tongcong {
+    color: #745CAF;
+    font-weight: bold;
+}
+.ten_sp {
+    color: ;
+}
+.sp_s{
+    position: absolute;
+    padding: 0;
+    margin: auto;
+    background: center;
+    width: 60px;
+}
+.thanhtoan_b{
+    background: none !important;
+    border: 1px solid;
+    border-color: #745CAF;
+    color: #745CAF;
+}
+.thanhtoan_b:hover{
+    background: #745CAF !important;
+    border-color: #745CAF!important; 
+    color: white;        
+}
+.return_btn{
+    text-decoration: none;
+    color: gray;
+}
+.return_btn:hover{
+    text-decoration: none;
+    color: white;
+}
+/*end*/
+/*modaluser*/
+.nut_dn{
+    border-color: #745CAF;
+    color: #745CAF;
+}
+.nut_dn:hover{
+    border-color: #745CAF;
+    background: #745CAF;
+}
+.nut_dk{
+    border-color: #745CAF;
+    color: #745CAF;
+}
+.nut_dk:hover{
+    border-color: #745CAF;
+    background: #745CAF;
+}
+/*end*/
+.poster_item{
+    padding: 10px;
+}
+/*end top nav*/
+/*san pham*/
+
+.tieude {
+    color: #745CAF;
+    margin-bottom: 3%;
+}
+
+.sp{
+    background: green;
+}
+/*end san pam*/
+/*footer*/
+.pad_1{
+    margin: 3% auto ;
+}
+#brand_name {
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: none;
+    color: black;
+}
+
+
+.bg-poster {width: 12vw;height: 12vw;background: #bfb1e3ad;border-radius: 10px;display: flex;align-items: center;}
+
+.bg-poster:hover .anh-poster {
+    scale: 1.15;
+}
+
+.ebd_img {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    padding: 15px 10px 10px;
+}
+
+.ebd_img > * {
+    max-width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: calc(var(--bs-gutter-x) * 0.5);
+}
+
+.ss-sp {
+    overflow: hidden;
+    border-radius: 15px;
+    margin: 0 0 50px;
+}
+
+.td-trans {
+    background: #ed1e2b;
+    color: white;
+    margin: 0;
+    padding: 10px 25px;
+}
+
+.click-pn {
+    position: absolute;
+    transform: translate(0, -50%);
+    top: 50%;
+    border: 1px solid #6246a8;
+    display: block;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    color: gray;
+    transition: 0.1s !important;
+}
+
+.click-pn:hover {
+    color: red;
+}
+
+.click-next {
+    right: 5px;
+}
+
+.click-prev {
+    left: 5px;
+}
+
+.ss-poster img {
+    width: 100%;
+}

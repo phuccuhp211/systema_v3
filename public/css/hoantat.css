@@ -1,0 +1,31 @@
+.hoantat .row {
+    align-items: center;
+    height: 500px;
+}
+
+.hoantat .col-4 {
+    border: 2px solid #745caf;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.hoantat h3 {
+    color: #745caf;
+    margin: 0 0 30px;
+}
+
+.hoantat button {
+    width: 100%;
+    border: none;
+    background: #745caf;
+    color: white;
+    margin: 30px 0 0;
+    border-radius: 10px;
+    padding: 5px 0;
+}
+
+.hoantat button:hover {
+    background: #513a88;
+    color: white;
+}

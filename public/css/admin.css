@@ -1,0 +1,327 @@
+.bg-admin-log {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #927ec4;
+    position: relative;
+}
+
+.log-f {
+    background: #2c3e50;
+    padding: 30px;
+    border-radius: 15px;
+    width: 500px;
+    color: white;
+    font-size: 18px;
+}
+
+.log-f button {
+    display: block;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 24px;
+    margin: 15px auto 0;
+    font-weight: 600;
+}
+
+.log-f button:hover {
+    background: #745caf;
+    color: white;
+}
+
+.input-f {
+    width: 100%;
+    height: 35px;
+    padding: 0 20px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+}
+
+.errlog {
+    background: #23b99a;
+    padding: 8px 24px;
+    color: white;
+    border-radius: 10px;
+    position: absolute;
+    top: 100px;
+}
+
+.menu {
+    width: 15vw;
+    background: #2c3e50;
+    border-radius: 0 15px 15px 0;
+    position: fixed;
+    padding:  15px;
+    font-size: 18px;
+    top: 50%;
+    transform: translate(0, -50%);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.menu a {
+    font-size: 18px;
+}
+
+.menu input {
+    height: 41px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+.menu .row {
+    margin: 0px 0px;
+}   
+
+table img {
+    height: 55px;
+}
+table, th, td {
+    border: 1px solid black;
+}
+th { text-align:center; padding: 10px 0; color: white; background: #927ec4;}
+
+td{text-align: center;padding: 5px 0 5px 5px;}
+table {
+    background: white;
+    width: 100%;
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px black;
+    margin: 15px 0;
+}
+
+.af-mng, .del-mng, .dsbl, .error {
+    background: #2c3e50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 15px;
+}
+
+.af-mng hr {
+    margin: 6px 0;
+}
+
+.af-mng {width: 900px;}
+.del-mng {width: 500px;}
+.dsbl {width: 850px;}
+
+.af-mng input, .af-mng textarea {
+    border-radius: 8px;
+    width: 100%;
+}
+
+.af-mng textarea {
+    padding: 10px 15px 0;
+}
+
+.af-mng input {
+    height: 34px;
+    padding: 0 15px;
+    border: none;
+}
+
+.af-mng input[type="file"] {
+    width:  auto !important;
+    padding: 0;
+}
+
+.af-mng input:focus-visible, .af-mng select:focus-visible, .af-mng textarea:focus-visible {
+    outline-color: #927ec4;
+}
+
+.af-mng label {
+    width: 100%;
+    font-size: 18px;
+}
+
+.af-mng select {
+    padding: 0 15px;
+    height: 34px;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.db-field-add {
+    display: flex;
+    justify-content: space-between;
+}
+
+.db-field-add .field-add {width: 48%;}
+
+.field-add {
+    margin: 0 0 10px;
+}
+
+.af-mng button, .af-mng a,
+.del-mng button, .del-mng a,
+.dsbl button, .dsbl a,
+.addpro-err button,
+.addcat-err button,
+.addus-err button {
+    width: 100%;
+    font-size: 18px;
+    height: 40px;
+    font-weight: 700;
+    border-radius: 10px;
+}
+
+.td-add {
+    padding: 20px;
+    text-align: center;
+}
+
+.btn-add {
+    border: none;
+    outline: none;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.suaxoa {
+    display: inline-block;
+    width: 30px !important;
+    padding: 3px;
+    color: white;
+    font-size: 16px !important;
+    border-radius: 6px;
+    height: auto !important;
+}
+
+.bg-add, .bg-fix, .bg-del, .bg-err, .bg-inf {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000000bb;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    height: 100%;
+}
+
+.bg-del {
+    z-index: 1;
+}
+
+.hide-bg-add, .hide-bg-fix, .hide-bg-del, .hide-bg-inf,
+.hide-bg-add-err, .hide-bg-fix-err, .hide-bg-del-err {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.quaylai {
+    width: 100%;
+}
+
+.box-table {
+    background: #dfdfdf;
+    border-bottom: 10px solid #dfdfdf;
+    border-top: 10px solid #dfdfdf;
+}
+
+.box-icon {
+    text-align: center;
+}
+
+.box-icon i {
+    font-size: 40px;
+    padding: 15px;
+    width: 70px;
+    border-radius: 50%;
+    color: white;
+}
+
+.ql-box {
+    background: #2c3e50;
+    border-radius: 15px;
+    margin: 0 0 30px;
+    padding: 0 0 15px;
+    overflow: hidden;
+}
+
+.ql-box h3 {
+    background: #0dcaf0;
+    color: white;
+    padding: 10px 0;
+}
+
+.ql-mess p {
+    margin: 5px 0 0;
+    padding: 0 15px;
+    color: white;
+}
+
+.ql-mess h3, .ql-mess h5 {
+    background: none;
+    margin: 0;
+    text-decoration: underline;
+}
+
+.tr-bl { color:black;}
+
+.thongke {
+    background: #dfdfdf;
+}
+
+.boloc {
+    display: flex;
+    justify-content: space-evenly;
+    border: 1px solid #dc3545;
+    padding: 15px;
+    border-radius: 0 0 15px 15px;
+    background: white;
+}
+
+.boloc button {
+    border: 1px solid #dc3545;
+    font-size: 20px;
+    padding: 5px 25px;
+    background: #ffebed;
+    border-radius: 10px;
+    color: #dc3545;
+}
+
+.boloc button:hover {
+    background: #dc3545;
+    color: white;
+}
+
+.hide-popup {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.popup-small i { font-size: 30px; }
+.popup-small .fa-check { color: #14A44D; }
+.popup-small .fa-ban { color: red; }
+.popup-small .fa-check { color: #14A44D; }
+.popup-small span {color: black;font-size: 20px;display: block;float: right;line-height: 25px;margin: 0 0 0 15px;}
+
+.popup-small {
+    background: white;
+    height: max-content;
+    padding: 15px;
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    box-shadow: 0 0px 20px 2px #927ec4;
+    border-radius: 15px;
+}
+
+.menu hr {
+    height: 1px;
+    width: 100%;
+    color: white;
+}
+
+.menu > * {
+    margin: 0 0 15px;
+}
+
+.menu .btn {
+    display: block;
+}

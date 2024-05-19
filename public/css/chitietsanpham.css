@@ -1,0 +1,308 @@
+*{margin:0;padding:0; }
+
+.ul-ttct-sp li {
+    margin: 0 0 0 20px;
+}
+
+.ul-ttct-sp {
+    margin: 2% 0 2% 5%;
+}
+
+.nut-muasp {
+    width: 100%;
+    font-size: 17px;
+    font-weight: 700;
+    padding: 2% 7%;
+    border-radius: 7px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+}
+
+.buy:hover {
+    background: #745cafbd;
+    color: white;
+    text-decoration: none;
+}
+
+.gia-mua-sp {margin: 3% 0 0;}
+
+.gia-sp {
+    color: #745caf;
+    text-align: center;
+}
+
+.ten-sp {
+    margin: 0 0 3%;
+}
+
+.khungtt-sp {
+    position: relative;
+}
+
+.tt-sp {
+    margin: 0% 0 3% 4%;
+}
+
+.sp-tt {
+    margin: 2% 0 0 0;
+}
+
+.khunganh-sp {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 0px 12%;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.anh-sp {
+    width: 100%;
+}
+
+.ttct-sp {
+    border: 1px solid black;
+    padding: 2% 2%;
+    font-size: 17px;
+    background: #e5e5e5;
+    border-radius: 0 0 15px 15px;
+    position: relative;
+    transition: all ease 1s;
+    overflow: hidden;
+}
+
+.nut{
+    position: absolute;
+    right: 0px;
+    background: #000;
+    border-color: #000;
+}
+.khung {
+    position: relative;
+    width: 100%;
+}
+.pad_1{
+    margin: 3% auto ;
+}
+.tieude {
+    margin-bottom: 3%;
+} 
+
+.gia-mua-sp .nutsp {
+    background: none;
+}
+
+.buy {
+    background: #745caf;
+    color: white;
+    margin: 0 0 15px;
+}
+
+.add {
+    border: 1px solid #745CAF;
+    color: #745CAF;
+}
+
+.add:hover {
+    color: white;
+    background: #745CAF;
+}
+
+.phan-tt-tren {
+    margin: 0 calc(-0.5 * var(--bs-gutter-x)) 5%;
+}
+
+.title-cmt {
+    background: #745cafb5;
+    border-bottom: 1px solid white;
+}
+
+.title-cmt h4 {
+    color: white;
+    padding: 10px 20px;
+    margin: 0;
+}
+
+.ycdn-cmt {
+    background: #ff0000b5;
+    margin: 0;
+    color: white;
+    padding: 5px;
+    border: none;
+    width: 100%;
+    font-size: 20px;
+    height: 100%;
+}
+
+.ycdn-cmt:hover {
+    background: red;
+}
+
+.avatar {
+    width: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.user-cmt {
+    width: auto;
+}
+
+.avt-text {
+    background: black;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 24px;
+    line-height: 48px;
+    margin: 0;
+}
+
+.uname-cmt {
+    font-size: 18px;
+    margin: 0;
+}
+
+.date-cmt {
+    margin: 0;
+    font-size: 12px;
+    color: #888888;
+}
+
+.box-cmt> .row {align-items: center;padding: 15px 0;}
+
+.box-cmt> .row > * {
+    padding: 0 !important;
+}
+
+.content-cmt p {
+    margin: 0;
+    padding: 0 0 0 25px;
+}
+
+.list-cmt {
+    background: #efefef;
+}
+
+.send-cmt {
+    background: beige;
+    padding: 15px 20px;
+}
+
+.send-cmt textarea {
+    width: 100%;
+    height: 100px;
+    outline: none;
+    padding: 0 10px;
+}
+
+.send-cmt button {
+    border: none;
+    background: #9c8bc6;
+    color: white;
+    padding: 5px 40px;
+    font-size: 18px;
+}
+
+.send-cmt button:hover {
+    background: #745caf;
+}
+
+.more-less {
+    border: none;
+    width: 100%;
+    color: white;
+    padding: 5px 0;
+    background: #745caf80;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.more-less:hover {
+    background: #745caf;
+}
+
+.less-tt {
+    height: 500px;
+}
+
+.ctsp-sl {
+    padding: 2px 15px;
+    width: 100px;
+    margin: 0 15px;
+    border: 1px solid #745caf;
+    border-radius: 7px;
+}
+
+.btn-stars {
+    cursor: pointer;
+    border: 1px solid gray;
+    background: white;
+    color: gray;
+    font-size: 18px;
+    display: block;
+    padding: 5px;
+    line-height: 18px;
+    width: 100%;
+}
+
+.btn-stars:hover {
+    color: red;
+    border-color: #ee4d2d;
+    background: #ffc0b4;
+}
+
+.box-stars {
+    height: 100%;
+    background: #fffbf8;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
+.box-stars > * {
+    height: 100%;
+}
+
+.sum-stars {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sum-stars h2 {
+    color: #ee4d2d;
+}
+
+.sum-stars h5 {
+    margin: 0;
+    line-height: 2;
+    width: 200px;
+    height: max-content;
+    text-align: center;
+}
+
+.box-btn-stars {
+    display: flex;
+    width: 100px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.select-star {
+    background: #ffe4df;
+    color: red;
+    border-color: red;
+}
+
+.color-star {
+    color: #ee4d2d;
+}

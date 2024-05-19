@@ -1,0 +1,27 @@
+.outer-box {
+    border: 2px solid #6246a8;
+    border-radius: 15px;
+    margin: 15vh 0;
+    padding: 15px;
+}
+
+.outer-box h3 {
+    color: red;
+    text-align: center;
+    margin: 0;
+}
+
+.outer-box a {
+    background: #745caf;
+    color: white;
+    text-decoration: none;
+    padding: 5px 20px;
+    display: block;
+    width: fit-content;
+    margin: 15px auto 0;
+    border-radius: 7px;
+}
+
+.outer-box a:hover {
+    background: #6246a8;
+}

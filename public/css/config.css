@@ -1,0 +1,128 @@
+.box-cf {
+    padding: 15px;
+    border: 2px solid #745caf;
+    border-radius: 10px;
+    margin: 0 15px 30px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    background: white;
+}
+
+.box-cf:last-child {
+    margin: 0 15px;
+}
+
+.box-cf input {
+    color: #a7a7a7;
+    display: inline-block;
+    width: 100%;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 10px;
+}
+
+.box-cf input:focus-visible {
+    outline: none;
+    box-shadow: 0 0 10px #745caf;
+    border: none;
+    color: black;
+}
+
+.box-cf label {
+    display: block;
+    width: 150px;
+}
+
+.box-qltk .col-12 {
+    margin: 30px 0px;
+}
+
+h2 {
+    color: #745caf;
+    margin: 30px 0;
+}
+
+.cf-button {
+    margin: 15px auto 0;
+    width: 100%;
+}
+
+.popup {
+    margin: 0 0 30px;
+    text-align: center;
+    background: #2bbbad;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.errpopup {
+    background: #ff4444;
+}
+
+.btn-config {padding: 5px 25px;border: 1px solid #6246a8;background: none;border-radius: 10px;color: #6246a8;}
+
+.btn-config:hover {
+    background: #6246a8;
+    color: white;
+}
+
+.user-avt {width: 200px;}
+
+.btn-status {
+    width: 100%;
+    font-size: 22px;
+    border: 1px solid #a186e7;
+    background: white;
+    color: #6246a8;
+    border-radius: 7px;
+    padding: 5px;
+    margin: 0 0 15px;
+}
+
+.btn-status:hover {
+    color: white;
+    box-shadow: inset 0px 3rem #8668ce;
+}
+
+table, td {
+    border: 1px solid #745caf;
+}
+
+table {
+    width: 100%;
+}
+
+th {
+    font-size: 18px;
+    background: #6246a8;
+    color: white;
+    border: 1px solid #bc96ff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+td {
+    padding: 7px 0 7px 10px;
+}
+
+.cf-slide {
+    display: -webkit-box;
+    overflow: hidden;
+    position: relative;
+}
+
+.cf-left { margin-left: -100%; }
+.btn-hidden {visibility: hidden; opacity: 0}
+
+.h-list-sp td {
+    background: #745caf;
+    border-color: red;
+    text-align: center;
+    color: white;
+    font-size: 17px;
+}
+
+.box-qltk {height: fit-content;}
+.box-lsmh {margin: 50px 0 0;}

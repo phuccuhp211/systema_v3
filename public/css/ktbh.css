@@ -1,0 +1,81 @@
+.khung {
+    background: #2c3e50;
+    border-radius: 15px;
+    padding: 20px;
+    color: white;
+    margin: 100px 0;
+}
+
+.f1 h3 {
+    text-align: center;
+}
+
+.popup {
+    margin: 0 0 15px !important;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.f1 label {
+    font-size: 18px;
+    width: 100%;
+    margin: 0 0 10px;
+}
+
+.f1 input {
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: none;
+    margin: 0 0 15px;
+    width: 100%;
+}
+
+.f1 button {
+    width: 100%;
+    padding: 5px;
+    border: none;
+}
+
+.popup-xanh {
+    background: #2bbbad;
+}
+
+.popup-do {
+    background: #cc0000;
+}
+
+.khung p {
+    font-size: 16px;
+}
+
+.cthd h2 {
+    color: #6246a8;
+    margin: 0 0 20px;
+}
+
+.tt-ngmua table {
+    width: 100%;
+}
+
+.ttct-user {
+    width: 30% !important;
+}
+
+.tt-user tr td {
+    padding: 5px 0;
+    font-size: 18px;
+}
+
+.dssp {
+    margin: 15px 0;
+    width: 100%;
+    font-size: 18px;
+}
+
+.dssp,.dssp th,.dssp td {border: 1px solid black;}
+.dssp th {text-align: center; background: #6246a8; color: white; padding: 10px 0; background: #927ec4;}
+.tc-dssp {padding: 5px; color: white; text-align: center; background: #927ec4;}
+
+.cthd {
+    margin: 50px auto;
+}

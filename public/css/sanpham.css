@@ -1,0 +1,191 @@
+*{padding: 0;margin: 0;}
+
+.boloc {
+    float: right;
+    padding: 7px 35px;
+    border: 1px solid #777777;
+    border-radius: 5px;
+    color: black;
+}
+
+.boloc:hover {
+    color: black;
+}
+
+.menu-trai-tong hr {
+    background: black;
+    border: 2px solid;
+}
+
+.menu-trai-a-df {
+    color: black;
+    position: relative;
+    display: block;
+    padding: 10px 10px;
+    margin: 0 0 0 0;
+    text-transform: uppercase;
+    font-size: 15px;
+}
+
+.menu-trai-a-df:hover {
+    background: #d7d7d7;
+    color: black;
+    text-decoration: none;
+}
+
+.menu-trai-tieude {
+    margin: 5% 0;
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.menu-khungboc {padding: 0;margin: 0;}
+
+.menu-trai-tong {
+    border: 1px solid #6246a8;
+    padding: 5%;
+}
+
+.khungto {
+    margin: 5% 0;
+}
+
+.menu-trai {
+}
+/*------------------------------------------------------------------------*/
+.ldssp-nutsp {
+    background: #745caf;
+    color: white;
+    border: 0px solid #745caf;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 7px 30px;
+    margin: 5% 0 0;
+}
+
+.ldssp-nutsp:hover {
+    color: white;
+    border: 0.5px solid black;
+    box-shadow: 3px 3px 10px black;
+}
+
+.ldssp-tt {
+    margin: 3% 0 0 0;
+    padding: 0;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.ldssp .nav-link {
+    margin: 0;
+}
+
+.ldssp-khungxam {
+    background: #c7c8ca;
+    border-radius: 10px;
+    padding: 0 5%;
+    display: flex;
+    justify-content: center;
+    height: 150px;
+    align-items: center;
+}
+
+.ldssp-khungsp {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10%;
+    margin: 0 0 10%;
+}
+
+.ldssp-khungsp:hover {
+    border: none;
+    box-shadow: 0px 0px 10px #745caf;
+}
+
+.ldssp-anhsp {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 152px;
+}
+
+.ldssp {
+    margin: 0;
+}
+
+.ldssp-tieude {
+    font-size: 30px;
+    margin: 0 0 3%;
+    color: #745caf;
+    text-transform: capitalize;
+}
+
+
+.list-cap1 a {
+    font-size: 16px;
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    display: block;
+    padding: 0 15px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.list-cap1 > a:hover {
+    box-shadow: inset 13vw 0px 0px 0px #745caf;
+    color: white;
+}
+
+.list-cap1 {
+    border-bottom: 1px solid black;
+    position: relative;
+}
+
+.list-cap2 ul {
+    border-width: 0 1px 0 1px;
+    border-style: solid;
+    padding: 0;
+    background: #ebebeb;
+}
+
+.list-cap2 {
+    padding: 0 15px;
+    display: none;
+}
+
+.list-cap2 a {
+    font-size: 16px;
+}
+
+.list-cap2 a:hover {
+    color: white;
+    box-shadow: inset 0px 5ex #745caf;
+}
+
+.list-cap2 li {
+    list-style: none;
+}
+
+.show-list-btn {
+    background: white;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 20px;
+    height: 40px;
+    width: 40px;
+    border: none;
+    color: #745caf;
+}
+
+.show-list-btn:hover {
+    background: #9a88c6;
+    color: white;
+}
+
+#list-sanpham > * {
+    padding: 0 5px;
+}

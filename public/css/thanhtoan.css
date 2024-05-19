@@ -1,0 +1,314 @@
+
+.tt-gia-sp {
+    position: relative;
+}
+
+.gia-giohang-v2 {position: absolute;top: 0;left: 0;margin: 0px 0% 0 111%;}
+
+.form-giohang-v2 {margin: 0 0% 0 3%;}
+
+.giohang-v2 {
+    background: #c7c8ca;
+    padding: 3% 3% 4%;
+    margin: 0 0 5%;
+    border-radius: 0 0 20px 20px;
+    font-size: 21px;
+}
+
+.anh-giohang-v2 {
+    padding: 0px 10% 10%;
+}
+
+.hinhsp-giohang-v2 {
+    max-width: 330px;
+}
+
+.ttgh-top {
+    text-transform: capitalize;
+    color: #745caf;
+    margin: 3% 0;
+}
+
+.gh-kh-tt .col-12.col-md-4.col-lg-4 {
+    padding: 0;
+    margin: 0;
+}
+
+.mb-v2 {
+    font-size: 20px;
+}
+
+.form-giohang {text-align: center;}
+
+.nutat {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 500;
+    position: absolute;
+    top: 0px;
+    right: 0;
+    color: #000000;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #000000;
+    line-height: 24px;
+    border-radius: 50%;
+}
+
+.nutat:hover {
+    color: white;
+    background: black;
+    text-decoration: none;
+}
+
+.khungto-khttdh {
+    margin: 0 0 5%;
+}
+
+.hr-mau {
+    background: #745caf;
+    margin: 0;
+}
+
+.p-gia-giohanh {
+    font-size: 20px;
+    font-weight: 700;
+    color: #745caf;
+    text-align: center;
+}
+
+.p-gia-giohanh-v2 {
+}
+
+.thanhtoanh div {
+    margin: 1% 0;
+    text-align: center;
+}
+
+.giamgia {
+    height: max-content;
+}
+
+.hide-gg {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
+.thanhtoanh .div-tongcong {
+    margin: 5% 0 0 0;
+}
+
+.mobile-ver .sp-giohang {
+    margin: 0 0 10%;
+}
+
+.p-thanhtoan {
+    float: left;
+    padding: 0;
+    margin: 0 0 0% 0;
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.p-gia {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0px 5% 0% 0;
+    text-align: right;
+}
+
+.thanhtoanh {
+    position: relative;
+    padding: 15px 0 30px;
+}
+
+.gia-giohang {
+}
+
+.anh-giohang {
+    border: 1px solid #745caf;
+    border-radius: 10px;
+    height: 100px;
+    max-height: max-content;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.ttkh {
+    margin: 0 0 5%;
+}
+
+.httt {
+}
+
+.gh-kh-tt {
+    margin: 0% 0 3%;
+}
+
+.nut{
+    position: absolute;
+    right: 0px;
+    background: #000;
+    border-color: #000;
+}
+.khung {
+    position: relative;
+    width: 100%;
+}
+.khungchu textarea {
+    width: 100%;
+    height: 100px;
+    border: none;
+    border-radius: 5px;
+}
+
+.khungchu p {
+    padding: 0;
+}
+
+.khungchu input[type="text"] {
+    width: 70%;
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    padding: 0 3%;
+}
+
+.khungchu {
+    position: relative;
+    margin: 0 0 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.khungchu:last-child {
+    margin: 0;
+}
+.td-khttdh {
+    font-size: 20px;
+    text-align: center;
+    padding: 1vh 0;
+    background: #745caf;
+    color: white;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.khung-khttdh {
+    background: #c7c8ca;
+    padding: 5% 5%;
+    position: relative;
+    border-radius: 0 0 10px 10px;
+}
+
+.khung-khttdh p {
+    margin: 0;
+}
+.hinhsp-giohang {
+    width: 100%;
+}
+.chu-giohang {padding: 0 15px;}
+
+.p-tt-giohang {
+    padding: 0;
+    margin: 0;
+    font-weight: 600;
+}
+
+.giohang-v2 .nutsp {
+    background: #745caf;
+    color: white;
+    border-radius: 10px;
+    padding: 1% 10%;
+    bottom: 0px;
+    right: 0px;
+    margin: 5% 0 0 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+.giohang .nutsp {
+    background: #745caf;
+    color: white;
+    border-radius: 10px;
+    padding: 1% 10%;
+    width: 100%;
+    margin: 5% 0 0 0;
+    font-size: 20px;
+    font-weight: 500;
+} 
+
+.giohang .nutsp:hover {
+    color: white;
+    background: #745cafbd;
+}
+
+.sp-giohang {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 7px 0;
+}
+
+.p-sl-giohang {
+    margin: 0;
+    text-align: center;
+}
+
+.box-mgg {
+    background: #d8caf9;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+}
+
+.box-mgg form > input {
+    height: max-content;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    outline-color: #745caf;
+    padding: 7px;
+    display: block;
+    float: left;
+    margin: 0 10px 0 0;
+}
+
+.box-mgg p {
+    margin: 0;
+    font-weight: 500;
+    letter-spacing: 1px;
+    font-size: 17px;
+}
+
+.thongbao-thanhtoan {
+    position: fixed;
+    background: #80808082;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hide-tbtt {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.box-noidung {
+    background: white;
+    width: 400px;
+    display: flex;
+    height: 200px;
+    align-items: center;
+    border-radius: 15px;
+    border: 3px solid #745caf;
+    justify-content: center;
+    color: #745caf;
+}
