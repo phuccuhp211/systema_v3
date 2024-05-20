@@ -45,14 +45,17 @@
             $chuoisp.= "
             <div class=\"$colums text-center $advl\">
                 <div class=\"khungsp2\">
-                    <div class=\"khungxam nav-item\">
+                    <div class=\"khungxam position-relative nav-item\">
                         <a href=\"".url('/chitiet/').$item['id']."/\" class=\"nav-link\">
                             <img src=\"".url('data/').'/'.$item['img']."\" class=\"anhsp nav-link\" alt=\"\">
-                        </a>                               
+                        </a>
+                        <p class=\"tt vnssp\">
+                            <i class=\"fa-solid fa-eye\"></i> ".$item['viewed']."<br>
+                            <i class=\"fa-solid fa-cart-flatbed\"></i> ".$item['saled']."
+                        </p>                               
                     </div>                                
                     <p class=\"tt tensp\">".$item['name']."</p>
                     <p class=\"tt giasp\">".$sale."</p>
-                    <p class=\"tt vnssp\">Lượt Xem : ".$item['viewed']." | Đã Bán : ".$item['saled']."</p>
                     <div class=\"nut_sp\">
                         <a href=\"".url('/muangay/').$item['id']."/\" class=\"btn nutsp\">Mua Ngay</a>
                         <button class=\"btn nutsp addcart\" data-idsp=\"".$item['id']."\"><i class=\"fa-solid fa-cart-plus\"></i></button>

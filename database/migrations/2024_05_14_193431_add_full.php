@@ -91,13 +91,13 @@ return new class extends Migration
         });
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
-            $table->string('name',20);
+            $table->string('name',40);
             $table->text('poster');
             $table->text('eb_img');
-            $table->unsignedBigInteger('id_cata_1');
-            $table->unsignedBigInteger('id_cata_2');
+            $table->unsignedBigInteger('id_cata_1')->nullable();
+            $table->unsignedBigInteger('id_cata_2')->nullable();
             $table->integer('index');
-            $table->integer('reference');
+            $table->string('reference',10);
             $table->boolean('orderby');
         });
         Schema::create('uss', function (Blueprint $table) {

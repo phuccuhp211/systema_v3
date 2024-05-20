@@ -49,7 +49,7 @@ class add_full extends Seeder
             DB::table('products')->insert([
                 [
                     'name'=> 'Sản Phẩm số '.$i, 
-                    'img' => '',
+                    'img' => 'unko.jpg',
                     'info' => 'Đây là tóm tắt SP số '.$i,
                     'detail' => 'Đây là chi tiết SP số '.$i,
                     'id_cata_1' => $cat1,
@@ -65,29 +65,31 @@ class add_full extends Seeder
         /*sections + banners*/
         $ref = ['id','name','price','sale','viewed','saled'];
         for ($i = 1; $i <= 4 ; $i++) {
-            $cat1 = ['',mt_rand(1,10)];
-            $cat2 = ($cat1 == 0) ? '' : [0, mt_rand(1,50)];
+            $cat1 = Arr::random([null,mt_rand(1,10)]);
+            $cat2 = ($cat1) ? null : mt_rand(1,50);
             $pt = mt_rand(0,4);
             $eb = mt_rand(1,4);
+            $name = ($cat1) ? "Ms1 với id= $cat1" : "Ms2 với id= $cat2";
             DB::table('sections')->insert([
-                [
-                    'name' => 'SS tham chiếu '.($cat1 == 0) ? "Ms1 với id= $cat1" : "Ms2 với id= $cat2",
+                
+                    'name' => "SS tham chiếu $name",
                     'poster' => ($pt != 0) ? "pt$pt.webp" : "",
                     'eb_img' => "rd$eb.jpg",
                     'id_cata_1' => $cat1,
                     'id_cata_2' => $cat2,
                     'index' => $i,
-                    'reference' => mt_rand(1,3)
-                ]
+                    'reference' => Arr::random($ref),
+                    'orderby' => mt_rand(1,3)
+                
             ]);
         }
         for ($i = 1; $i <= 4 ; $i++) {
             DB::table('banners')->insert([
-                [
+                
                     'img' => "banner$i.jpg",                    
                     'tit' => "Tiêu đề $i",
                     'ctn' => "Nội dung của banner số $i"
-                ]
+                
             ]);
         }
     }

@@ -240,6 +240,7 @@ body {
 }
 
 .click-pn {
+    z-index: 1;
     position: absolute;
     transform: translate(0, -50%);
     top: 50%;

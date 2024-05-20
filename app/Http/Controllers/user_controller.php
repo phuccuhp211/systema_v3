@@ -62,7 +62,7 @@ class user_controller extends Controller {
 
         for ($i = 0; $i < count($ss); $i++) {
             $sps = Product::get_sp($ss[$i]['id_cata_1'], $ss[$i]['id_cata_2'], $ss[$i]['reference'], $ss[$i]['orderby']);
-            $arr_ss = Arr::add(['title' => $ss[$i], 'products' => $sps ]);
+            $arr_ss[] = ['title' => $ss[$i], 'products' => $sps ];
 
         }
 

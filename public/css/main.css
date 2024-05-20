@@ -109,6 +109,10 @@
     padding: 10px;
 }
 
+.stss-tt {
+    overflow-x: auto;
+}
+
 .stss-tt button, .stss-ft button {
     padding: 2px 16px;
     text-transform: uppercase;
@@ -426,7 +430,7 @@ button.nutsp:hover {
     cursor: pointer;
     font-weight: 700;
     text-align: left;
-    padding: 0 15px;
+    padding: 0 1vh;
 }
 .giasp {color: red;font-size: 14px;text-align: center;display: flex;justify-content: space-around;}
 
@@ -642,9 +646,18 @@ button.nutsp:hover {
 }
 
 .vnssp {
-    font-size: 14px;
-    background: #c2c2c2;
+    background: #ffffff50;
+    position: absolute;
+    margin: 0;
+    right: 1vh;
+    top: 1vh;
+    border-radius: 1vh;
+    padding: 0 1vh;
+    color: white;
+    font-size: 12px;
 }
+
+.vnssp i {width: 2vh;}
 
 .view-all {
     text-decoration: none;
