@@ -41,4 +41,33 @@ class Product extends Model
 
         return $query->limit(20)->get();
     }
+
+    public static function get_dt($data) {
+        $prod = self::where('id',$data)->first();
+        if ($prod['id_cata_1'] == 3) {
+            $asd = $prod['detail'];
+            $qwe = json_decode(stripslashes($asd));
+            $prod['html'] = (is_array($qwe)) ? htmlspecialchars_decode($qwe[1]) : '';
+        }
+        else {
+            $prod['html'] = htmlspecialchars_decode($prod['detail']);
+        }
+        return $prod;
+
+    }
+
+    public static function get_rl($data) {
+        $dt = self::where('id',$data)->first();
+        return self::where([
+                    ['id','!=',$data],
+                    ['id_cata_2','=',$dt['id_cata_2']]
+                ])
+            ->inRandomOrder()
+            ->limit(5)
+            ->get();
+    }
+
+    public static function get_fi($data,$limit) {
+        return self::where('name','like',"%$data%")->limit($limit)->get();
+    }
 }

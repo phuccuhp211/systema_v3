@@ -1,4 +1,11 @@
 $(function() {
+	const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+	$.ajaxSetup({
+	    headers: {
+	        'X-CSRF-TOKEN': csrfToken
+	    }
+	});
+ 
 	var chieucao=0;
 	var chieucao_cu = 0;
 	//var duongdan = window.location.href;
@@ -806,7 +813,7 @@ $(function() {
 		if (dulieu.length > 0) {
 			var randomParam = Math.random().toString(36).substring(7);
 			var data_type = $(this).attr("data-type");
-			var duongdan_fix = duongdan+url_sub+"/sanpham/timkiem/";
+			var duongdan_fix = duongdan+url_sub+"/products/ajax/search/ajax";
 
 			var format_prc = new Intl.NumberFormat('vi-VN', {
 			  style: 'currency',
@@ -830,13 +837,13 @@ $(function() {
 					var dssp = "";
 					$.each(data.sanpham, function(index, val) {
 						dssp += `
-							<a href="${duongdan+url_sub+'/chitiet/'+val.id+'/'}" class="srs">
+							<a href="${duongdan+url_sub+'/products/detail/'+val.id+'/'}" class="srs">
 								<div class="srs-img">
-	                                <img src="${val.img}" alt="">
+	                                <img src="${duongdan+url_sub+'/data/'+val.img}" alt="">
 	                            </div>
 	                            <div class="srs-in4">
 	                                <p class="p-srs srs-name">${val.name}</p>
-	                                <p class="p-srs srs-price">${ val.price_sale > 0 ? format_prc.format(val.price_sale) : format_prc.format(val.price)}</p>
+	                                <p class="p-srs srs-price">${ val.sale > 0 ? format_prc.format(val.sale) : format_prc.format(val.price)}</p>
 	                            </div>
                             </a><hr>
 						`;

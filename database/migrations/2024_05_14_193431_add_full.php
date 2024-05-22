@@ -41,7 +41,7 @@ return new class extends Migration
         });
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->text('noidung');
+            $table->text('content');
             $table->unsignedBigInteger('id_pd');
             $table->unsignedBigInteger('id_us');
             $table->date('date')->default(date('Y-m-d'));

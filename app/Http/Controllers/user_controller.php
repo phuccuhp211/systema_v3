@@ -73,4 +73,75 @@ class user_controller extends Controller {
 
         return view('client.home', $this->datarp);
     }
+
+    function products(Request $request,$page, $data) {
+        Access::uphomef();
+        if ($page == 'detail') {
+            $this->datarp['dtpd'] = Product::get_dt($data);
+            $this->datarp['dtpd']->brand = Brand::get_br($this->datarp['dtpd']->id_brand);
+            $this->datarp['lcmt'] = Comment::get_ct($data);
+            $this->datarp['rlpd'] = Product::get_rl($data);
+
+            $rated = Turn_rating::get_rt(null,$data);
+
+            if (session()->has('udone')) {
+                $usrt = Turn_rating::get_rt($this->datarp['header']->id, $data);
+                $stars_btn = "";
+                if(isset($usrt[0])) {
+                    $offset = $usrt[0]['stars'];
+                    $class_btn = "";
+                    $idsp = $chitiet[0]['id'];
+
+                    for ($i=1; $i <= 5; $i++) {
+                        if ($i == $offset) $class_btn = "select-star";
+                        else $class_btn = "";
+                        $stars_btn.= "<div class=\"btn-stars $class_btn\" data-rate=\"$i\" data-idsp=\"$idsp\">$i Sao</div>";
+                    }
+                }
+                else {
+                    for ($i=1; $i <= 5; $i++) {
+                        $stars_btn.= "<div class=\"btn-stars\" data-rate=\"$i\" data-idsp=\"$id\">$i Sao</div>";
+                    }
+                }
+                $this->datarp['btrt'] = "<div class=\"box-btn-stars\">$stars_btn</div>";
+            }
+            if (isset($rated[0])) {
+                $ss = $rating[0]['stars']/$rating[0]['turns'];
+                $list_stars = "";
+                $num_star = floor($ss);
+                $class_star = "color-star";
+
+                for ($i=1; $i <= 5; $i++) {
+                    if ($i > $num_star) $class_star = "";
+                    $list_stars.= "
+                    <i class=\"fa-regular fa-star $class_star\"></i>
+                    ";
+                }
+
+                $sps = "
+                    <div class=\"sum-stars\">
+                        <h2>$ss trên 5</h2>
+                        <h5>$list_stars</h5>        
+                    </div>
+                ";
+                $this->datarp['pds'] = $sps;
+            }
+            else {
+                $sps = "
+                    <div class=\"sum-stars\">
+                        <h5 style=\"color: #ee4d2d;\">Sản phẩm chưa được đánh giá</h5>        
+                    </div>
+                ";
+                $this->datarp['pds'] = $sps;
+            }
+
+            return view('client.detail', $this->datarp);
+        }
+        if ($page == 'search') {
+            if ($data == 'ajax') {
+                $res = Product:: get_fi($request->input('tksp'),$request->input('limit'));
+                return response()->json(['sanpham' => $res]);
+            }
+        }
+    }
 }

@@ -75,7 +75,7 @@
 }
 
 .srs:hover {
-    box-shadow: inset 60vh 0px #dfdfdf;
+    box-shadow: inset 120vh 0px #dfdfdf;
 }
 
 .srs:hover .srs-name {
