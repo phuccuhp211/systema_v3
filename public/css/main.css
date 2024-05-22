@@ -632,7 +632,7 @@ button.nutsp:hover {
 .full-menu {
     position: fixed;
     width: 100%;
-    z-index: 3;
+    z-index: 4;
     top: 0;
 }
 

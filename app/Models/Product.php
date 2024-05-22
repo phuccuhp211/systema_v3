@@ -53,7 +53,6 @@ class Product extends Model
             $prod['html'] = htmlspecialchars_decode($prod['detail']);
         }
         return $prod;
-
     }
 
     public static function get_rl($data) {
@@ -69,5 +68,9 @@ class Product extends Model
 
     public static function get_fi($data,$limit) {
         return self::where('name','like',"%$data%")->limit($limit)->get();
+    }
+
+    public static function get_ao() {
+        return self::orderBy('id','DESC')->paginate(16);
     }
 }

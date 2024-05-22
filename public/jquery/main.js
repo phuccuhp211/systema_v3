@@ -813,7 +813,7 @@ $(function() {
 		if (dulieu.length > 0) {
 			var randomParam = Math.random().toString(36).substring(7);
 			var data_type = $(this).attr("data-type");
-			var duongdan_fix = duongdan+url_sub+"/products/ajax/search/ajax";
+			var duongdan_fix = duongdan+url_sub+"/ajax/search";
 
 			var format_prc = new Intl.NumberFormat('vi-VN', {
 			  style: 'currency',

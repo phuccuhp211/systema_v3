@@ -6,4 +6,4 @@ use App\Http\Controllers\admin_controller;
 
 Route::get('/', [user_controller::class, 'index'] );
 Route::get('/products/{page}/{data?}', [user_controller::class, 'products'] );
-Route::post('/products/ajax/{page}/{data?}', [user_controller::class, 'products'] );
+Route::post('/ajax/{page}', [user_controller::class, 'ajax_hl'] );

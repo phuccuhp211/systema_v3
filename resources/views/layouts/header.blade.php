@@ -67,11 +67,11 @@
                 <div class="row" style="position: relative;">
                     <div class="col-12">
                         <div class="menu-cap2">
-                            <li class="li-mnmn"><a href="{{ url('sanpham/tatca/') }}" class="a-mnc2">Tất cả sản phẩm</a></li>
+                            <li class="li-mnmn"><a href="{{ url('products/all').'/' }}" class="a-mnc2">Tất cả sản phẩm</a></li>
                             @foreach ($header['cat1'] as $value => $item)
                                 <div class="thirt-menu">
                                     <li class="li-mnmn"><hr>
-                                        <a href="{{ url('/product/cat1/').$item['id'].'/' }}" class="a-mnc2">{{ $item['name'] }}</a>
+                                        <a href="{{ url('/products/cat1').'/'.$item['id'].'/' }}" class="a-mnc2">{{ $item['name'] }}</a>
                                     </li>
                                     @foreach ($header['cat2'] as $value2 => $item2)
                                         @if ($item['id'] == $item2['type'])
@@ -79,7 +79,7 @@
                                                 @foreach ($header['cat2'] as $value3 => $item3)
                                                     @if ($item['id'] == $item3['type'])
                                                         <li class="li-mnmn">
-                                                            <a href="{{ url('/sanpham/danhmuc/').$item3['id'].'/' }}" class="a-mnc3">
+                                                            <a href="{{ url('/products/cat2').'/'.$item3['id'].'/' }}" class="a-mnc3">
                                                                 {{ $item3['name'] }}
                                                             </a><hr>
                                                         </li>

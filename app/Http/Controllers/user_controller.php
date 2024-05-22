@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
+Paginator::useBootstrap();
 
 use App\Models\Access;
 use App\Models\Banner;
@@ -74,7 +76,7 @@ class user_controller extends Controller {
         return view('client.home', $this->datarp);
     }
 
-    function products(Request $request,$page, $data) {
+    function products($page, $data=null) {
         Access::uphomef();
         if ($page == 'detail') {
             $this->datarp['dtpd'] = Product::get_dt($data);
@@ -138,10 +140,21 @@ class user_controller extends Controller {
             return view('client.detail', $this->datarp);
         }
         if ($page == 'search') {
-            if ($data == 'ajax') {
-                $res = Product:: get_fi($request->input('tksp'),$request->input('limit'));
-                return response()->json(['sanpham' => $res]);
-            }
+            $res = Product:: get_fi($request->input('tksp'),$request->input('limit'));
+            return response()->json(['sanpham' => $res]);
+        }
+        if ($page == 'all') {
+            $this->datarp['dtpd'] = Product::get_ao();
+            $this->datarp['title'] = 'Tất Cả Sản Phẩm';
+            return view('client.product', $this->datarp);
+        }
+
+    }
+
+    function ajax_hl(Request $request, $page) {
+        if ($page == 'search') {
+            $res = Product:: get_fi($request->input('tksp'),$request->input('limit'));
+            return response()->json(['sanpham' => $res]);
         }
     }
 }
