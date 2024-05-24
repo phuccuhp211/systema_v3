@@ -66,11 +66,19 @@ class Product extends Model
             ->get();
     }
 
-    public static function get_fi($data,$limit) {
-        return self::where('name','like',"%$data%")->limit($limit)->get();
-    }
-
-    public static function get_ao() {
-        return self::orderBy('id','DESC')->paginate(16);
+    public static function get_ao($type=null,$data=null,$ajax=false,$limit=null) {
+        if (!isset($type)) {
+            return self::orderBy('id','DESC')->paginate(16);
+        }
+        else if ($type == 'cat1') {
+            return self::where('id_cata_1',$data)->paginate(16);
+        }
+        else if ($type == 'cat2') {
+            return self::where('id_cata_2',$data)->paginate(16);
+        }
+        else if ($type == 'search') {
+            if ($ajax) return self::where('name','like',"%$data%")->limit($limit)->get();
+            else return self::where('name','like',"%$data%")->paginate(16);
+        }
     }
 }

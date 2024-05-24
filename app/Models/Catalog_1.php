@@ -15,4 +15,7 @@ class Catalog_1 extends Model
         if($id) return self::where('id', $id)->get();
         else return self::all();
     }
+    public static function get_dedi($id=null) {
+        return self::where('id', $id)->value('name');  
+    }
 }

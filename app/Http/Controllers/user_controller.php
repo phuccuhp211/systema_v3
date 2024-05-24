@@ -57,6 +57,59 @@ class user_controller extends Controller {
         ];
     }
 
+    function genfil($loai_data=null, $dulieu=null) {
+        $bl = "";
+        $base_url = url();
+        if (isset($dulieu)) {
+            $bl.= "
+                <div class=\"col-3 phan-boloc\">
+                    <div class=\"dropdown\">
+                        <button class=\"boloc dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">Bộ Lọc</button>
+                        <ul class=\"dropdown-menu\">
+                            <li>
+                                <button class=\"dropdown-item boloc-act\" data-type=\"$loai_data\" data=\"$dulieu\" data-phanloai=\"1\">Mới Nhất</button>
+                            </li>
+                            <li>
+                                <button class=\"dropdown-item boloc-act\" data-type=\"$loai_data\" data=\"$dulieu\" data-phanloai=\"2\">Cũ Nhất</button>
+                            </li>
+                            <li>
+                                <button class=\"dropdown-item boloc-act\" data-type=\"$loai_data\" data=\"$dulieu\" data-phanloai=\"3\">Giá Từ Thấp -> Cao</button>
+                            </li>
+                            <li>
+                                <button class=\"dropdown-item boloc-act\" data-type=\"$loai_data\" data=\"$dulieu\" data-phanloai=\"4\">Giá Từ Cao -> Thấp</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            ";
+            return $bl;
+        }
+        else {
+            $bl.= "
+                <div class=\"col-3 phan-boloc\">
+                    <div class=\"dropdown\">
+                        <button class=\"boloc dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">Bộ Lọc</button>
+                        <ul class=\"dropdown-menu\">
+                            <li>
+                                <button class=\"dropdown-item boloc-act\" data-type=\"$loai_data\" data-phanloai=\"1\">Mới Nhất</button>
+                            </li>
+                            <li>
+                                <button class=\"dropdown-item boloc-act\" data-type=\"$loai_data\" data-phanloai=\"2\">Cũ Nhất</button>
+                            </li>
+                            <li>
+                                <button class=\"dropdown-item boloc-act\" data-type=\"$loai_data\" data-phanloai=\"3\">Giá Từ Thấp -> Cao</button>
+                            </li>
+                            <li>
+                                <button class=\"dropdown-item boloc-act\" data-type=\"$loai_data\" data-phanloai=\"4\">Giá Từ Cao -> Thấp</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            ";
+            return $bl;
+        }
+    }
+
     function index() {
         Access::uphomet();
         $ss = Section::get_ss();
@@ -76,9 +129,15 @@ class user_controller extends Controller {
         return view('client.home', $this->datarp);
     }
 
-    function products($page, $data=null) {
+    function products(Request $request, $page, $data=null) {
         Access::uphomef();
-        if ($page == 'detail') {
+        if ($page == 'all') {
+            $this->datarp['dtpd'] = Product::get_ao();
+            $this->datarp['title'] = 'Tất Cả Sản Phẩm';
+            $this->datarp['filter'] = $this->genfil('products/all');
+            return view('client.product', $this->datarp);
+        }
+        else if ($page == 'detail') {
             $this->datarp['dtpd'] = Product::get_dt($data);
             $this->datarp['dtpd']->brand = Brand::get_br($this->datarp['dtpd']->id_brand);
             $this->datarp['lcmt'] = Comment::get_ct($data);
@@ -139,22 +198,39 @@ class user_controller extends Controller {
 
             return view('client.detail', $this->datarp);
         }
-        if ($page == 'search') {
-            $res = Product:: get_fi($request->input('tksp'),$request->input('limit'));
-            return response()->json(['sanpham' => $res]);
-        }
-        if ($page == 'all') {
-            $this->datarp['dtpd'] = Product::get_ao();
-            $this->datarp['title'] = 'Tất Cả Sản Phẩm';
+        else if ($page == 'search') {
+            $this->datarp['dtpd'] = Product::get_ao('search',$data,false);
+            $this->datarp['title'] = 'Tìm kiếm: '.$data;
+            $this->datarp['pgpd'] = 'Tìm kiếm: '.$data;
+            $this->datarp['filter'] = $this->genfil('products/search', $data);
             return view('client.product', $this->datarp);
         }
-
+        else if ($page == 'cat1') {
+            $this->datarp['dtpd'] = Product::get_ao('cat1',$data);
+            $this->datarp['title'] = 'Phân loại: '.Catalog_1::get_dedi($data);
+            $this->datarp['pgpd'] = 'Phân loại: '.Catalog_1::get_dedi($data);
+            $this->datarp['filter'] = $this->genfil('products/cat1', $data);
+            return view('client.product', $this->datarp);
+        }
+        else if ($page == 'cat2') {
+            $this->datarp['dtpd'] = Product::get_ao('cat2',$data);
+            $this->datarp['title'] = 'Danh Mục: '.Catalog_2::get_dedi($data);
+            $this->datarp['pgpd'] = 'Danh Mục: '.Catalog_2::get_dedi($data);
+            $this->datarp['filter'] = $this->genfil('products/cat2', $data);
+            return view('client.product', $this->datarp);
+        }
     }
 
-    function ajax_hl(Request $request, $page) {
+    function ajax_hl(Request $request, $page, $check=null) {
         if ($page == 'search') {
-            $res = Product:: get_fi($request->input('tksp'),$request->input('limit'));
-            return response()->json(['sanpham' => $res]);
+            if ($check) {
+                return redirect()->route('products.najax', ['page' => 'search', 'data' => $request->input('search_data')]);
+            }
+            else {
+                $res = Product:: get_ao('search',$request->input('tksp'),true,$request->input('limit'));
+                return response()->json(['sanpham' => $res]);
+            }
+                
         }
     }
 }

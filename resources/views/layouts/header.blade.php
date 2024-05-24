@@ -9,7 +9,8 @@
                         </button>
                     </div>
                     <div class="col-6 col-search">
-                        <form action="{{ url('sanpham/timkiem') }}" method="POST" enctype="multipart/form-data" class="form-inline menu-khungtk">
+                        <form action="{{ url('ajax/search/check') }}" method="POST" enctype="multipart/form-data" class="form-inline menu-khungtk">
+                            @csrf
                             <input class="form-control search-box" name="search_data" type="text" placeholder="Tìm Kiếm..." data-type="sanpham/timkiem">
                             <button type="submit" class="btn btn-success menu-nuttk"><i class="fa fa-search"></i></button>
                         </form>

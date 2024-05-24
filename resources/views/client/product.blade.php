@@ -25,7 +25,7 @@
                                         <ul>
                                             @foreach ($header['cat2'] as $value3 => $item3)
                                                 @if ($item['id'] == $item3['type'])
-                                                <li><a href="{{ url('products/cat2').'/'.$item['id'] }}">{{ strtoupper($item3['name']) }}</a></li>
+                                                <li><a href="{{ url('products/cat2').'/'.$item3['id'] }}">{{ strtoupper($item3['name']) }}</a></li>
                                                 @endif
                                             @endforeach
 
@@ -48,7 +48,7 @@
                                 <h2 class="h2-title">{{ $pgpd }}</h2>
                             @endif
                         </div>
-                        
+                        {!! $filter !!}
                     </div>
                     <div class="row" id="list-sanpham">
                         {!! showsp($dtpd,'col-3') !!}
