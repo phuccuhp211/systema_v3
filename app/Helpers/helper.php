@@ -15,7 +15,7 @@
             <div class=\"$colums text-center $advl\">
                 <div class=\"khungsp\">
                     <div class=\"khungxam nav-item\">
-                        <a href=\"".url('/products/detail').'/'.$item['id']."/\" class=\"nav-link\">
+                        <a href=\"".url('/detail').'/'.$item['id']."/\" class=\"nav-link\">
                             <img src=\"".url('data').'/'.$item['img']."\" class=\"anhsp nav-link\" alt=\"\">
                         </a>                               
                     </div>                                
@@ -46,7 +46,7 @@
             <div class=\"$colums text-center $advl\">
                 <div class=\"khungsp2\">
                     <div class=\"khungxam position-relative nav-item\">
-                        <a href=\"".url('/products/detail/').'/'.$item['id']."/\" class=\"nav-link\">
+                        <a href=\"".url('/detail/').'/'.$item['id']."/\" class=\"nav-link\">
                             <img src=\"".url('data/').'/'.$item['img']."\" class=\"anhsp nav-link\" alt=\"\">
                         </a>
                         <p class=\"tt vnssp\">

@@ -4,6 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\user_controller;
 use App\Http\Controllers\admin_controller;
 
-Route::get('/', [user_controller::class, 'index']);
-Route::get('/products/{page}/{data?}', [user_controller::class, 'products'])->name('products.najax');
-Route::post('/ajax/{page}/{check?}', [user_controller::class, 'ajax_hl'])->name('products.ajax');
+Route::match(['get','post'] ,'/', [user_controller::class, 'index']);
+Route::match(['get','post'] ,'/products/{type}/{data?}', [user_controller::class, 'products'])->name('products.show');
+Route::get('/detail/{data}', [user_controller::class, 'detail_pd'])->name('products.detail');

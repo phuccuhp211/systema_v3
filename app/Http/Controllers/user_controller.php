@@ -57,57 +57,48 @@ class user_controller extends Controller {
         ];
     }
 
-    function genfil($loai_data=null, $dulieu=null) {
-        $bl = "";
-        $base_url = url();
-        if (isset($dulieu)) {
-            $bl.= "
-                <div class=\"col-3 phan-boloc\">
-                    <div class=\"dropdown\">
-                        <button class=\"boloc dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">Bộ Lọc</button>
-                        <ul class=\"dropdown-menu\">
-                            <li>
-                                <button class=\"dropdown-item boloc-act\" data-type=\"$loai_data\" data=\"$dulieu\" data-phanloai=\"1\">Mới Nhất</button>
-                            </li>
-                            <li>
-                                <button class=\"dropdown-item boloc-act\" data-type=\"$loai_data\" data=\"$dulieu\" data-phanloai=\"2\">Cũ Nhất</button>
-                            </li>
-                            <li>
-                                <button class=\"dropdown-item boloc-act\" data-type=\"$loai_data\" data=\"$dulieu\" data-phanloai=\"3\">Giá Từ Thấp -> Cao</button>
-                            </li>
-                            <li>
-                                <button class=\"dropdown-item boloc-act\" data-type=\"$loai_data\" data=\"$dulieu\" data-phanloai=\"4\">Giá Từ Cao -> Thấp</button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            ";
-            return $bl;
+    function genfil($data_type = null, $data = null) {
+        $options = [
+            '1' => 'Cũ Nhất',
+            '2' => 'Mới Nhất',
+            '3' => 'Giá Tăng Dần',
+            '4' => 'Giá Giảm Dần'
+        ];
+
+        $op_gen = '';
+        foreach ($options as $key => $value) {
+            $op_gen .= "<option value=\"$key\">$value</option>";
         }
-        else {
-            $bl.= "
-                <div class=\"col-3 phan-boloc\">
-                    <div class=\"dropdown\">
-                        <button class=\"boloc dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">Bộ Lọc</button>
-                        <ul class=\"dropdown-menu\">
-                            <li>
-                                <button class=\"dropdown-item boloc-act\" data-type=\"$loai_data\" data-phanloai=\"1\">Mới Nhất</button>
-                            </li>
-                            <li>
-                                <button class=\"dropdown-item boloc-act\" data-type=\"$loai_data\" data-phanloai=\"2\">Cũ Nhất</button>
-                            </li>
-                            <li>
-                                <button class=\"dropdown-item boloc-act\" data-type=\"$loai_data\" data-phanloai=\"3\">Giá Từ Thấp -> Cao</button>
-                            </li>
-                            <li>
-                                <button class=\"dropdown-item boloc-act\" data-type=\"$loai_data\" data-phanloai=\"4\">Giá Từ Cao -> Thấp</button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            ";
-            return $bl;
+
+        $dataAttr = isset($data) ? "data=\"$data\"" : '';
+
+        $bl = "<div class=\"col-3 phan-boloc\">
+            <select id=\"filter\" class=\"form-select boloc-act\" data-type=\"products/$data_type\" $dataAttr>
+                $op_gen
+            </select>
+        </div>";
+        return $bl;
+    }
+
+    function pagin($type=null, $data=null, $pg_count=null, $pg_cr, $filter=null) {
+        $lpt= "";
+        $filter = ($filter) ? "type=\"$filter\"" : '';
+        $data = ($data) ? "data=\"$data\"" : '';
+        for ($i = 1; $i <= $pg_count; $i++) {
+            if ($i == $pg_cr) {
+                $lpt.= "<button class=\"a-pt a-move act\" data-type=\"products/$type\" page=\"$i\" $data $filter>$i</button>";
+            }
+            else if ($i <= 3 || $i > $pg_count - 3 || ($i >= $pg_cr - 1 && $i <= $pg_cr + 1)) {
+                $lpt.= "<button class=\"a-pt a-move\" data-type=\"products/$type\" page=\"$i\" $data $filter>$i</button>";
+            }
+            else if ($i == 4 && $pg_cr > 4) {
+                $lpt.= "<button class=\"a-pt deact\">...</button>";
+            }
+            else if ($i == $pg_count - 3 && $pg_cr < $pg_count - 3) {
+                $lpt.= "<button class=\"a-pt deact\">...</button>";
+            }
         }
+        return $lpt;
     }
 
     function index() {
@@ -129,108 +120,99 @@ class user_controller extends Controller {
         return view('client.home', $this->datarp);
     }
 
-    function products(Request $request, $page, $data=null) {
+    function products(Request $rq, $type=null, $data=null, $page=1) {
         Access::uphomef();
-        if ($page == 'all') {
-            $this->datarp['dtpd'] = Product::get_ao();
-            $this->datarp['title'] = 'Tất Cả Sản Phẩm';
-            $this->datarp['filter'] = $this->genfil('products/all');
+
+        $data = ($rq->input('data')) ?? $data;
+        $page = ($rq->input('page')) ?? $page;
+        $limit = ($rq->input('limit')) ?? 16;
+        $filter = ($rq->input('filter')) ??  null;
+
+        if ($type == 'all') $this->datarp['title'] = 'Tất Cả Sản Phẩm';
+        else if ($type == 'search') $this->datarp['title'] = $this->datarp['pgpd'] = 'Tìm kiếm: '.$rq->input('search_data');
+        else if ($type == 'cat1') $this->datarp['title'] = $this->datarp['pgpd'] = 'Phân loại: '.Catalog_1::get_dedi($data);
+        else if ($type == 'cat2') $this->datarp['title'] = $this->datarp['pgpd'] = 'Danh Mục: '.Catalog_2::get_dedi($data);
+
+        if ($rq->ajax()) {
+            if ($rq->input('search_data')) {
+                $res = Product:: get_ao($type,$rq->input('search_data'),$page,$filter,$rq->input('limit'));
+                return response()->json(['res' => $res]);
+            }
+            else {
+                $res = Product::get_ao($type,$data,$page,$filter,$limit);
+                $rp['prods'] = showsp($res);
+                $rp['pagin'] = $this->pagin($type,$data,Product::pagin($type,$data),$page,$filter);
+                return response()->json(['res' => $rp]);
+            }
+        }
+        else {
+            $this->datarp['dtpd'] = Product::get_ao($type,$data,$page,$filter,$limit);
+            $this->datarp['pagi'] = $this->pagin($type,$data,Product::pagin($type,$data),$page,$filter);
+            $this->datarp['filter'] = $this->genfil($type,$data);
             return view('client.product', $this->datarp);
         }
-        else if ($page == 'detail') {
-            $this->datarp['dtpd'] = Product::get_dt($data);
-            $this->datarp['dtpd']->brand = Brand::get_br($this->datarp['dtpd']->id_brand);
-            $this->datarp['lcmt'] = Comment::get_ct($data);
-            $this->datarp['rlpd'] = Product::get_rl($data);
+    }
 
-            $rated = Turn_rating::get_rt(null,$data);
+    function detail_pd($data) {
+        $this->datarp['dtpd'] = Product::get_dt($data);
+        $this->datarp['dtpd']->brand = Brand::get_br($this->datarp['dtpd']->id_brand);
+        $this->datarp['lcmt'] = Comment::get_ct($data);
+        $this->datarp['rlpd'] = Product::get_rl($data);
 
-            if (session()->has('udone')) {
-                $usrt = Turn_rating::get_rt($this->datarp['header']->id, $data);
-                $stars_btn = "";
-                if(isset($usrt[0])) {
-                    $offset = $usrt[0]['stars'];
-                    $class_btn = "";
-                    $idsp = $chitiet[0]['id'];
+        $rated = Turn_rating::get_rt(null,$data);
 
-                    for ($i=1; $i <= 5; $i++) {
-                        if ($i == $offset) $class_btn = "select-star";
-                        else $class_btn = "";
-                        $stars_btn.= "<div class=\"btn-stars $class_btn\" data-rate=\"$i\" data-idsp=\"$idsp\">$i Sao</div>";
-                    }
-                }
-                else {
-                    for ($i=1; $i <= 5; $i++) {
-                        $stars_btn.= "<div class=\"btn-stars\" data-rate=\"$i\" data-idsp=\"$id\">$i Sao</div>";
-                    }
-                }
-                $this->datarp['btrt'] = "<div class=\"box-btn-stars\">$stars_btn</div>";
-            }
-            if (isset($rated[0])) {
-                $ss = $rating[0]['stars']/$rating[0]['turns'];
-                $list_stars = "";
-                $num_star = floor($ss);
-                $class_star = "color-star";
+        if (session()->has('udone')) {
+            $usrt = Turn_rating::get_rt($this->datarp['header']->id, $data);
+            $stars_btn = "";
+            if(isset($usrt[0])) {
+                $offset = $usrt[0]['stars'];
+                $class_btn = "";
+                $idsp = $chitiet[0]['id'];
 
                 for ($i=1; $i <= 5; $i++) {
-                    if ($i > $num_star) $class_star = "";
-                    $list_stars.= "
-                    <i class=\"fa-regular fa-star $class_star\"></i>
-                    ";
+                    if ($i == $offset) $class_btn = "select-star";
+                    else $class_btn = "";
+                    $stars_btn.= "<div class=\"btn-stars $class_btn\" data-rate=\"$i\" data-idsp=\"$idsp\">$i Sao</div>";
                 }
-
-                $sps = "
-                    <div class=\"sum-stars\">
-                        <h2>$ss trên 5</h2>
-                        <h5>$list_stars</h5>        
-                    </div>
-                ";
-                $this->datarp['pds'] = $sps;
             }
             else {
-                $sps = "
-                    <div class=\"sum-stars\">
-                        <h5 style=\"color: #ee4d2d;\">Sản phẩm chưa được đánh giá</h5>        
-                    </div>
+                for ($i=1; $i <= 5; $i++) {
+                    $stars_btn.= "<div class=\"btn-stars\" data-rate=\"$i\" data-idsp=\"$id\">$i Sao</div>";
+                }
+            }
+            $this->datarp['btrt'] = "<div class=\"box-btn-stars\">$stars_btn</div>";
+        }
+        if (isset($rated[0])) {
+            $ss = $rating[0]['stars']/$rating[0]['turns'];
+            $list_stars = "";
+            $num_star = floor($ss);
+            $class_star = "color-star";
+
+            for ($i=1; $i <= 5; $i++) {
+                if ($i > $num_star) $class_star = "";
+                $list_stars.= "
+                <i class=\"fa-regular fa-star $class_star\"></i>
                 ";
-                $this->datarp['pds'] = $sps;
             }
 
-            return view('client.detail', $this->datarp);
+            $sps = "
+                <div class=\"sum-stars\">
+                    <h2>$ss trên 5</h2>
+                    <h5>$list_stars</h5>        
+                </div>
+            ";
+            $this->datarp['pds'] = $sps;
         }
-        else if ($page == 'search') {
-            $this->datarp['dtpd'] = Product::get_ao('search',$data,false);
-            $this->datarp['title'] = 'Tìm kiếm: '.$data;
-            $this->datarp['pgpd'] = 'Tìm kiếm: '.$data;
-            $this->datarp['filter'] = $this->genfil('products/search', $data);
-            return view('client.product', $this->datarp);
+        else {
+            $sps = "
+                <div class=\"sum-stars\">
+                    <h5 style=\"color: #ee4d2d;\">Sản phẩm chưa được đánh giá</h5>        
+                </div>
+            ";
+            $this->datarp['pds'] = $sps;
         }
-        else if ($page == 'cat1') {
-            $this->datarp['dtpd'] = Product::get_ao('cat1',$data);
-            $this->datarp['title'] = 'Phân loại: '.Catalog_1::get_dedi($data);
-            $this->datarp['pgpd'] = 'Phân loại: '.Catalog_1::get_dedi($data);
-            $this->datarp['filter'] = $this->genfil('products/cat1', $data);
-            return view('client.product', $this->datarp);
-        }
-        else if ($page == 'cat2') {
-            $this->datarp['dtpd'] = Product::get_ao('cat2',$data);
-            $this->datarp['title'] = 'Danh Mục: '.Catalog_2::get_dedi($data);
-            $this->datarp['pgpd'] = 'Danh Mục: '.Catalog_2::get_dedi($data);
-            $this->datarp['filter'] = $this->genfil('products/cat2', $data);
-            return view('client.product', $this->datarp);
-        }
-    }
 
-    function ajax_hl(Request $request, $page, $check=null) {
-        if ($page == 'search') {
-            if ($check) {
-                return redirect()->route('products.najax', ['page' => 'search', 'data' => $request->input('search_data')]);
-            }
-            else {
-                $res = Product:: get_ao('search',$request->input('tksp'),true,$request->input('limit'));
-                return response()->json(['sanpham' => $res]);
-            }
-                
-        }
+        return view('client.detail', $this->datarp);
     }
+    
 }

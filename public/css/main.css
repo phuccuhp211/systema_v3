@@ -374,6 +374,17 @@ ol.carousel-indicators li::marker {
     background: #745caf;
     color: white;
 }
+
+.deact {
+    background: #b6b6b6 !important;
+    border-color: #b6b6b6  !important;
+    color: #595454  !important;
+}
+
+.act {
+    background: #745caf;
+    color: white;
+}
 .nutsp {
     color: white;
     background: #745caf;

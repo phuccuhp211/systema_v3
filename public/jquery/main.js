@@ -285,32 +285,29 @@ $(function() {
 
 
 	/* Chịu trách nhiệm chuyển trang*/
-	$('.boloc-act').on('click', function() {
+	$('.boloc-act').on('change', function() {
 		var randomParam = Math.random().toString(36).substring(7);
 		var data_type = $(this).attr("data-type");
 		var dulieu = $(this).attr("data");
-		var phanloai = $(this).attr("data-phanloai");
+		var phanloai = $(this).val();
 
-		var duongdan_fix = duongdan+url_sub+`/${data_type}${dulieu ? `/${dulieu}` : ''}/`;
+		var duongdan_fix = duongdan+url_sub+`/${data_type}${dulieu ? `/${dulieu}` : ''}`;
 		var data_trave = {
 			xacthuc2: randomParam,
 	        type: data_type,
-	        loai: phanloai
-		}
+	        filter: phanloai
+		};
 
 		if (dulieu) data_trave.data = dulieu;
 
-		console.log(data_type+" "+(dulieu ? dulieu : "dl_null")+" "+phanloai);
-
 		$.ajax({
 	        type: "POST",
-	        url: duongdan_fix,
-	        dataType: 'json',
-	        data: data_trave,
+			url: duongdan_fix,
+			dataType: "JSON",
+			data: data_trave,
 	        success: function(data) {
-	            $('#list-sanpham').html(data.sanpham);
-	            $('#list-pt').html(data.phantrang);
-	            console.log(data);
+	            $('#list-sanpham').html(data.res.prods);
+	            $('#list-pt').html(data.res.pagin);
 	            reset_cc();
 	        },
 	        error: function() {
@@ -318,16 +315,20 @@ $(function() {
 	        }
 	    });
 	})
-	$('#list-pt').on('click', '.a-pt', function() {
+	$('#list-pt').on('click', '.a-move', function() {
 		var randomParam = Math.random().toString(36).substring(7);
 		var data_type = $(this).attr('data-type');
 		var data = $(this).attr('data');
 		var page = $(this).attr('page');
 		var phanloai = $(this).attr('type');
 
-		var duongdan_fix = duongdan+url_sub+`/${data_type}${data ? `/${data}` : ''}/${page}/`;
+		var duongdan_fix = duongdan+url_sub+`/${data_type}${data ? `/${data}` : ''}`;
 
-		var requestData = { type: data_type };
+		var requestData = { 
+			type: data_type,
+			page: page,
+			filter: phanloai
+		};
 		
 	    if (data) requestData.data = data;
 
@@ -349,7 +350,8 @@ $(function() {
 	        dataType: phanloai ? 'json' : null,
 	        data: requestData,
 	        success: function(data) {
-	            $('#list-sanpham').html(phanloai ? data.sanpham : data);
+	            $('#list-sanpham').html(data.res.prods);
+	            $('#list-pt').html(data.res.pagin);
 	            reset_cc();
 	        },
 	        error: function() {
@@ -814,7 +816,7 @@ $(function() {
 		if (dulieu.length > 0) {
 			var randomParam = Math.random().toString(36).substring(7);
 			var data_type = $(this).attr("data-type");
-			var duongdan_fix = duongdan+url_sub+"/ajax/search";
+			var duongdan_fix = duongdan+url_sub+"/products/search";
 
 			var format_prc = new Intl.NumberFormat('vi-VN', {
 			  style: 'currency',
@@ -824,8 +826,7 @@ $(function() {
 			var data_trave = {
 				xacthuc2: randomParam,
 				type: data_type,
-				tksp: dulieu,
-				showsp: "col-20pt",
+				search_data: dulieu,
 		        limit: 5
 			};
 
@@ -836,7 +837,7 @@ $(function() {
 				data: data_trave,
 				success: function(data) {
 					var dssp = "";
-					$.each(data.sanpham, function(index, val) {
+					$.each(data.res, function(index, val) {
 						dssp += `
 							<a href="${duongdan+url_sub+'/products/detail/'+val.id+'/'}" class="srs">
 								<div class="srs-img">

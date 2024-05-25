@@ -66,19 +66,33 @@ class Product extends Model
             ->get();
     }
 
-    public static function get_ao($type=null,$data=null,$ajax=false,$limit=null) {
-        if (!isset($type)) {
-            return self::orderBy('id','DESC')->paginate(16);
-        }
-        else if ($type == 'cat1') {
-            return self::where('id_cata_1',$data)->paginate(16);
+    public static function get_ao($type=null,$data=null,$page,$ord=null,$limit) {
+        $query = self::query();
+
+        if ($type == 'cat1') {
+            $query->where('id_cata_1',$data);
         }
         else if ($type == 'cat2') {
-            return self::where('id_cata_2',$data)->paginate(16);
+            $query->where('id_cata_2',$data);
         }
         else if ($type == 'search') {
-            if ($ajax) return self::where('name','like',"%$data%")->limit($limit)->get();
-            else return self::where('name','like',"%$data%")->paginate(16);
+            $query->where('name','like',"%$data%");
         }
+
+        if ($ord == 1) $query->orderBy('id', 'ASC');
+        else if ($ord == 2) $query->orderBy('id', 'DESC');
+        else if ($ord == 3) $query->orderBy('price','ASC');
+        else if ($ord == 4) $query->orderBy('price','DESC');
+
+        return $query->offset(($page*$limit)-$limit)->limit($limit)->get();
+    }
+
+    public static function pagin($type=null,$data=null) {
+        $query = self::query();
+        if ($type == 'cat1') $query->where('id_cata_1',$data);
+        else if ($type == 'cat2') $query->where('id_cata_2',$data);
+        else if ($type == 'search') $query->where('name','like',"%$data%");
+        else $query->get();
+        return ceil($query->count() / 16);
     }
 }

@@ -55,7 +55,7 @@
                     </div>
                     <div class="row">
                         <div style="display:flex; justify-content: center; margin: 30px 0 0;" id="list-pt">
-                            {{ $dtpd->links() }}
+                            {!! $pagi !!}
                         </div>
                     </div>
                 </div>
