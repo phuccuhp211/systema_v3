@@ -55,9 +55,6 @@ $(function() {
 	    	requestData.xacthuc1 = randomParam;
 	    }
 
-	    console.log(data_type+" "+(data ? data : "data_null")+" "+page+" "+(phanloai ? phanloai : "loai_null"));
-	    console.log(duongdan_fix);
-
 		$.ajax({
 	        type: "POST",
 	        url: duongdan_fix,

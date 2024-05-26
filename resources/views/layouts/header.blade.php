@@ -38,9 +38,9 @@
                     </div>
                 </div>
             </div>
-            @if (session()->has('udone'))
+            @if (session()->has('user_log'))
                 <span class="span-popup">Xin chào<strong>
-                    {{ $header['user']['f_name']." ".$header['user'][';_name'] }}</strong>,
+                    {{ $header['user']['f_name']." ".$header['user']['l_name'] }}</strong>,
                     <a href="{{ url('/config') }}" class="fa-solid fa-gear"></a> | 
                     <a href="{{ url('/logout') }}" class="fa-solid fa-right-from-bracket"></a>
                 </span>

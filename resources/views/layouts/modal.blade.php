@@ -1,12 +1,13 @@
     @if (!session()->has('udone'))
         <div class="bg-dndk hide-bg-dndk">
             <div class="dndk">
-                <h2 class="text-center">Đăng Nhập</h2>
-                <form action="{{ url('/login') }}" method="POST" enctype="multipart/form-data">
+                <h2 class="text-center m-0">Đăng Nhập</h2>
+                <h4 class="sisu-err bg-danger text-center mx-0 my-2 rounded p-1"></h4>
+                <form class="client_login" enctype="multipart/form-data">
                     @csrf
                     <div class="field-add">
                         <label>Tài Khoản :</label>
-                        <input type="text" name="user">
+                        <input type="text" name="acc">
                     </div>
                     <div class="field-add">
                         <label>Mật Khẩu :</label>
@@ -28,20 +29,20 @@
         <div class="bg-dndk2 hide-bg-dndk2">
             <div class="dndk2">
                 <h2 class="text-center">Đăng Ký</h2>
-                <form action="{{ url('/regis') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('sisu.reg') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="field-add">
                         <label>Tài Khoản :</label>
-                        <input type="text" name="user">
+                        <input type="text" name="acc">
                     </div>
                     <div class="db-field-add">
                         <div class="field-add">
                             <label>Họ :</label>
-                            <input type="text" name="ho">
+                            <input type="text" name="fname">
                         </div>
                         <div class="field-add">
                             <label>Tên :</label>
-                            <input type="text" name="ten">
+                            <input type="text" name="lname">
                         </div>        
                     </div>
                     <div class="db-field-add">
@@ -51,12 +52,12 @@
                         </div>
                         <div class="field-add">
                             <label>Số điện thoại :</label>
-                            <input type="number" name="sdt">
+                            <input type="number" name="phone">
                         </div>        
                     </div>
                     <div class="field-add">
                         <label>Địa chỉ :</label>
-                        <input type="text" name="diachi">
+                        <input type="text" name="addr">
                     </div>
                     <div class="field-add">
                         <label>Mật Khẩu :</label>
@@ -79,7 +80,7 @@
         <div class="bg-dmk hide-bg-dmk">
             <div class="dmk">
                 <h2 class="text-center">Đổi Mật Khẩu</h2>
-                <form action="{{ url('/config') }}" method="POST" enctype="multipart/form-data">
+                <form class="client_regis" enctype="multipart/form-data">
                     @csrf
                     <input type="text" value="{{ $header['user']['id'] }}" hidden name="id">
                     <div class="field-add">

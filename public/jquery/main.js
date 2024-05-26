@@ -205,4 +205,34 @@ $(function() {
 	$('.popup').on('click', function() {
 		$('.popup').slideUp(1000);
 	})
+
+	$('.client_login').on('submit', function(event) {
+		event.preventDefault();
+
+		let user = $(this).find('input[name="acc"]').val();
+		let pass = $(this).find('input[name="pass"]').val();
+		let randomParam = Math.random().toString(36).substring(7);
+
+		let duongdan_fix = duongdan+url_sub+'/login';
+
+		let data_trave = {
+			xacthuc2: randomParam,
+			user: user,
+			pass: pass
+		};	
+
+		$.ajax({
+			url: duongdan_fix,
+			type: 'POST',
+			dataType: 'JSON',
+			data: data_trave,
+			success: function (data) {
+				console.log(data);
+				if (data == true) window.location.reload();
+			},
+			error: function() {
+				console.log("error");
+			}
+		});
+	})
 })

@@ -108,8 +108,8 @@ return new class extends Migration
             $table->string('f_name',10);
             $table->string('email',50);
             $table->text('address');
-            $table->integer('number');
-            $table->text('img');
+            $table->bigInteger('number');
+            $table->text('img')->default('');
             $table->boolean('role')->default(1);
             $table->boolean('lock')->default(0);
         });

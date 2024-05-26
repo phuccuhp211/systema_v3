@@ -43,8 +43,8 @@ class user_controller extends Controller {
     function header() {
         $cat_1 = Catalog_1::full_cat();
         $cat_2 = Catalog_2::full_cat();
-        if(session()->has('udone')) {
-            $user = us::get_us(session('udone'));
+        if(session()->has('user_log')) {
+            $user = us::get_us(session('user_log'));
             return [
                 'cat1' => $cat_1,
                 'cat2' => $cat_2,
@@ -161,7 +161,7 @@ class user_controller extends Controller {
 
         $rated = Turn_rating::get_rt(null,$data);
 
-        if (session()->has('udone')) {
+        if (session()->has('user_log')) {
             $usrt = Turn_rating::get_rt($this->datarp['header']->id, $data);
             $stars_btn = "";
             if(isset($usrt[0])) {

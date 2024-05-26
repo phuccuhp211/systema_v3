@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
@@ -62,6 +63,7 @@ class add_full extends Seeder
                 ]
             ]);
         }
+
         /*sections + banners*/
         $ref = ['id','name','price','sale','viewed','saled'];
         for ($i = 1; $i <= 4 ; $i++) {
@@ -90,6 +92,24 @@ class add_full extends Seeder
                     'tit' => "Tiêu đề $i",
                     'ctn' => "Nội dung của banner số $i"
                 
+            ]);
+        }
+
+        /*users*/
+        $h = ['Nguyễn', 'Lê', 'Đinh', 'Võ', 'Hoàng', 'Phạm', 'Lý', 'Bùi'];
+        $d = ['Thị', 'Văn', 'Anh', 'Hoàng', 'Mỹ', 'Thanh', 'Ngọc', 'Gia'];
+        $t = ['Hoa', 'Kỳ', 'Tuấn', 'Trúc', 'Thanh', 'Hiền', 'An', 'Kiệt'];
+        for ($i = 0; $i < 100; $i++) {
+            DB::table('uss')->insert([
+                'account'=> 'usernumber'.$i,
+                'pass' => Hash::make('hehe'),
+                'f_name' => Arr::random($h).' '.Arr::random($d),
+                'l_name' => Arr::random($t),
+                'email' => Str::random(5).'@gmail.com',
+                'address' => $i.' Quốc lộ 1A',
+                'number' => mt_rand(100000000,999999999),
+                'role' => mt_rand(0,1),
+                'lock' => mt_rand(0,1)
             ]);
         }
     }
