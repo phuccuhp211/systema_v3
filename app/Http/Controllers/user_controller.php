@@ -21,15 +21,8 @@ use App\Models\Us;
 use App\Models\Voucher;
 
 use DateTime;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-
-require base_path('src/Exception.php');
-require base_path('src/PHPMailer.php');
-require base_path('src/SMTP.php');
 
 class user_controller extends Controller {
     private $header;
