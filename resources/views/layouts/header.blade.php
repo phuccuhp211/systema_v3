@@ -9,9 +9,9 @@
                         </button>
                     </div>
                     <div class="col-6 col-search">
-                        <form action="{{ route('products.show', ['type' => 'search']) }}" method="POST" enctype="multipart/form-data" class="form-inline menu-khungtk">
+                        <form action="{{ route('index.show', ['type' => 'search']) }}" method="POST" enctype="multipart/form-data" class="form-inline menu-khungtk">
                             @csrf
-                            <input class="form-control search-box" name="search_data" type="text" placeholder="Tìm Kiếm..." data-type="sanpham/timkiem">
+                            <input class="form-control search-box" name="data" type="text" placeholder="Tìm Kiếm..." data-type="sanpham/timkiem">
                             <button type="submit" class="btn btn-success menu-nuttk"><i class="fa fa-search"></i></button>
                         </form>
                         <div class="search-result">

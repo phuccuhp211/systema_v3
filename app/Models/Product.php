@@ -12,12 +12,12 @@ class Product extends Model
     protected $table = 'Products';
 
     public static function get_st() {
-        return self::where('hidden',1)->limit(10)->get();
+        return self::where('hidden',0)->limit(10)->get();
     }
 
     public static function get_ps() {
         $casepcs = self::select('id','name','img','detail')
-            ->where([['hidden','=',1],['id_cata_1','=',3]])
+            ->where([['hidden',0],['id_cata_1',3]])
             ->inRandomOrder()
             ->limit(2)
             ->get();
@@ -30,10 +30,10 @@ class Product extends Model
     }
 
     public static function get_sp($cat1=null, $cat2=null,$ref,$ord) {
-        $query = \App\Models\Product::query();
+        $query = self::query();
 
-        if ($cat1 && !$cat2) $query->where('id_cata_1', $cat1);
-        else if (!$cat1 && $cat2) $query->where('id_cata_2', $cat2);
+        if ($cat1 && !$cat2) $query->where([['hidden',0],['id_cata_1',$cat1]]);
+        else if (!$cat1 && $cat2) $query->where([['hidden',0],['id_cata_2',$cat2]]);
 
         if ($ord == 1) $query->orderBy($ref, 'ASC');
         else if ($ord == 2) $query->orderBy($ref, 'DESC');
@@ -59,7 +59,8 @@ class Product extends Model
         $dt = self::where('id',$data)->first();
         return self::where([
                     ['id','!=',$data],
-                    ['id_cata_2','=',$dt['id_cata_2']]
+                    ['hidden',0],
+                    ['id_cata_2',$dt['id_cata_2']]
                 ])
             ->inRandomOrder()
             ->limit(5)
@@ -69,15 +70,10 @@ class Product extends Model
     public static function get_ao($type=null,$data=null,$page,$ord=null,$limit) {
         $query = self::query();
 
-        if ($type == 'cat1') {
-            $query->where('id_cata_1',$data);
-        }
-        else if ($type == 'cat2') {
-            $query->where('id_cata_2',$data);
-        }
-        else if ($type == 'search') {
-            $query->where('name','like',"%$data%");
-        }
+        if ($type == 'all') $query->where('hidden',0);
+        else if ($type == 'cat1') $query->where([['id_cata_1',$data],['hidden',0]]);
+        else if ($type == 'cat2') $query->where([['id_cata_2',$data],['hidden',0]]);
+        else if ($type == 'search') $query->where([['name','like',"%$data%"],['hidden',0]]);
 
         if ($ord == 1) $query->orderBy('id', 'ASC');
         else if ($ord == 2) $query->orderBy('id', 'DESC');
@@ -89,9 +85,10 @@ class Product extends Model
 
     public static function pagin($type=null,$data=null) {
         $query = self::query();
-        if ($type == 'cat1') $query->where('id_cata_1',$data);
-        else if ($type == 'cat2') $query->where('id_cata_2',$data);
-        else if ($type == 'search') $query->where('name','like',"%$data%");
+        if ($type == 'all') $query->where('hidden',0);
+        else if ($type == 'cat1') $query->where([['id_cata_1',$data],['hidden',0]]);
+        else if ($type == 'cat2') $query->where([['id_cata_2',$data],['hidden',0]]);
+        else if ($type == 'search') $query->where([['name','like',"%$data%"],['hidden',0]]);
         else $query->get();
         return ceil($query->count() / 16);
     }

@@ -59,7 +59,8 @@ class add_full extends Seeder
                     'price' => $pri1,
                     'sale' => $pri2,
                     'viewed' => mt_rand($i,10000),
-                    'saled' => mt_rand($i,10000)
+                    'saled' => mt_rand($i,10000),
+                    'hidden' => mt_rand(0,1)
                 ]
             ]);
         }

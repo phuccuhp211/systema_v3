@@ -73,7 +73,6 @@ $(function() {
 	$('.cf-dmk').on('click', function() {$('.bg-dmk').removeClass('hide-bg-dmk');})
 	$('.ycdn-cmt').on('click', function() {$('.bg-dndk').removeClass('hide-bg-dndk');})
 	$('.quaylai-dndk').on('click', function() {$('.bg-dndk').addClass('hide-bg-dndk');})
-	$('.quaylai-dndk').on('click', function() {$('.bg-dndk-err').addClass('hide-bg-dndk-err');})
 	$('.quaylai-dmk').on('click', function() {$('.bg-dmk').addClass('hide-bg-dmk');})
 	$('.users2').on('click', function() {$('.bg-dndk2').removeClass('hide-bg-dndk2');})
 	$('.quaylai-dndk2').on('click', function() {$('.bg-dndk2').addClass('hide-bg-dndk2');})
@@ -206,11 +205,11 @@ $(function() {
 		$('.popup').slideUp(1000);
 	})
 
-	$('.client_login').on('submit', function(event) {
+	$(document).on('submit', '.client_login', function(event) {
 		event.preventDefault();
-
-		let user = $(this).find('input[name="acc"]').val();
-		let pass = $(this).find('input[name="pass"]').val();
+		let form = $(this);
+		let user = form.find('input[name="acc"]').val();
+		let pass = form.find('input[name="pass"]').val();
 		let randomParam = Math.random().toString(36).substring(7);
 
 		let duongdan_fix = duongdan+url_sub+'/login';
@@ -227,11 +226,58 @@ $(function() {
 			dataType: 'JSON',
 			data: data_trave,
 			success: function (data) {
-				console.log(data);
-				if (data == true) window.location.reload();
+				if (data != true) form.find('h4.sisu-err').text(data.err);
+				else window.location.reload();
+			},
+			error: function(xhr, status) { 
+				console.log(xhr);
+				console.log(status);
+			}
+		});
+	})
+
+	$(document).on('submit', '.client_regis', function(event) {
+		event.preventDefault();
+		let form = $(this);
+		let user = form.find('input[name="acc"]').val();
+		let pass1 = form.find('input[name="pass1"]').val();
+		let pass2 = form.find('input[name="pass2"]').val();
+		let fname = form.find('input[name="fname"]').val();
+		let lname = form.find('input[name="lname"]').val();
+		let email = form.find('input[name="email"]').val();
+		let phone = form.find('input[name="phone"]').val();
+		let addr = form.find('input[name="addr"]').val();
+
+		let randomParam = Math.random().toString(36).substring(7);
+
+		let duongdan_fix = duongdan+url_sub+'/regis';
+
+		let data_trave = {
+			xacthuc2: randomParam,
+			user: user, addr: addr,
+			pass1: pass1, pass2: pass2,
+			lname: lname, fname: fname,
+			email: email, phone: phone
+		};	
+
+		$.ajax({
+			url: duongdan_fix,
+			type: 'POST',
+			dataType: 'JSON',
+			data: data_trave,
+			success: function (data) {
+				if (data != true) form.find('h4.sisu-err').text(data.err);
+				else {
+					console.log('xong');
+					form.find('h4.sisu-err').removeClass('bg-danger').addClass('bg-info');
+					form.find('h4.sisu-err').html(`Tạo tài khoản thành công <br> trang web sẽ tự động tải lại!`);
+					setTimeout(() => {
+						window.location.reload();
+					}, 5000);
+				}
 			},
 			error: function() {
-				console.log("error");
+
 			}
 		});
 	})

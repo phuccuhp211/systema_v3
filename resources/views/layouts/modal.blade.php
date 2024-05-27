@@ -2,9 +2,9 @@
         <div class="bg-dndk hide-bg-dndk">
             <div class="dndk">
                 <h2 class="text-center m-0">Đăng Nhập</h2>
-                <h4 class="sisu-err bg-danger text-center mx-0 my-2 rounded p-1"></h4>
                 <form class="client_login" enctype="multipart/form-data">
                     @csrf
+                    <h4 class="sisu-err bg-danger text-center mx-0 my-2 rounded p-1"></h4>
                     <div class="field-add">
                         <label>Tài Khoản :</label>
                         <input type="text" name="acc">
@@ -29,8 +29,9 @@
         <div class="bg-dndk2 hide-bg-dndk2">
             <div class="dndk2">
                 <h2 class="text-center">Đăng Ký</h2>
-                <form action="{{ route('sisu.reg') }}" method="POST" enctype="multipart/form-data">
+                <form class="client_regis" enctype="multipart/form-data">
                     @csrf
+                    <h4 class="sisu-err bg-danger text-center mx-0 my-2 rounded p-1"></h4>
                     <div class="field-add">
                         <label>Tài Khoản :</label>
                         <input type="text" name="acc">

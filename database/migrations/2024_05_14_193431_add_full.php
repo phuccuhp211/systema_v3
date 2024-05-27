@@ -75,7 +75,7 @@ return new class extends Migration
             $table->date('t_date')->default(date('Y-m-d'));
             $table->integer('viewed')->default(0);
             $table->integer('saled')->default(0);
-            $table->boolean('hidden')->default(1);
+            $table->boolean('hidden')->default(0);
         });
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
@@ -105,12 +105,12 @@ return new class extends Migration
             $table->string('account',30);
             $table->text('pass');
             $table->string('l_name',30);
-            $table->string('f_name',10);
+            $table->string('f_name',30);
             $table->string('email',50);
             $table->text('address');
             $table->bigInteger('number');
             $table->text('img')->default('');
-            $table->boolean('role')->default(1);
+            $table->boolean('role')->default(0);
             $table->boolean('lock')->default(0);
         });
         Schema::create('vouchers', function (Blueprint $table) {
