@@ -8,7 +8,8 @@ use App\Http\Controllers\admin_controller;
 Route::match(['get','post'] ,'/', [user_controller::class, 'index'])->name('index.home');
 Route::match(['get','post'] ,'/products/{type}/{data?}', [user_controller::class, 'products'])->name('index.show');
 Route::get('/detail/{data}', [user_controller::class, 'detail_pd'])->name('index.detail');
+Route::get('/config', [user_controller::class, 'us_config'])->name('index.con');
 
-Route::post('/login', [sisu_controller::class, 'client_login'])->name('sisu.in');
-Route::get('/logout', [sisu_controller::class, 'client_logout'])->name('sisu.out');
-Route::post('/regis', [sisu_controller::class, 'client_regis'])->name('sisu.reg');
+Route::match(['get', 'post'], '/user/client/{type}', [sisu_controller::class, 'client_lls'])->name('sisu.client');
+Route::match(['get', 'post'], '/user/admin/{type}', [sisu_controller::class, 'admin_lls'])->name('sisu.admin');
+

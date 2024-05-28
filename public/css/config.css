@@ -44,17 +44,7 @@ h2 {
 }
 
 .cf-button {
-    margin: 15px auto 0;
     width: 100%;
-}
-
-.popup {
-    margin: 0 0 30px;
-    text-align: center;
-    background: #2bbbad;
-    color: white;
-    padding: 15px;
-    border-radius: 10px;
 }
 
 .errpopup {

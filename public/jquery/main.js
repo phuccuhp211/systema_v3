@@ -200,10 +200,6 @@ $(function() {
 		}
 		else $('.search-result').html('');	
 	})
-	
-	$('.popup').on('click', function() {
-		$('.popup').slideUp(1000);
-	})
 
 	$(document).on('submit', '.client_login', function(event) {
 		event.preventDefault();
@@ -212,7 +208,7 @@ $(function() {
 		let pass = form.find('input[name="pass"]').val();
 		let randomParam = Math.random().toString(36).substring(7);
 
-		let duongdan_fix = duongdan+url_sub+'/login';
+		let duongdan_fix = duongdan+url_sub+'/user/client/login';
 
 		let data_trave = {
 			xacthuc2: randomParam,
@@ -250,7 +246,7 @@ $(function() {
 
 		let randomParam = Math.random().toString(36).substring(7);
 
-		let duongdan_fix = duongdan+url_sub+'/regis';
+		let duongdan_fix = duongdan+url_sub+'/user/client/regis';
 
 		let data_trave = {
 			xacthuc2: randomParam,

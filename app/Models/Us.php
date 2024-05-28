@@ -31,7 +31,7 @@ class Us extends Model
             'lock' => $lock
         ]);
     }
-    public static function fix($id,$user,$pass,$lname,$fname,$email,$addr,$phone,$role=0,$lock=0) {
+    public static function fix($id,$user='',$pass='',$lname,$fname,$email,$addr,$phone,$role=0,$lock=0) {
         self::where('id',$id)->update([
             'account' => $user,
             'pass' => $pass,

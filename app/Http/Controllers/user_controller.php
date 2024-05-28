@@ -207,5 +207,14 @@ class user_controller extends Controller {
 
         return view('client.detail', $this->datarp);
     }
-    
+
+    function us_config() {
+        if (isset($this->datarp['header']['user'])) {
+            $this->datarp['list_ins'] = Invoice::get_list($this->datarp['header']['user']['account']);
+            return view('client.config', $this->datarp);
+        }
+        else {
+            return redirect()->route('index.home');
+        }
+    }
 }

@@ -27,7 +27,7 @@
                                     <span>Có Sản Phẩm Trong Giỏ Hàng</span>
                                 </div>
                             </li>
-                            @if (!session()->has('udone'))
+                            @if (!session()->has('user_log'))
                                 <li class="nav-item">
                                     <button class="nav-link menu-chinh-li users">
                                         <i class="fas fa-user icon_setting"></i> Đăng Nhập
@@ -41,11 +41,11 @@
             @if (session()->has('user_log'))
                 <span class="span-popup">Xin chào<strong>
                     {{ $header['user']['f_name']." ".$header['user']['l_name'] }}</strong>,
-                    <a href="{{ url('/config') }}" class="fa-solid fa-gear"></a> | 
-                    <a href="{{ url('/logout') }}" class="fa-solid fa-right-from-bracket"></a>
+                    <a href="{{ route('index.con') }}" class="fa-solid fa-gear"></a> | 
+                    <a href="{{ route('sisu.client', ['type' => 'logout']) }}" class="fa-solid fa-right-from-bracket"></a>
                 </span>
                 <span hidden id="ufn">{{ $header['user']['f_name'] }}</span>
-                <span hidden id="uln">{{ $header['user'][';_name'] }}</span>
+                <span hidden id="uln">{{ $header['user']['l_name'] }}</span>
                 <span hidden id="uid">{{ $header['user']['id'] }}</span>
             @endif  
         </nav>
