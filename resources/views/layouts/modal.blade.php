@@ -1,4 +1,4 @@
-    @if (!session()->has('udone'))
+    @if (!session()->has('user_log'))
         <div class="bg-dndk hide-bg-dndk">
             <div class="dndk">
                 <h2 class="text-center m-0">Đăng Nhập</h2>
@@ -80,20 +80,25 @@
     @else
         <div class="bg-dmk hide-bg-dmk">
             <div class="dmk">
-                <h2 class="text-center">Đổi Mật Khẩu</h2>
-                <form class="client_regis" enctype="multipart/form-data">
+                <h2 class="text-center text-white">Đổi Mật Khẩu</h2>
+                <form class="client_checkpw" enctype="multipart/form-data">
                     @csrf
+                    <h5 class="popup text-center text-white rounded p-2 m-0"></h5>
                     <input type="text" value="{{ $header['user']['id'] }}" hidden name="id">
-                    <div class="field-add">
-                        <label>Mật khẩu mới :</label>
-                        <input type="password" name="pass1">
+                    <div class="field-add field-oldpw">
+                        <label>Nhập mật khẩu hiện tại:</label>
+                        <input type="password" name="oldpw">
+                    </div>
+                    <div class="field-add field-newpw field-disable">
+                        <label>Mật khẩu mới:</label>
+                        <input type="password" name="newp1">
+                    </div>
+                    <div class="field-add field-newpw field-disable">
+                        <label>Nhập lại mật khẩu mới:</label>
+                        <input type="password" name="newp2">
                     </div>
                     <div class="field-add">
-                        <label>Nhập lại mật khẩu mới :</label>
-                        <input type="password" name="pass2">
-                    </div>
-                    <div class="field-add">
-                        <button class="btn btn-success" type="submit">Đổi Mật Khẩu</button>
+                        <button type="submit" class="btn btn-dark text-white">Xác Nhận</button>
                     </div>
                 </form><hr>
                 <div class="field-add" style="margin:0;">

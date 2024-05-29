@@ -87,7 +87,7 @@
                 <div class="row">
                     <div class="col-12">    
                     @if (!isset($list_ins[0]))
-                        <h3 class="bg-danger text-center m-0">Không có hóa đơn mua hàng</h3>
+                        <h4 class="bg-danger text-white p-2 rounded text-center m-0">Không có đơn mua hàng</h4>
                     @else
                         @foreach ($list_ins as $value => $item)
                             @php $list = json_decode($item['list_pd'],true) @endphp

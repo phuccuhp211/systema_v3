@@ -70,10 +70,8 @@ $(function() {
 	$(".tensp").height(chieucao_cu);
 
 	$('.users').on('click', function() {$('.bg-dndk').removeClass('hide-bg-dndk');})
-	$('.cf-dmk').on('click', function() {$('.bg-dmk').removeClass('hide-bg-dmk');})
 	$('.ycdn-cmt').on('click', function() {$('.bg-dndk').removeClass('hide-bg-dndk');})
 	$('.quaylai-dndk').on('click', function() {$('.bg-dndk').addClass('hide-bg-dndk');})
-	$('.quaylai-dmk').on('click', function() {$('.bg-dmk').addClass('hide-bg-dmk');})
 	$('.users2').on('click', function() {$('.bg-dndk2').removeClass('hide-bg-dndk2');})
 	$('.quaylai-dndk2').on('click', function() {$('.bg-dndk2').addClass('hide-bg-dndk2');})
 

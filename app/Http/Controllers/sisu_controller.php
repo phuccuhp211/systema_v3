@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Us;
 
 class sisu_controller extends Controller {
+    function __construct() {
+        if (!session()->has('user_log')) return redirect()->route('index.home');
+    }
 
     function client_lls(Request $rq, $type) {
         if ($type == 'login') {
@@ -58,6 +61,7 @@ class sisu_controller extends Controller {
                     if ($find) return response()->json(['err' => 'Tên tài khoản đã được sử dụng !']);
                     else {
                         if ($pass1 != $pass2) return response()->json(['err' => 'Mật khẩu không khớp !']);
+                        else if (strlen($pass1) < 7) return response()->json(['err' => 'Mật khẩu tối thiểu 8 kí tự !']);
                         else {
                             $rule = [ 'email' => 'required|email|regex:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/' ];
                             $c_email = Validator::make(['email' => $email], $rule );
@@ -86,16 +90,54 @@ class sisu_controller extends Controller {
                 $rule = [ 'email' => 'required|email|regex:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/' ];
                 $c_email = Validator::make(['email' => $em], $rule );
 
-                if ($ln==''||$fn==''||$pn==''||$em==''||$ad='') $rs['res'] = 'Vui lòng điền đẩy đủ thông tin !';
+                if ($ln==''||$fn==''||$pn==''||$em==''||$ad=='') $rs['res'] = 'Vui lòng điền đẩy đủ thông tin !';
                 else if($c_email->fails()) $rs['res'] = 'Email không hợp lệ !';
                 else if(strlen($pn) < 7  || strlen($pn) > 11) $rs['res'] = 'Số điện thoại không hợp lệ !';
                 else {
-                    Us::fix()
+                    Us::fix($id,'','',$ln,$fn,$em,$ad,$pn);
+
                     $rs['status'] = true;
                     $rs['res'] = 'Cập nhật thông tin thành công ! <br> Trang web sẽ tự động tải lại sau 3 giây';   
                 }
                 return response()->json($rs);
-
+            }
+            else return redirect()->route('index.home');
+        }
+        else if ($type == 'checkp') {
+            if ($rq->ajax()) {
+                $rs = [ 'status' => false ];
+                $pw = $rq->input('oldpw');
+                
+                if ($pw == '') $rs['res'] = 'Vui lòng nhập mật khẩu';
+                else {
+                    $user = Us::get_us(session('user_log'));
+                    if (Hash::check($pw, $user->pass)) {
+                        $rs['status'] = true;
+                        $rs['res'] = 'Mật khẩu đúng';
+                        return response()->json($rs);
+                    }
+                    else $rs['res'] = 'Sai mật khẩu';
+                }
+                return response()->json($rs);
+            }
+            else return redirect()->route('index.home');
+        }
+        else if ($type == 'fixpw') {
+            if ($rq->ajax()) {
+                $rs = [ 'status' => false ];
+                $pw1 = $rq->input('newp1');
+                $pw2 = $rq->input('newp2');
+                
+                if ($pw1 == '' || $pw2 == '') $rs['res'] = 'Vui lòng nhập mật khẩu';
+                else if ($pw1 != $pw2) $rs['res'] = 'Mật khẩu không khớp';
+                else if (strlen($pw1) < 7) $rs['res'] = 'Mật khẩu tối thiểu 8 kí tự';
+                else {
+                    $rs['status'] = true;
+                    $rs['res'] = "Đổi mật khẩu thành công <br> trang web sẽ tự động tải lại sau 3 giây";
+                    $user = Us::get_us(session('user_log'));
+                    Us::fix($user['id'],$user['account'],Hash::make($pw1));
+                }
+                return response()->json($rs);
             }
             else return redirect()->route('index.home');
         }
