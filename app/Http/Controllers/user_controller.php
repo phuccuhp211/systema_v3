@@ -217,4 +217,12 @@ class user_controller extends Controller {
             return redirect()->route('index.home');
         }
     }
+
+    function cart() {
+        return view('client.cart', $this->datarp);
+    }
+
+    function pay() {
+        
+    }
 }

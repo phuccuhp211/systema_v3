@@ -20,7 +20,7 @@
                     <div class="col-3">
                         <ul class="navbar-nav menu-ghdndk">
                             <li class="nav-item">
-                                <a href="{{ url('/giohang') }}" class="nav-link menu-chinh-li giohang">
+                                <a href="{{ route('index.cart') }}" class="nav-link menu-chinh-li giohang">
                                     <i class="fa fa-shopping-cart"></i> Giỏ Hàng
                                 </a>
                                 <div class="popup-cart off-pocart" data-user="{{ (session()->has('udone')) ? 'yes' : '' }}">

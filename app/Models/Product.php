@@ -55,6 +55,10 @@ class Product extends Model
         return $prod;
     }
 
+    public static function get_sc($id) {
+        return self::select('id','name','img','price','sale','f_date','t_date')->where('id',$id)->first();
+    }
+
     public static function get_rl($data) {
         $dt = self::where('id',$data)->first();
         return self::where([

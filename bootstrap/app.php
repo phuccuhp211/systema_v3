@@ -5,6 +5,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
 use App\Http\Middleware\checklog;
+use App\Http\Middleware\cart;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -13,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //$middleware->append(checklog::class);
+        // $middleware->append(cart::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
