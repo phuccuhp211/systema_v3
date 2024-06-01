@@ -150,7 +150,7 @@ $(function() {
 					var dssp = "";
 					$.each(data.res, function(index, val) {
 						dssp += `
-							<a href="${duongdan+url_sub+'/products/detail/'+val.id+'/'}" class="srs">
+							<a href="${duongdan+url_sub+'/detail/'+val.id+'/'}" class="srs">
 								<div class="srs-img">
 	                                <img src="${duongdan+url_sub+'/data/'+val.img}" alt="">
 	                            </div>

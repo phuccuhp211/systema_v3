@@ -9,7 +9,7 @@
                         </button>
                     </div>
                     <div class="col-6 col-search">
-                        <form action="{{ route('index.show', ['type' => 'search']) }}" method="POST" enctype="multipart/form-data" class="form-inline menu-khungtk">
+                        <form action="{{ route('show', ['type' => 'search']) }}" method="POST" enctype="multipart/form-data" class="form-inline menu-khungtk">
                             @csrf
                             <input class="form-control search-box" name="data" type="text" placeholder="Tìm Kiếm..." data-type="sanpham/timkiem">
                             <button type="submit" class="btn btn-success menu-nuttk"><i class="fa fa-search"></i></button>
@@ -20,7 +20,7 @@
                     <div class="col-3">
                         <ul class="navbar-nav menu-ghdndk">
                             <li class="nav-item">
-                                <a href="{{ route('index.cart') }}" class="nav-link menu-chinh-li giohang">
+                                <a href="{{ route('cart') }}" class="nav-link menu-chinh-li giohang">
                                     <i class="fa fa-shopping-cart"></i> Giỏ Hàng
                                 </a>
                                 <div class="popup-cart off-pocart" data-user="{{ (session()->has('udone')) ? 'yes' : '' }}">
@@ -41,8 +41,8 @@
             @if (session()->has('user_log'))
                 <span class="span-popup">Xin chào<strong>
                     {{ $header['user']['f_name']." ".$header['user']['l_name'] }}</strong>,
-                    <a href="{{ route('index.con') }}" class="fa-solid fa-gear"></a> | 
-                    <a href="{{ route('sisu.client', ['type' => 'logout']) }}" class="fa-solid fa-right-from-bracket"></a>
+                    <a href="{{ route('config') }}" class="fa-solid fa-gear"></a> | 
+                    <a href="{{ route('client', ['type' => 'logout']) }}" class="fa-solid fa-right-from-bracket"></a>
                 </span>
                 <span hidden id="ufn">{{ $header['user']['f_name'] }}</span>
                 <span hidden id="uln">{{ $header['user']['l_name'] }}</span>

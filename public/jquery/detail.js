@@ -102,14 +102,13 @@ $(function() {
 		var idsp = $(this).data('idsp');
 		var sl = $('.ctsp-sl').val();
 		console.log(idsp);
-		var duongdan_fix = duongdan+url_sub+"/addcart/";
+		var duongdan_fix = duongdan+url_sub+"/cart/add";
 		$.ajax({
 			type: "POST",
 			url: duongdan_fix,
-			data: { idsp: idsp, slsp: sl },
+			data: { id: idsp, num: sl },
 			success: function(response) {
 				console.log('thanh cong');
-				updateCart();
 			},
 			error: function() {
 				console.log("Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng.");
@@ -130,7 +129,6 @@ $(function() {
 			url: duongdan_fix1,
 			data: { slsp: sl },
 			success: function(response) {
-				updateCart();
 				window.location.href = duongdan_fix2;
 			},
 			error: function() {
