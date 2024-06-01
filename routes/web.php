@@ -1,11 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\sisu_controller;
 use App\Http\Controllers\Client\cart_controller;
 use App\Http\Controllers\Client\user_controller;
+use App\Http\Controllers\Client\pay_controller;
 use App\Http\Controllers\Admin\admin_controller;
+
 use App\Http\Middleware\cart;
+use App\Http\Middleware\payment;
 
 Route::get('/', [user_controller::class, 'index'])->name('home');
 Route::match(['get','post'] ,'/products/{type}/{data?}', [user_controller::class, 'products'])->name('show');
@@ -14,6 +18,11 @@ Route::get('/cart', [user_controller::class, 'cart'])->name('cart');
 Route::get('/detail/{data}', [user_controller::class, 'detail_pd'])->name('detail');
 Route::get('/config', [user_controller::class, 'us_config'])->name('config');
 Route::get('/pay', [user_controller::class, 'pay'])->name('pay');
+
+Route::middleware([payment::class])->group(function () {
+	Route::post('/payment/appcp', [pay_controller::class, 'dcp'])->name('payment.dcp');
+	Route::post('/payment/order', [pay_controller::class, 'ord'])->name('payment.ord');
+});
 
 Route::middleware([cart::class])->group(function () {
 	Route::match(['get','post'] ,'/cart/add', [cart_controller::class, 'add'])->name('cart.add');

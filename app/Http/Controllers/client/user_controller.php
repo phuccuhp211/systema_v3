@@ -224,6 +224,7 @@ class user_controller extends Controller {
     }
 
     function pay() {
-       return view('client.pay', $this->datarp); 
+        if (!session()->has('cart') || session('cart')['list'] == null) return redirect()->route('home');
+        else return view('client.pay', $this->datarp);
     }
 }

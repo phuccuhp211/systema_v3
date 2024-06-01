@@ -121,6 +121,7 @@ return new class extends Migration
             $table->integer('remaining');
             $table->date('f_date')->default(date('Y-m-d'));
             $table->date('t_date')->default(date('Y-m-d'));
+            $table->string('type',15);
             $table->integer('discount');
         });
     }

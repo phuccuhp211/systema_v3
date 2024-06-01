@@ -110,11 +110,11 @@
                             </div>
                             <div class="my-1 d-block w-100 giamgia hide-gg">
                                 <p class="p-thanhtoan" id="stt-gg" trangtrai="">ưu đãi:</p>
-                                <p class="p-gia tongcong"></p>
+                                <p class="p-gia tongcong" id="uudai"></p>
                             </div>
                             <div class="my-1 d-block w-100">
                                 <p class="p-thanhtoan">phí vận chuyển :</p>
-                                <p class="p-gia phiship"></p>
+                                <p class="p-gia" id="phiship"></p>
                             </div>
                             <div class="my-1 d-block w-100 div-tongcong">
                                 <p class="p-thanhtoan">tổng cộng :</p>

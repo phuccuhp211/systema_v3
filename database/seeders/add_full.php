@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class add_full extends Seeder
 {
@@ -111,6 +112,26 @@ class add_full extends Seeder
                 'number' => mt_rand(100000000,999999999),
                 'role' => mt_rand(0,1),
                 'lock' => mt_rand(0,1)
+            ]);
+        }
+
+        /*vourcher*/
+        for ($i = 0; $i < 5; $i++) {
+            $mount = mt_rand(100,200);
+            $type = Arr::random(['number','percent']);
+            $disc = ($type == 'number') ? mt_rand(50000,500000) : mt_rand(1,15);
+
+            $f_date = Carbon::now()->addDays(mt_rand(-20, 10));
+            $t_date = $f_date->copy()->addDays(mt_rand(-10, 20));
+
+            DB::table('vouchers')->insert([
+                'name'=> Str::random(15),
+                'amount'=> $mount,
+                'remaining'=> $mount,
+                'f_date' => $f_date,
+                't_date' => $t_date,
+                'type' => $type,
+                'discount' => $disc
             ]);
         }
     }
