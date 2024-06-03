@@ -101,8 +101,8 @@ class add_full extends Seeder
         $h = ['Nguyễn', 'Lê', 'Đinh', 'Võ', 'Hoàng', 'Phạm', 'Lý', 'Bùi'];
         $d = ['Thị', 'Văn', 'Anh', 'Hoàng', 'Mỹ', 'Thanh', 'Ngọc', 'Gia'];
         $t = ['Hoa', 'Kỳ', 'Tuấn', 'Trúc', 'Thanh', 'Hiền', 'An', 'Kiệt'];
-        for ($i = 0; $i < 100; $i++) {
-            DB::table('uss')->insert([
+        for ($i = 1; $i <= 200; $i++) {
+            DB::table('users')->insert([
                 'account'=> 'usernumber'.$i,
                 'pass' => Hash::make('hehe'),
                 'f_name' => Arr::random($h).' '.Arr::random($d),
@@ -116,7 +116,7 @@ class add_full extends Seeder
         }
 
         /*vourcher*/
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
             $mount = mt_rand(100,200);
             $type = Arr::random(['number','percent']);
             $disc = ($type == 'number') ? mt_rand(50000,500000) : mt_rand(1,15);
@@ -134,5 +134,38 @@ class add_full extends Seeder
                 'discount' => $disc
             ]);
         }
+
+        /*rating + turn_rt*/
+        $rating = [];
+        $turnrt = [];
+        for ($i = 0; $i < 2000; $i++) {
+            $id_pd = mt_rand(1, 500);
+            $id_us = mt_rand(1, 100);
+            $stars = mt_rand(1, 5);
+
+            // Lưu đánh giá của từng người dùng
+            $turnrt[] = [
+                'id_pd' => $id_pd,
+                'id_us' => $id_us,
+                'stars' => $stars
+            ];
+
+            // Kiểm tra và cập nhật mảng $rating
+            if (!isset($rating[$id_pd])) {
+                $rating[$id_pd] = [
+                    'id_pd' => $id_pd,
+                    'stars' => 0,
+                    'turns' => 0
+                ];
+            }
+
+            // Cập nhật tổng số sao và số lượt đánh giá cho sản phẩm
+            $rating[$id_pd]['turns'] += 1;
+            $rating[$id_pd]['stars'] += $stars;
+            
+        }
+        $rating = array_values($rating);
+        DB::table('ratings')->insert($rating);
+        DB::table('turn_ratings')->insert($turnrt);
     }
 }

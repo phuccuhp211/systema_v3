@@ -67,6 +67,32 @@ class cart_controller extends Controller
         session()->forget('cart');
     }
 
+    function buy($id) {
+        $quantity = 1;
+        $cart = session('cart');
+
+        $prod = Product::get_sc($id);
+        $prod->num = $quantity;
+
+        $prod = $this->cal_price($prod);
+
+        $repeated = false;
+        foreach ($cart['list'] as $item) {
+            if ($item['id'] == $id) {
+                $item['num'] += $quantity;
+                $item = $this->cal_price($item);
+                $repeated = true;
+                break;
+            }
+        }
+        if (!$repeated) array_push($cart['list'], $prod);
+
+        $cart = $this->total($cart);
+        session([ 'cart' => $cart ]);
+
+        return redirect()->route('cart');
+    }
+
     function total($cart) {
         $total = 0;
         foreach ($cart['list'] as $value => $item) {

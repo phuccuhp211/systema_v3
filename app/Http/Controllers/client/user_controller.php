@@ -18,7 +18,7 @@ use App\Models\Product;
 use App\Models\Rating;
 use App\Models\Section;
 use App\Models\Turn_rating;
-use App\Models\Us;
+use App\Models\User;
 use App\Models\Voucher;
 
 use DateTime;
@@ -38,7 +38,7 @@ class user_controller extends Controller {
         $cat_1 = Catalog_1::full_cat();
         $cat_2 = Catalog_2::full_cat();
         if(session()->has('user_log')) {
-            $user = us::get_us(session('user_log'));
+            $user = user::get_us(session('user_log'));
             return [
                 'cat1' => $cat_1,
                 'cat2' => $cat_2,
@@ -147,21 +147,21 @@ class user_controller extends Controller {
         }
     }
 
-    function detail_pd($data) {
+    function detail($data) {
         $this->datarp['dtpd'] = Product::get_dt($data);
         $this->datarp['dtpd']->brand = Brand::get_br($this->datarp['dtpd']->id_brand);
         $this->datarp['lcmt'] = Comment::get_ct($data);
         $this->datarp['rlpd'] = Product::get_rl($data);
 
-        $rated = Turn_rating::get_rt(null,$data);
+        $rated = Rating::get_rt($data);
+        $idsp = $this->datarp['dtpd']['id'];
 
         if (session()->has('user_log')) {
-            $usrt = Turn_rating::get_rt($this->datarp['header']->id, $data);
+            $usrt = Turn_rating::get_rt($this->datarp['header']['user']['id'],$data);
             $stars_btn = "";
-            if(isset($usrt[0])) {
-                $offset = $usrt[0]['stars'];
+            if($usrt) {
+                $offset = $usrt->stars;
                 $class_btn = "";
-                $idsp = $chitiet[0]['id'];
 
                 for ($i=1; $i <= 5; $i++) {
                     if ($i == $offset) $class_btn = "select-star";
@@ -171,13 +171,13 @@ class user_controller extends Controller {
             }
             else {
                 for ($i=1; $i <= 5; $i++) {
-                    $stars_btn.= "<div class=\"btn-stars\" data-rate=\"$i\" data-idsp=\"$id\">$i Sao</div>";
+                    $stars_btn.= "<div class=\"btn-stars\" data-rate=\"$i\" data-idsp=\"$idsp\">$i Sao</div>";
                 }
             }
             $this->datarp['btrt'] = "<div class=\"box-btn-stars\">$stars_btn</div>";
         }
-        if (isset($rated[0])) {
-            $ss = $rating[0]['stars']/$rating[0]['turns'];
+        if ($rated) {
+            $ss = $rated->stars/$rated->turns;
             $list_stars = "";
             $num_star = floor($ss);
             $class_star = "color-star";
@@ -191,7 +191,7 @@ class user_controller extends Controller {
 
             $sps = "
                 <div class=\"sum-stars\">
-                    <h2>$ss trên 5</h2>
+                    <h4>$ss trên 5 ($rated->turns Lượt)</h4>
                     <h5>$list_stars</h5>        
                 </div>
             ";
@@ -209,7 +209,7 @@ class user_controller extends Controller {
         return view('client.detail', $this->datarp);
     }
 
-    function us_config() {
+    function config() {
         if (isset($this->datarp['header']['user'])) {
             $this->datarp['list_ins'] = Invoice::get_list($this->datarp['header']['user']['account']);
             return view('client.config', $this->datarp);
@@ -226,5 +226,21 @@ class user_controller extends Controller {
     function pay() {
         if (!session()->has('cart') || session('cart')['list'] == null) return redirect()->route('home');
         else return view('client.pay', $this->datarp);
+    }
+
+    function comment(Request $rq) {
+        $cmt = $rq->input('cmt');
+        $idp = $rq->input('idp');
+        $uid = $rq->input('uid');
+        $date = $rq->input('date');
+        Comment::add_cmt($cmt, $idp, $uid, $date);
+    }
+
+    function rate(Request $rq) {
+        $id = $rq->input('idsp');
+        $rt = $rq->input('rate');
+        $us = $this->datarp['header']['user']['id'];
+
+        Turn_rating::rate($id,$us,$rt);
     }
 }

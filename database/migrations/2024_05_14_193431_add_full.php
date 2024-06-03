@@ -86,8 +86,8 @@ return new class extends Migration
         });
         Schema::create('turn_ratings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_us');
             $table->unsignedBigInteger('id_pd');
+            $table->unsignedBigInteger('id_us');
             $table->integer('stars');
         });
         Schema::create('sections', function (Blueprint $table) {
@@ -100,20 +100,6 @@ return new class extends Migration
             $table->integer('index');
             $table->string('reference',10);
             $table->boolean('orderby');
-        });
-        Schema::create('uss', function (Blueprint $table) {
-            $table->id();
-            $table->string('account',30);
-            $table->text('pass');
-            $table->string('l_name',30);
-            $table->string('f_name',30);
-            $table->string('email',50);
-            $table->text('address');
-            $table->bigInteger('number');
-            $table->text('img')->default('');
-            $table->text('cart')->nullable();
-            $table->boolean('role')->default(0);
-            $table->boolean('lock')->default(0);
         });
         Schema::create('vouchers', function (Blueprint $table) {
             $table->id();

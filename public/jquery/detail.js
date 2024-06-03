@@ -5,11 +5,12 @@ $(function() {
 		let idsp = $(this).data('idsp');
 		let star = $(this).data('rate');
 
-		var duongdan_fix = duongdan+url_sub+"/rating/";
+		var duongdan_fix = duongdan+url_sub+"/rating";
 
 		$.ajax({
 			type: "POST",
 			url: duongdan_fix,
+			dataType: 'JSON',
 			data: { idsp: idsp, rate: star },
 			success: function(data) {
 				
@@ -47,93 +48,47 @@ $(function() {
 
 	$('.send-cmt').on('submit', function(event) {
 		event.preventDefault();
-		var ho = document.getElementById("uho").innerHTML;
-		var ten = document.getElementById("uten").innerHTML;
-		var idu = document.getElementById("uid").innerHTML;
-		var idsp = $('#uidsp').data('idsp');
-		var nd = $('#noidung-cmt').val();
+		let ufn = document.getElementById('ufn').innerHTML;
+		let uln = document.getElementById('uln').innerHTML;
+		let uid = document.getElementById('uid').innerHTML;
+		let idp = $('#uidsp').data('idsp');
+		let ctn = $('#noidung-cmt').val();
 
-		var d = new Date();
-		var time = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+		let d = new Date();
+		let time = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
 
-		console.log(time);
-
-		var duongdan_fix = duongdan+url_sub+"/comments/";
+		let duongdan_fix = duongdan+url_sub+"/comment";
 
 		$.ajax({
 			type: "POST",
 			url: duongdan_fix,
 			data: {
-				noidung: nd,
-				idpd: idsp,
-				idu: idu,
+				cmt: ctn,
+				idp: idp,
+				uid: uid,
 				date: time
 			},
 			success: function(response) {
-				console.log('thanh cong');
+				let binhluan = `
+				<div class="box-cmt">
+	                <div class="avatar">
+	                    <h5 class="avt-text">${ufn.charAt(0)}</h5>
+	                </div>
+	                <div class="user-cmt">
+	                    <p class="uname-cmt">${ufn} ${uln}</p>
+	                    <p class="date-cmt">${d.getDate() + "-" + (d.getMonth()+1) + "-" + d.getFullYear()}</p>
+	                </div>
+	                <div class="content-cmt">
+		                <p>${ctn}</p>
+		            </div>
+		        </div>
+				`;
+
+				$('.list-cmt').prepend(binhluan);
 			},
 			error: function() {
 				console.log("Có lỗi xảy ra khi comments.");
 			}
 		})
-
-		binhluan = `
-		<div class="box-cmt">
-            <div class="row" style="margin:0;">
-                <div class="avatar">
-                    <h5 class="avt-text">${ten.charAt(0)}</h5>
-                </div>
-                <div class="user-cmt">
-                    <p class="uname-cmt">${ho} ${ten}</p>
-                    <p class="date-cmt">${d.getDate() + "-" + (d.getMonth()+1) + "-" + d.getFullYear()}</p>
-                </div>
-            </div>
-            <div class="content-cmt">
-                <p>${nd}</p>
-            </div>
-        </div><hr>
-		`;
-
-		$('.list-cmt').prepend(binhluan);
-	})
-
-	$('#sp-tt').on('click', '.addcart', function() {
-		ttgh();
-		var idsp = $(this).data('idsp');
-		var sl = $('.ctsp-sl').val();
-		console.log(idsp);
-		var duongdan_fix = duongdan+url_sub+"/cart/add";
-		$.ajax({
-			type: "POST",
-			url: duongdan_fix,
-			data: { id: idsp, num: sl },
-			success: function(response) {
-				console.log('thanh cong');
-			},
-			error: function() {
-				console.log("Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng.");
-			}
-		});
-	})
-	
-	$('#sp-tt').on('click', '.buy', function(event) {
-		event.preventDefault();
-		var idsp = $(this).data('idsp');
-		var sl = $('.ctsp-sl').val();
-
-		var duongdan_fix1 = duongdan+url_sub+"/muangay/"+idsp+"/";
-		var duongdan_fix2 = duongdan+url_sub+"/thanhtoan/";
-
-		$.ajax({
-			type: "POST",
-			url: duongdan_fix1,
-			data: { slsp: sl },
-			success: function(response) {
-				window.location.href = duongdan_fix2;
-			},
-			error: function() {
-				console.log("Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng.");
-			}
-		});
 	})
 })

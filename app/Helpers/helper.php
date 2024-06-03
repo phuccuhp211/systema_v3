@@ -16,7 +16,7 @@
                     <p class=\"tt tensp\">".$item['name']."</p>
                     <p class=\"tt giasp\">".$sale."</p>
                     <div class=\"nut_sp\">
-                        <a href=\"".genurl($item['id'],'buynow')."\" class=\"btn nutsp\">Mua Ngay</a>
+                        <a href=\"".genurl($item['id'],'cart/buy')."\" class=\"btn nutsp\">Mua Ngay</a>
                         <button class=\"btn nutsp addcart\" data-idsp=\"".$item['id']."\"><i class=\"fa-solid fa-cart-plus\"></i></button>
                     </div>
                 </div>                    
@@ -45,7 +45,7 @@
                     <p class=\"tt tensp\">".$item['name']."</p>
                     <p class=\"tt giasp\">".$sale."</p>
                     <div class=\"nut_sp\">
-                        <a href=\"".genurl($item['id'],'buynow')."\" class=\"btn nutsp\">Mua Ngay</a>
+                        <a href=\"".genurl($item['id'],'cart/buy')."\" class=\"btn nutsp\">Mua Ngay</a>
                         <button class=\"btn nutsp addcart\" data-idsp=\"".$item['id']."\"><i class=\"fa-solid fa-cart-plus\"></i></button>
                     </div>
                 </div>                    

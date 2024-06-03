@@ -76,10 +76,10 @@
                 </div>
                 <div class="row my-4">
                     <div class="offset-4 col-4">
-                        <button class="btn btn-primary cf-button mb-2 cf-dmk">Đổi Mật Khẩu</button>
+                        <button class="btn btn-success cf-button mb-2 cf-update disabled">Cập Nhật</button>
                     </div>
                     <div class="offset-4 col-4">
-                        <button class="btn btn-success cf-button cf-update disabled">Cập Nhật</button>
+                        <button class="btn btn-primary cf-button cf-dmk">Đổi Mật Khẩu</button>
                     </div>
                 </div>
             </div>

@@ -35,7 +35,7 @@
                             <div style="margin: 15px 0;">
                                 <label for="">Số Lượng : </label><input type="number" min="1" value="1" class="ctsp-sl">
                             </div>
-                            <a href="#" data-idsp="{{ $dtpd['id'] }}" class="nut-muasp buy">Mua Ngay</a>
+                            <a href="{{ route('cart.buy', ['id' => $dtpd['id']]) }}" class="nut-muasp buy">Mua Ngay</a>
                             <button class="nut-muasp add addcart" id="uidsp" style="margin: 15px 0 0;" data-idsp="{{ $dtpd['id'] }}">Thêm Giỏ Hàng</button>
                         </div>
                     </div>  
@@ -63,14 +63,14 @@
                         <h4>ĐÁNH GIÁ SẢN PHẨM</h3>
                     </div>
                 </div>
-                @if (!session()->has('udone'))
+                @if (!session()->has('user_log'))
                 <div class="col-8 text-center">
                     <button class="ycdn-cmt">Vui lòng đăng nhập để Bình luận & Đánh giá</button>
                 </div>
                 @else
                 <div class="col-8">
                     <form class="send-cmt">
-                        <textarea id="noidung-cmt"></textarea>
+                        <input type="text" id="noidung-cmt"></input>
                         <button type="submit">Gửi</button>
                     </form>
                 </div>
@@ -89,31 +89,26 @@
             <div class="row">
                 <div class="col-12">
                     <div class="list-cmt">
-
-                        @if (isset($lcmt[0]))
-                            @foreach ($lcmt as $value => $item)
-                            <div class="box-cmt">
-                                <div class="row" style="margin:0;">
-                                    <div class="avatar">
-                                        <?php if ($item['avt'] != "") { ?>
-                                            <div class="avt-img">
-                                                <img src="" alt="">
-                                            </div>
-                                        <?php } else { ?>
-                                            <h5 class="avt-text">{{ substr($item['lname'], 0, 1) }}</h5>
-                                        <?php } ?>
-                                    </div>
-                                    <div class="user-cmt">
-                                        <p class="uname-cmt">{{ $item['fname']." ".$item['lname'] }}</p>
-                                        <p class="date-cmt">{{ date("d-m-Y", strtotime($item['date'])) }}</p>
-                                    </div>
-                                </div>
-                                <div class="content-cmt">
-                                    <p><?php echo $item['content'] ?></p>
-                                </div>
-                            </div><hr>
-                            @endforeach
-                        @endif
+                    @if (isset($lcmt[0]))
+                        @foreach ($lcmt as $value => $item)
+                        <div class="box-cmt">
+                            <div class="avatar">
+                                @if ($item['img'] != '')
+                                <div class="avt-img"><img src="{{ $item['img'] }}" alt=""></div>
+                                @else
+                                <h5 class="avt-text">{{ substr($item['l_name'], 0, 1) }}</h5>
+                                @endif
+                            </div>
+                            <div class="user-cmt">
+                                <p class="uname-cmt">{{ $item['f_name']." ".$item['l_name'] }}</p>
+                                <p class="date-cmt">{{ date("d-m-Y", strtotime($item['date'])) }}</p>
+                            </div>
+                            <div class="content-cmt">
+                                <p>{{ $item['content'] }}</p>
+                            </div>
+                        </div>
+                        @endforeach
+                    @endif
                     </div>
                 </div>  
             </div><hr>

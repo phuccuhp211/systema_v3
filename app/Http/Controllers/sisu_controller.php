@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\Us;
+use App\Models\User;
 
 class sisu_controller extends Controller {
     function __construct() {
@@ -22,7 +22,7 @@ class sisu_controller extends Controller {
                 if ($user == '') return response()->json(['err' => 'Vui lòng nhập tài khoản !']);
                 else if ($pass == '') return response()->json(['err' => 'Vui lòng nhập mật khẩu !']);
                 else {
-                    $find = Us::get_us($user);
+                    $find = User::get_us($user);
                     if ($find) {
                         if ($find['lock'] == 1) return response()->json(['err' => 'Tài Khoản bị khóa !']);
                         else {
@@ -57,7 +57,7 @@ class sisu_controller extends Controller {
                     return response()->json(['err' => 'Vui lòng nhập đầy đủ thông tin !']);
                 }
                 else {
-                    $find = Us::get_us($user);
+                    $find = User::get_us($user);
                     if ($find) return response()->json(['err' => 'Tên tài khoản đã được sử dụng !']);
                     else {
                         if ($pass1 != $pass2) return response()->json(['err' => 'Mật khẩu không khớp !']);
@@ -68,7 +68,7 @@ class sisu_controller extends Controller {
                             if ($c_email->fails()) return response()->json(['err' => 'Email không hợp lệ !']);
                             else if (strlen($phone) < 7 || strlen($phone) > 11) return response()->json(['err' => 'Số điện thoại không hợp lệ !']);
                             else {
-                                Us::add($user,Hash::make($pass1),$lname,$fname,$email,$addr,$phone);
+                                User::add($user,Hash::make($pass1),$lname,$fname,$email,$addr,$phone);
                                 return true;
                             }
                         }
@@ -94,7 +94,7 @@ class sisu_controller extends Controller {
                 else if($c_email->fails()) $rs['res'] = 'Email không hợp lệ !';
                 else if(strlen($pn) < 7  || strlen($pn) > 11) $rs['res'] = 'Số điện thoại không hợp lệ !';
                 else {
-                    Us::fix($id,'','',$ln,$fn,$em,$ad,$pn);
+                    User::fix($id,'','',$ln,$fn,$em,$ad,$pn);
 
                     $rs['status'] = true;
                     $rs['res'] = 'Cập nhật thông tin thành công ! <br> Trang web sẽ tự động tải lại sau 3 giây';   
@@ -110,7 +110,7 @@ class sisu_controller extends Controller {
                 
                 if ($pw == '') $rs['res'] = 'Vui lòng nhập mật khẩu';
                 else {
-                    $user = Us::get_us(session('user_log'));
+                    $user = User::get_us(session('user_log'));
                     if (Hash::check($pw, $user->pass)) {
                         $rs['status'] = true;
                         $rs['res'] = 'Mật khẩu đúng';
@@ -134,8 +134,8 @@ class sisu_controller extends Controller {
                 else {
                     $rs['status'] = true;
                     $rs['res'] = "Đổi mật khẩu thành công <br> trang web sẽ tự động tải lại sau 3 giây";
-                    $user = Us::get_us(session('user_log'));
-                    Us::fix($user['id'],$user['account'],Hash::make($pw1));
+                    $user = User::get_us(session('user_log'));
+                    User::fix($user['id'],$user['account'],Hash::make($pw1));
                 }
                 return response()->json($rs);
             }
