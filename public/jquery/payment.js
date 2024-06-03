@@ -1,10 +1,36 @@
 $(function() {
 	var base_pr = parseInt($('#giagoc').text().replace(/\./g, ""));
 	var disc_pr = 0;
-	var ship_pr = Math.ceil(base_pr * 0.025);
+	var ship_pr = (base_pr > 1000000) ? 25000 : 35000;
 	var prfn = Math.ceil(base_pr + ship_pr);
 
-	console.log(ship_pr);
+	$(document).on('keyup', '#sdtkh', function() {
+		$(this).val($(this).val().replace(/[^0-9]/g, ''));
+	})
+
+	function check_input() {
+		let data_trave = {
+			name: $('#tenkh').val(),
+			email: $('#emailkh').val(),
+			number: $('#sdtkh').val(),
+			address: $('#dckh').val(),
+			notice: $('#memokh').val()
+		}
+		let duongdan_fix = duongdan+url_sub+'/payment/checkip'
+
+		$.ajax({
+			url: duongdan_fix,
+			type: 'POST',
+			dataType: 'JSON',
+			data: data_trave,
+			success: function (data) {
+				console.log(data);
+			},
+			error: function () {
+
+			}
+		});
+	}
 
 	$(window).on('load' ,function() {
 		$('#phiship').text(ship_pr.toLocaleString('vi-VN'));
@@ -45,19 +71,9 @@ $(function() {
 	})
 
 	$('.thanhtoansp').on('click', function() {
-		$('.giatien').val(parseInt(($('#tongtien').text()).replace(/\./g,"")));
-		console.log($('.giatien').val());
+		let check_vl = check_input();
 
-		if ($('#tenkh').val() == "" ||
-			$('#emailkh').val() == "" ||
-			$('#sdtkh').val() == "" ||
-			$('#dckh').val() == "") {
-			alert("vui lòng điển đầy đủ thông tin khách hàng!");
-		}
-		else if ($('#sdtkh').val().length != 10) {
-			alert("Số điện thoại không hợp lệ");
-		}
-		else if ($('#tenkh').val() != "" && $('#emailkh').val() != "" && $('#sdtkh').val() != "" && $('#dckh').val() != "" && $('#sdtkh').val().length == 10) {
+		if (check_vl) {
 			var tenkh = $('#tenkh').val();
 			var emailkh = $('#emailkh').val();
 			var sdtkh = $('#sdtkh').val();

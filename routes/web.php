@@ -20,6 +20,7 @@ Route::get('/config', [user_controller::class, 'us_config'])->name('config');
 Route::get('/pay', [user_controller::class, 'pay'])->name('pay');
 
 Route::middleware([payment::class])->group(function () {
+	Route::post('/payment/checkip', [pay_controller::class, 'vli'])->name('payment.vli');
 	Route::post('/payment/appcp', [pay_controller::class, 'dcp'])->name('payment.dcp');
 	Route::post('/payment/order', [pay_controller::class, 'ord'])->name('payment.ord');
 });

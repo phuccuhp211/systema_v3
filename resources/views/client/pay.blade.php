@@ -23,41 +23,37 @@
                     <div class="td-khttdh">thông tin khách hàng</div>
                     <div class="khung-khttdh">
                         @if (session()->has('user_log'))
-                        <form action="" id="thongtin-kh">
-                            <div class="khungchu">
-                                <p>Họ tên :</p><input type="text" id="tenkh" name="tenkh" value="{{ $header['user']['name'] }}">
-                            </div>
-                            <div class="khungchu">
-                                <p>Email :</p><input type="text" id="emailkh" name="emailkh" value="{{ $header['user']['email'] }}">
-                            </div>
-                            <div class="khungchu">
-                                <p>SĐT :</p><input type="text" id="sdtkh" name="sdtkh" value="{{ $header['user']['number'] }}">
-                            </div>
-                            <div class="khungchu">
-                                <p>Địa Chỉ :</p><input type="text" id="dckh" name="dckh" value="{{ $header['user']['address'] }}">
-                            </div>
-                            <div class="khungchu">
-                                <p>Ghi chú :</p><textarea id="memokh" name="memokh"></textarea>
-                            </div>  
-                        </form>
+                        <div class="khungchu">
+                            <p>Họ tên :</p><input type="text" id="tenkh" value="{{ $header['user']['f_name'].' '.$header['user']['l_name'] }}">
+                        </div>
+                        <div class="khungchu">
+                            <p>Email :</p><input type="text" id="emailkh" value="{{ $header['user']['email'] }}">
+                        </div>
+                        <div class="khungchu">
+                            <p>SĐT :</p><input type="text" id="sdtkh" value="{{ $header['user']['number'] }}">
+                        </div>
+                        <div class="khungchu">
+                            <p>Địa Chỉ :</p><input type="text" id="dckh" value="{{ $header['user']['address'] }}">
+                        </div>
+                        <div class="khungchu">
+                            <p>Ghi chú :</p><textarea id="memokh"></textarea>
+                        </div>  
                         @else
-                        <form action="" id="thongtin-kh">
-                            <div class="khungchu">
-                                <p>Họ tên :</p><input type="text" id="tenkh" name="tenkh">
-                            </div>
-                            <div class="khungchu">
-                                <p>Email :</p><input type="text" id="emailkh" name="emailkh">
-                            </div>
-                            <div class="khungchu">
-                                <p>SĐT :</p><input type="text" id="sdtkh" name="sdtkh">
-                            </div>
-                            <div class="khungchu">
-                                <p>Địa Chỉ :</p><input type="text" id="dckh" name="dckh">
-                            </div>
-                            <div class="khungchu">
-                                <p>Ghi chú :</p><textarea id="memokh" name="memokh"></textarea>
-                            </div>  
-                        </form>
+                        <div class="khungchu">
+                            <p>Họ tên :</p><input type="text" id="tenkh">
+                        </div>
+                        <div class="khungchu">
+                            <p>Email :</p><input type="text" id="emailkh">
+                        </div>
+                        <div class="khungchu">
+                            <p>SĐT :</p><input type="text" id="sdtkh">
+                        </div>
+                        <div class="khungchu">
+                            <p>Địa Chỉ :</p><input type="text" id="dckh">
+                        </div>
+                        <div class="khungchu">
+                            <p>Ghi chú :</p><textarea id="memokh"></textarea>
+                        </div>  
                         @endif
                     </div>
                 </div>
@@ -66,10 +62,9 @@
                     <div class="khung-khttdh">
                         <input class="giatien" data-val="true" id="amount" name="amount" type="number" hidden/>
                         <input type="radio" id="language" Checked="True" name="language" value="vn" hidden>
-                        <p><input type="radio" id="bankCode" name="bankCode" value="INTCARD" class="nut-cb-giohang"> Thanh toán qua thẻ quốc tế.</p>
-                        <p><input type="radio" id="bankCode" name="bankCode" value="VNBANK" class="nut-cb-giohang"> Thanh toán qua thẻ ATM/Tài khoản nội địa.</p>
+                        <p><input type="radio" id="bankCode" name="bankCode" value="INTCARD" class="nut-cb-giohang"> Thanh toán qua Visa/Master Card.</p>
+                        <p><input type="radio" id="bankCode" name="bankCode" value="VNBANK" class="nut-cb-giohang"> Thanh toán qua ATM/Thẻ ghi nợ.</p>
                         <p><input type="radio" id="bankCode" name="bankCode" class="nut-cb-giohang" value="COD" checked>Thanh toán khi nhận hàng(COD).</p>
-                        <p>+ Miễn phí giao hành trong phạm vi 10 Km (chỉ áp dụng với đơn hàng trên 1.000.000 đ).</p>
                     </div>     
                 </div>
             </div>

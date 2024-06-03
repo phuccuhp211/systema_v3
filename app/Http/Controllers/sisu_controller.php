@@ -10,7 +10,7 @@ use App\Models\Us;
 
 class sisu_controller extends Controller {
     function __construct() {
-        if (!session()->has('user_log')) return redirect()->route('index.home');
+        if (!session()->has('user_log')) return redirect()->route('home');
     }
 
     function client_lls(Request $rq, $type) {
@@ -36,11 +36,11 @@ class sisu_controller extends Controller {
                     else return response()->json(['err' => 'Sai tên tài khoản !']);
                 }
             }
-            else return redirect()->route('index.home');
+            else return redirect()->route('home');
         }
         else if ($type == 'logout') {
             if (session()->has('user_log')) session()->forget('user_log');
-            return redirect()->route('index.home');
+            return redirect()->route('home');
         }
         else if ($type == 'regis') {
             if ($rq->ajax()) {
@@ -75,7 +75,7 @@ class sisu_controller extends Controller {
                     }
                 }
             }
-            else return redirect()->route('index.home');
+            else return redirect()->route('home');
         }
         else if ($type == 'config') {
             if ($rq->ajax()) {
@@ -101,7 +101,7 @@ class sisu_controller extends Controller {
                 }
                 return response()->json($rs);
             }
-            else return redirect()->route('index.home');
+            else return redirect()->route('home');
         }
         else if ($type == 'checkp') {
             if ($rq->ajax()) {
@@ -120,7 +120,7 @@ class sisu_controller extends Controller {
                 }
                 return response()->json($rs);
             }
-            else return redirect()->route('index.home');
+            else return redirect()->route('home');
         }
         else if ($type == 'fixpw') {
             if ($rq->ajax()) {
@@ -139,7 +139,7 @@ class sisu_controller extends Controller {
                 }
                 return response()->json($rs);
             }
-            else return redirect()->route('index.home');
+            else return redirect()->route('home');
         }
     }
 }

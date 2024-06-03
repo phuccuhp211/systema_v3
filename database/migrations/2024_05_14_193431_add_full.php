@@ -111,6 +111,7 @@ return new class extends Migration
             $table->text('address');
             $table->bigInteger('number');
             $table->text('img')->default('');
+            $table->text('cart')->nullable();
             $table->boolean('role')->default(0);
             $table->boolean('lock')->default(0);
         });

@@ -215,7 +215,7 @@ class user_controller extends Controller {
             return view('client.config', $this->datarp);
         }
         else {
-            return redirect()->route('index.home');
+            return redirect()->route('home');
         }
     }
 
