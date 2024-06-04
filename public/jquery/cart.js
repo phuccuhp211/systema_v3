@@ -51,7 +51,14 @@ $(function() {
 				url: duongdan_fix,
 				data: { key: key },
 				success: function(data) {
-					console.log("thanh cong");
+					if (xoasp.length == 0) {
+			    		let emtycart = `<tr id="emptycart"><th colspan="7">Bạn không có sản phẩm nào trong giỏ hàng</th></tr>`;
+						$('#listcart').append(emtycart);
+						$('.delallcart').remove();
+						$('[id="sanpham"]').each(function() {
+					        $(this).remove();
+					    });
+			    	}
 				},
 				error: function() {
 					console.log("Có lỗi xảy ra.");

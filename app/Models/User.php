@@ -13,7 +13,7 @@ class User extends Authenticatable
 
     protected $table = 'Users';
     protected $primaryKey = 'id';
-    protected $fillable = [ 'account', 'pass', 'l_name', 'f_name', 'email', 'address', 'number', 'img', 'role', 'lock' ];
+    protected $fillable = [ 'account', 'pass', 'l_name', 'f_name', 'email', 'address', 'number', 'img', 'cart', 'role', 'lock' ];
     public $timestamps = true;
 
     public static function get_us($name) {
@@ -52,5 +52,9 @@ class User extends Authenticatable
 
     public static function del($id) {
         self::destroy($id);
+    }
+
+    public static function upcart($name) {
+        self::where('account',$name)->update(['cart' => json_encode(session('cart'))]);
     }
 }

@@ -15,7 +15,7 @@ class cart
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!session()->has('cart')) session([ 'cart' => ['list' => [], 'total' => 0] ]);
+        if (!session()->has('cart')) session(['cart' => ['list' => [], 'total' => 0]]);
 
         return $next($request);
     }

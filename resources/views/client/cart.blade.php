@@ -23,15 +23,15 @@
                 @if (isset(session('cart')['list'][0]))
                     @foreach (session('cart')['list'] as $value => $item)
                     <tr class="sanpham" name="sanpham" id="sanpham">
-                        <td hidden id="id">{{ $item->id }}</td>
+                        <td hidden id="id">{{ $item['id'] }}</td>
                         <td style="width : 50px;" class="text-center" id="keysp">{{ $value+1 }}</td>
                         <td style="width : 150px;" class="text-center"><img src="{{ genurl($item['img']) }}"></td>
-                        <td style="width : auto;">{{ $item->name }}</td>
-                        <td style="width : 150px;" name="giasp" id="giasp">{{ gennum($item->pfn) }}</td>
+                        <td style="width : auto;">{{ $item['name'] }}</td>
+                        <td style="width : 150px;" name="giasp" id="giasp">{{ gennum($item['pfn']) }}</td>
                         <td style="width : 80px;" class="text-center">
-                            <input type="number" min="1" value="{{ $item->num }}" name="slsp">
+                            <input type="number" min="1" value="{{ $item['num'] }}" name="slsp">
                         </td>
-                        <td style="width : 150px;" id="thanhtien">{{ gennum($item->sum) }}</td>
+                        <td style="width : 150px;" id="thanhtien">{{ gennum($item['sum']) }}</td>
                         <td style="width : 70px;" class="text-center"><button class="btn btn-danger xoasp" name="xoasp" data-key="{{ $value }}"><i class="fa-solid fa-trash"></i></i></button></td>
                     </tr>
                     @endforeach

@@ -59,5 +59,11 @@
     function genurl($url,$type='data') {
         return asset("$type/$url");
     }
+
+    function dumpdt($data) {
+        echo "<pre>";
+        var_dump($data);
+        echo "</pre>";
+    }
 ?>  
     

@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Product;
+use App\Models\User;
 use DateTime;
 
 class cart_controller extends Controller
@@ -13,12 +14,9 @@ class cart_controller extends Controller
         $id = $rq->input('id');
         $quantity = $rq->input('num', 1);
         $cart = session('cart');
-
         $prod = Product::get_sc($id);
         $prod->num = $quantity;
-
         $prod = $this->cal_price($prod);
-
         $repeated = false;
         foreach ($cart['list'] as $item) {
             if ($item['id'] == $id) {
@@ -28,18 +26,16 @@ class cart_controller extends Controller
                 break;
             }
         }
-        if (!$repeated) array_push($cart['list'], $prod);
-
+        if (!$repeated) $cart['list'][] = $prod;
         $cart = $this->total($cart);
-
-        session([ 'cart' => $cart ]);
+        session(['cart' => $cart]);
+        $this->storage_cart();
     }
 
     function fix(Request $rq) {
         $id = $rq->input('id');
         $quantity = $rq->input('num');
         $cart = session('cart');
-
         $repeated = false;
         foreach ($cart['list'] as $item) {
             if ($item['id'] == $id) {
@@ -49,10 +45,9 @@ class cart_controller extends Controller
                 break;
             }
         }
-
         $cart = $this->total($cart);
-
-        session([ 'cart' => $cart ]);
+        session(['cart' => $cart]);
+        $this->storage_cart();
     }
 
     function del(Request $rq) {
@@ -60,22 +55,21 @@ class cart_controller extends Controller
         $cart = session('cart');
         unset($cart['list'][$key]);
         $cart = $this->total($cart);
-        session([ 'cart' => $cart ]);
+        session(['cart' => $cart]);
+        $this->storage_cart();
     }
 
     function dac(Request $rq) {
         session()->forget('cart');
+        $this->storage_cart();
     }
 
     function buy($id) {
         $quantity = 1;
         $cart = session('cart');
-
         $prod = Product::get_sc($id);
         $prod->num = $quantity;
-
         $prod = $this->cal_price($prod);
-
         $repeated = false;
         foreach ($cart['list'] as $item) {
             if ($item['id'] == $id) {
@@ -86,10 +80,9 @@ class cart_controller extends Controller
             }
         }
         if (!$repeated) array_push($cart['list'], $prod);
-
         $cart = $this->total($cart);
-        session([ 'cart' => $cart ]);
-
+        session(['cart' => $cart]);
+        $this->storage_cart();
         return redirect()->route('cart');
     }
 
@@ -116,5 +109,9 @@ class cart_controller extends Controller
             $prod->sum = $prod->num * $prod->pfn;
         } 
         return $prod;
+    }
+
+    function storage_cart() {
+        if(session()->has('user_log')) User::upcart(session('user_log'));
     }
 }

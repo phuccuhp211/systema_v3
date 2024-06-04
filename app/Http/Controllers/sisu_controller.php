@@ -28,6 +28,7 @@ class sisu_controller extends Controller {
                         else {
                             if (Hash::check($pass, $find['pass'])) {
                                 session(['user_log' => $user]);
+                                if ($find['cart'] != null) session([ 'cart' => json_decode($find['cart'], true)]);
                                 return true;
                             }
                             else return response()->json(['err' => 'Sai mật khẩu']);
