@@ -104,20 +104,20 @@
         <div class="static-ss">
             <div class="stss-tt" style="display: flex;">
                 @foreach ($header['cat1'] as $value => $item)
-                    <button class="stss-fttt index-cat" data-type="sanpham/danhmuc" data="{{ $item['id'] }}">{{ $item['name'] }}</button>
+                    <button class="stss-fttt index-cat" data-type="products/cat1" data="{{ $item['id'] }}">{{ $item['name'] }}</button>
                 @endforeach
             </div>
             <div class="stss-ft" style="display: flex;">
-                <button class="stss-fttt index-fil" data-type="sanpham/tatca" data="" data-phanloai="1">Mới Nhất</button>
-                <button class="stss-fttt index-fil" data-type="sanpham/tatca" data="" data-phanloai="2">Cũ Nhất</button>
-                <button class="stss-fttt index-fil" data-type="sanpham/tatca" data="" data-phanloai="3">Giá Từ Thấp -> Cao</button>
-                <button class="stss-fttt index-fil" data-type="sanpham/tatca" data="" data-phanloai="4">Giá Từ Cao -> Thấp</button>
+                <button class="stss-fttt index-fil" data-type="products/all" data="" data-phanloai="1">Cũ Nhất</button>
+                <button class="stss-fttt index-fil" data-type="products/all" data="" data-phanloai="2">Mới Nhất</button>
+                <button class="stss-fttt index-fil" data-type="products/all" data="" data-phanloai="3">Giá Từ Thấp -> Cao</button>
+                <button class="stss-fttt index-fil" data-type="products/all" data="" data-phanloai="4">Giá Từ Cao -> Thấp</button>
             </div>
             <div class="stss-sp" style="margin: 0;">
                 <div class="row stss-list">
                     {!! showsp($product,'col-20pt') !!}
                 </div>
-                <a href="{{ url('/sanpham/tatca') }}" class="view-all stss-va">Xem Tất Cả</a></div>
+                <a href="{{ route('show', ['type' => 'all']) }}" class="view-all stss-va">Xem Tất Cả</a></div>
             </div>
         </div>   
     </div>

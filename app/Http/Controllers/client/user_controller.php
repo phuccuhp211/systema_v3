@@ -134,7 +134,8 @@ class user_controller extends Controller {
             }
             else {
                 $res = Product::get_ao($type,$data,$page,$filter,$limit);
-                $rp['prods'] = showsp($res);
+                $col = ($rq->input('showsp')) ? $rq->input('showsp') : null;
+                $rp['prods'] = showsp($res, $col);
                 $rp['pagin'] = $this->pagin($type,$data,Product::pagin($type,$data),$page,$filter);
                 return response()->json(['res' => $rp]);
             }

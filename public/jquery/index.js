@@ -19,7 +19,7 @@ $(function() {
         var data_type = $(this).attr("data-type");
         var dulieu = $(this).attr("data");
 
-        var duongdan_fix = duongdan+url_sub+`/${data_type}${dulieu ? `/${dulieu}` : ''}/`;
+        var duongdan_fix = duongdan+url_sub+`/${data_type}${dulieu ? `/${dulieu}` : ''}`;
 
         var data_trave = {
             xacthuc2: randomParam,
@@ -30,10 +30,8 @@ $(function() {
         }
 
         $('.index-fil').attr("data", dulieu);
-        $('.index-fil').attr("data-type", "sanpham/danhmuc");
+        $('.index-fil').attr("data-type", "products/cat1");
         $('.stss-va').attr("href",`${duongdan}/${data_type}/${dulieu}/`);
-
-        console.log(data_type+" "+(dulieu ? dulieu : "dl_null"));
 
         $.ajax({
             type: "POST",
@@ -41,7 +39,7 @@ $(function() {
             dataType: 'json',
             data: data_trave,
             success: function(data) {
-                $('.stss-list').html(data.sanpham);
+                $('.stss-list').html(data.res.prods);
                 console.log(data);
                 reset_cc();
             },
@@ -56,18 +54,18 @@ $(function() {
         var dulieu = $(this).attr("data");
         var phanloai = $(this).attr("data-phanloai");
 
-        var duongdan_fix = duongdan+url_sub+`/${data_type}${dulieu ? `/${dulieu}` : ''}/`;
+        var duongdan_fix = duongdan+url_sub+`/${data_type}${dulieu ? `/${dulieu}` : ''}`;
         var data_trave = {
             xacthuc2: randomParam,
             type: data_type,
-            loai: phanloai,
+            filter: phanloai,
             showsp: "col-20pt",
             limit: 10
         }
 
         if (dulieu) data_trave.data = dulieu;
 
-        console.log(data_type+" "+(dulieu ? dulieu : "dl_null")+" "+phanloai);
+        console.log(duongdan_fix);
 
         $.ajax({
             type: "POST",
@@ -75,7 +73,7 @@ $(function() {
             dataType: 'json',
             data: data_trave,
             success: function(data) {
-                $('.stss-list').html(data.sanpham);
+                $('.stss-list').html(data.res.prods);
                 console.log(data);
                 reset_cc();
             },
