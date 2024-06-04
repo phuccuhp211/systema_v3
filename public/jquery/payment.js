@@ -24,12 +24,25 @@ $(function() {
 			dataType: 'JSON',
 			data: data_trave,
 			success: function (data) {
-				console.log(data);
+				if (!data.status) displayErrors(data.res);
+				else $('#errorContainer').remove();
 			},
 			error: function () {
 
 			}
 		});
+	}
+
+	function displayErrors(data) {
+    	$('#errorContainer').empty();
+    	let errorElement = '';
+	    $.each(data, function(key, value) {
+	        $.each(value, function(index, error) {
+	            errorElement += `<li class="error">${error}</li>`;
+	        });
+	    });
+	    let strhtml = `<ul id="errorContainer">${errorElement}</ul>`;
+	    $('.fip').prepend(strhtml);
 	}
 
 	$(window).on('load' ,function() {

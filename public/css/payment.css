@@ -114,10 +114,11 @@
 }
 
 .p-gia-giohanh {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     color: #745caf;
     text-align: center;
+    margin: 0;
 }
 
 .p-gia-giohanh-v2 {
@@ -164,7 +165,7 @@
 .anh-giohang {
     border: 1px solid #745caf;
     border-radius: 10px;
-    height: 100px;
+    height: 8vh;
     max-height: max-content;
     overflow: hidden;
     display: flex;
@@ -213,7 +214,7 @@
 
 .khungchu {
     position: relative;
-    margin: 0 0 10px;
+    margin: 0 0 1vh;
     display: flex;
     justify-content: space-between;
 }
@@ -232,8 +233,8 @@
 }
 
 .khung-khttdh {
-    background: #c7c8ca;
-    padding: 5% 5%;
+    background: #e6e6e6;
+    padding: 2vh;
     position: relative;
     border-radius: 0 0 10px 10px;
 }
@@ -283,7 +284,8 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    margin: 7px 0;
+    border-bottom: 1px solid gray;
+    padding: 1vh 0;
 }
 
 .p-sl-giohang {
@@ -345,4 +347,11 @@
     border: 3px solid #745caf;
     justify-content: center;
     color: #745caf;
+}
+
+#errorContainer {
+    background: #ffdbdb;
+    color: red;
+    padding: 1vh 6vh;
+    margin: 0 0 1vh;
 }

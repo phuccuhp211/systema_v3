@@ -21,7 +21,7 @@
             <div class="col-4">
                 <div class="col-12 khungto-khttdh">
                     <div class="td-khttdh">thông tin khách hàng</div>
-                    <div class="khung-khttdh">
+                    <div class="khung-khttdh fip">
                         @if (session()->has('user_log'))
                         <div class="khungchu">
                             <p>Họ tên :</p><input type="text" id="tenkh" value="{{ $header['user']['f_name'].' '.$header['user']['l_name'] }}">
@@ -79,13 +79,12 @@
                         </div>
                         <div class="col-7 chu-giohang">
                             <p class="p-tt-giohang tensp-nho">{{ $item['name'] }}</p>
-                            <p class="p-tt-giohang masp">{{ $item['info'] }}</p>
                         </div>
                         <div class="col-3 gia-giohang">
                             <p class="p-sl-giohang">Số lượng: {{ $item['num'] }}</p>
                             <p class="p-gia-giohanh">{{ gennum($item['sum']) }}</p>
                         </div>
-                    </div><hr class="hr">
+                    </div>
                     @endforeach
                     
                     <div class="box-mgg">
