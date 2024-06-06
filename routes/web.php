@@ -22,7 +22,7 @@ Route::post('/rating', [user_controller::class, 'rate'])->name('rate');
 
 Route::middleware([payment::class])->group(function () {
 	Route::post('/payment/checkip', [pay_controller::class, 'vli'])->name('payment.vli');
-	Route::post('/payment/appcp', [pay_controller::class, 'dcp'])->name('payment.dcp');
+	Route::post('/payment/addcp', [pay_controller::class, 'dcp'])->name('payment.dcp');
 	Route::post('/payment/order', [pay_controller::class, 'ord'])->name('payment.ord');
 });
 

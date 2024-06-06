@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
+use App\Models\Voucher;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
@@ -41,10 +43,33 @@ class pay_controller extends Controller
         if ($check->fails()) return response()->json(['status' => false, 'res' => $check->errors()]);
         else return response()->json(['status' => true, 'res' => '']);
     }
+
     function dcp(Request $rq) {
+        $data = $rq->input('coupon');
+        $response['status'] = false;
+        $now = new DateTime;
+
+        $coupon = Voucher::get_cp($data);
+
+        if (!$coupon) $response['res'] = 'Mã không tồn tại!';
+        else {
+            $f_date = new DateTime($coupon->f_date);
+            $t_date = new DateTime($coupon->t_date);
+
+            if ($now < $f_date) $response['res'] = 'Mã không khả dụng vào lúc này!';
+            else if ($now > $t_date) $response['res'] = 'Mã đã hết hạn sử dụng!';
+            else if ($coupon->remaining == 0) $response['res'] = 'Mã đã hết lượt sử dụng!';
+            else {
+                $response['status'] = true;
+                $response['type'] = $coupon->type;
+                $response['disc'] = $coupon->discount;
+            }
+        }
+        return response()->json($response);
         
     }
+
     function ord(Request $rq) {
-        
+
     }
 }
