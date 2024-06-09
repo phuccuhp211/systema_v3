@@ -90,7 +90,7 @@
                         <h4 class="bg-danger text-white p-2 rounded text-center m-0">Không có đơn mua hàng</h4>
                     @else
                         @foreach ($list_ins as $value => $item)
-                            @php $list = json_decode($item['list_pd'],true) @endphp
+                            @php $list = json_decode($item['list'],true) @endphp
                             <table class="mb-5">
                                 <tr>
                                     <th style="width: 15%;">Mã Hóa Đơn</th>
@@ -104,7 +104,13 @@
                                     <td class="text-center">{{ $item['in_num'] }}</td>
                                     <td class="text-center">{{ $item['created'] }}</td>
                                     <td class="text-center">{{ $item['submited'] }}</td>
-                                    <td class="text-center text-danger">{{ $item['price'] }}</td>
+                                    <td class="text-center text-danger">
+                                        @if ($item['offers'] != 0)
+                                        <span style="text-decoration: line-through; margin: 0 15px; color: gray;">{{ gennum($item['price']) }}</span>{{ gennum($item['offers']) }}
+                                        @else
+                                        {{ gennum($item['price']) }}
+                                        @endif
+                                    </td>
                                     <td class="text-center">{{ $item['status'] }}</td>
                                     <td class="text-center">{{ $item['method'] }}</td>
                                 </tr>
@@ -117,20 +123,26 @@
                                     <td>Số Lượng</td>
                                     <td>Thành Tiền</td>
                                 </tr>
-                                @foreach ($list as $value2 => $item2) { ?>
-                                    <tr class="list-sp">
-                                        <td colspan="3">{{ $item2['name'] }}</td>
-                                        <td>
-                                        @if ($item2['sale'] != 0)
-                                            {{ number_format($item2['sale'],0,'','.') }}
-                                        @else
-                                            {{ number_format($item2['price'],0,'','.') }}
-                                        @endif
-                                        </td>
-                                        <td>{{ $item2['quantity'] }}</td>
-                                        <td class="text-danger">{{ number_format($item2['total'],0,'','.') }}</td>
-                                    </tr>
+                                @foreach ($list as $value2 => $item2)
+                                <tr class="list-sp">
+                                    <td colspan="3">{{ $item2['name'] }}</td>
+                                    <td>
+                                    @if ($item2['sale'] != 0)
+                                        {{ gennum($item2['sale']) }}
+                                    @else
+                                        {{ gennum($item2['price']) }}
+                                    @endif
+                                    </td>
+                                    <td>{{ $item2['num'] }}</td>
+                                    <td class="text-danger">{{ gennum($item2['sum']) }}</td>
+                                </tr>
                                 @endforeach
+                                <tr class="list-sp">
+                                    <td colspan="3">Phí vận chuyển</td>
+                                    <td>{{ gennum($item['shipfee']) }}</td>
+                                    <td>X</td>
+                                    <td class="text-danger">{{ gennum($item['shipfee']) }}</td>
+                                </tr>
                             </table>  
                         @endforeach
                     @endif

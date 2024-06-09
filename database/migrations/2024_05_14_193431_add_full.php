@@ -54,10 +54,11 @@ return new class extends Migration
             $table->text('address');
             $table->text('list');
             $table->bigInteger('price');
-            $table->boolean('status')->default(0);
+            $table->string('status',30)->default("Đanh chờ xác nhận");
             $table->date('created')->default(date('Y-m-d'));
             $table->date('submited')->default(date('Y-m-d'));
             $table->string('in_num',40);
+            $table->bigInteger('shipfee');
             $table->string('coupon',30)->nullable();
             $table->bigInteger('offers')->nullable();
             $table->string('method',10);

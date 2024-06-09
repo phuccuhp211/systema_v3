@@ -87,9 +87,9 @@ class pay_controller extends Controller
         $coupon = ($rq->input('magg')) ?? '';
 
         $list = json_encode(session('cart')['list']);
-        $total = ($rq->input('magg')) ? session('cart')['total']+$sfee : session('cart')['total'];
+        $total = ($rq->input('magg')) ? session('cart')['total'] : session('cart')['total']+$sfee;
 
-        Invoice::save_inv($name,$mail,$addr,$number,$notice,$mxn,$date,$list,$total,$pmmt,$ntotal,$coupon);
+        Invoice::save_inv($name,$mail,$addr,$number,$notice,$mxn,$date,$list,$total,$pmmt,$sfee,$ntotal,$coupon);
         Mail::mailer('smtp')->to($mail)->send( new m_invoice($name,$mail,$addr,$number,$notice,$mxn,$date,$pmmt,$sfee,$total,$ntotal,$coupon) );
 
         session()->forget('cart');

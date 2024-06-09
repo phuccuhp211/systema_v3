@@ -11,14 +11,14 @@ class Invoice extends Model
 
     protected $table = 'Invoices';
     protected $primaryKey = 'id';
-    protected $fillable = ['name','number','email','address','list','price','created','submited','in_num','coupon','offers','method'];
+    protected $fillable = ['name','number','email','address','list','price','created','submited','in_num','shipfee','coupon','offers','method'];
     public $timestamps = false;
 
-    public static function get_list($name) {
-        return self::where('name',$name)->orderBy('id','DESC')->get();
+    public static function get_list($number) {
+        return self::where('number',$number)->orderBy('id','DESC')->get();
     }
 
-    public static function save_inv($name,$mail,$addr,$number,$notice,$mxn,$date,$list,$total,$pmmt,$ntotal=null,$coupon=null) {
+    public static function save_inv($name,$mail,$addr,$number,$notice,$mxn,$date,$list,$total,$pmmt,$sfee,$ntotal=null,$coupon=null) {
         $create = [
             'name' => $name,
             'number' => $number,
@@ -28,6 +28,7 @@ class Invoice extends Model
             'price' => $total,
             'created' => $date,
             'in_num' => $mxn,
+            'shipfee' => $sfee,
             'method' => $pmmt
         ];
 

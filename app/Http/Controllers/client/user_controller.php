@@ -212,7 +212,7 @@ class user_controller extends Controller {
 
     function config() {
         if (isset($this->datarp['header']['user'])) {
-            $this->datarp['list_ins'] = Invoice::get_list($this->datarp['header']['user']['account']);
+            $this->datarp['list_ins'] = Invoice::get_list($this->datarp['header']['user']['number']);
             return view('client.config', $this->datarp);
         }
         else {
