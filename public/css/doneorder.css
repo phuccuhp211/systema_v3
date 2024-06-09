@@ -1,31 +1,34 @@
 .hoantat .row {
     align-items: center;
-    height: 500px;
+    height: 600px;
 }
 
-.hoantat .col-4 {
+.hoantat .col-6 {
     border: 2px solid #745caf;
     padding: 15px;
     border-radius: 15px;
-    text-align: center;
 }
 
 .hoantat h3 {
     color: #745caf;
     margin: 0 0 30px;
 }
+.hoantat h6 {
+    margin: 0 0 15px;
+}
 
-.hoantat button {
+.hoantat a {
     width: 100%;
     border: none;
     background: #745caf;
     color: white;
-    margin: 30px 0 0;
     border-radius: 10px;
     padding: 5px 0;
+    display: block;
+    text-decoration: none;
 }
 
-.hoantat button:hover {
+.hoantat a:hover {
     background: #513a88;
     color: white;
 }

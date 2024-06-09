@@ -117,11 +117,13 @@ $(function() {
 				let time = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
 
 				let data_trave = {
+					pmmt: $('input[name="bankCode"]:checked').val(),
 					name: check_vl.res.name,
-					email: check_vl.res.email,
+					mail: check_vl.res.email,
+					addr: check_vl.res.address,
 					number: check_vl.res.number,
-					address: check_vl.res.address,
 					notice: check_vl.res.notice,
+					ship: ship_price,
 			        mxn: mxn,
 			        date:time,
 			        randomParam: randomParam
@@ -132,56 +134,22 @@ $(function() {
 					data_trave.magg = $('#magiamgia').val();
 				}
 
-				console.log(data_trave);
+				$('.thongbao-thanhtoan').removeClass('hide-tbtt');
 
-				// $('.thongbao-thanhtoan').removeClass('hide-tbtt');
+				let duongdan_fix = duongdan+url_sub+"/payment/order";
 
-				// if ($('input[name="bankCode"]:checked').val() != "COD") {
-				// 	var duongdan_fix1 = duongdan+url_sub+"/payment/vnpay/s1/";
-				// 	data_trave.pmmt = $('input[name="bankCode"]:checked').val();
-				// 	$.ajax({
-				// 		type: "POST",
-				// 		method: "POST",
-				// 		url: duongdan_fix1,
-				// 		data: data_trave,
-				// 		success: function(response) {
-							
-				// 		},
-				// 		error: function() {
-				// 			console.log("Có lỗi xảy ra.");
-				// 		}
-				// 	});
-				// 	$('#frmCreateOrder').submit();
-				// }
-				// else {
-				// 	var duongdan_fix1 = duongdan+url_sub+"/sendmail/";
-				// 	var duongdan_fix2 = duongdan+url_sub+"/hoadon/";
-				// 	var duongdan_fix3 = duongdan+url_sub+"/hoantat/";
-
-				// 	$.ajax({
-				// 		type: "POST",
-				// 		method: "POST",
-				// 		url: duongdan_fix1,
-				// 		data: data_trave,
-				// 		success: function(response) {
-				// 			$.ajax({
-				// 				type: "POST",
-				// 				method: "POST",
-				// 				url: duongdan_fix2,
-				// 				data: data_trave,
-				// 				success: function(response) {
-				// 					window.location.href = duongdan_fix3;
-				// 				},
-				// 				error: function() {
-				// 					console.log("Có lỗi xảy ra.");
-				// 				}
-				// 			});
-				// 		},
-				// 		error: function() {
-				// 			console.log("Có lỗi xảy ra.");
-				// 		}
-				// 	});
-				// }
+				$.ajax({
+					type: "POST",
+					method: "POST",
+					url: duongdan_fix,
+					data: data_trave,
+					success: function(data) {
+						location.href = data;
+					},
+					error: function() {
+						console.log("Có lỗi xảy ra.");
+					}
+				});
 			}
 			else console.log('thieu thong tin kia thang ngu');
 		})
@@ -208,6 +176,8 @@ $(function() {
 				}
 				else {
 					discount = data.disc;
+					ship_price = 0;
+					$('#phiship').text(getnumber(ship_price))
 					let msgmgg = '';
 					if (data.type == 'number') {
 						price_discount = discount;

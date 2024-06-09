@@ -17,13 +17,14 @@ Route::get('/cart', [user_controller::class, 'cart'])->name('cart');
 Route::get('/detail/{data}', [user_controller::class, 'detail'])->name('detail');
 Route::get('/config', [user_controller::class, 'config'])->name('config');
 Route::get('/pay', [user_controller::class, 'pay'])->name('pay');
+Route::get('/complete_order', [user_controller::class, 'dord'])->name('dord');
 Route::post('/comment', [user_controller::class, 'comment'])->name('cmt');
 Route::post('/rating', [user_controller::class, 'rate'])->name('rate');
 
 Route::middleware([payment::class])->group(function () {
-	Route::post('/payment/checkip', [pay_controller::class, 'vli'])->name('payment.vli');
-	Route::post('/payment/addcp', [pay_controller::class, 'dcp'])->name('payment.dcp');
-	Route::post('/payment/order', [pay_controller::class, 'ord'])->name('payment.ord');
+	Route::post('/payment/checkip', [pay_controller::class, 'validation'])->name('payment.vli');
+	Route::post('/payment/addcp', [pay_controller::class, 'applycoupon'])->name('payment.dcp');
+	Route::post('/payment/order', [pay_controller::class, 'order'])->name('payment.ord');
 });
 
 Route::middleware([cart::class])->group(function () {

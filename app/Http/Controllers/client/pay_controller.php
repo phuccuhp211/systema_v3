@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Voucher;
+use App\Models\Invoice;
+use App\Mail\invoice as m_invoice;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
+use Illuminate\Support\Facades\Mail;
 
 class pay_controller extends Controller
 {
-    function vli(Request $rq) {
+    function validation(Request $rq) {
         $dtip = [
             'name' => $rq->input('name'),
             'email' => $rq->input('email'),
@@ -44,7 +47,7 @@ class pay_controller extends Controller
         else return response()->json(['status' => true, 'res' => '']);
     }
 
-    function dcp(Request $rq) {
+    function applycoupon(Request $rq) {
         $data = $rq->input('coupon');
         $response['status'] = false;
         $now = new DateTime;
@@ -59,6 +62,7 @@ class pay_controller extends Controller
             if ($now < $f_date) $response['res'] = 'Mã không khả dụng vào lúc này!';
             else if ($now > $t_date) $response['res'] = 'Mã đã hết hạn sử dụng!';
             else if ($coupon->remaining == 0) $response['res'] = 'Mã đã hết lượt sử dụng!';
+            else if (!session()->has('user_log')) $response['res'] = 'Vui lòng đăng nhập hoặc đăng ký để sử dụng khuyến mãi!';
             else {
                 $response['status'] = true;
                 $response['type'] = $coupon->type;
@@ -66,10 +70,29 @@ class pay_controller extends Controller
             }
         }
         return response()->json($response);
-        
     }
 
-    function ord(Request $rq) {
+    function order(Request $rq) {
+        $name = $rq->input('name');
+        $mail = $rq->input('mail');
+        $addr = $rq->input('addr');
+        $number = $rq->input('number');
+        $notice = $rq->input('notice');
+        $mxn = $rq->input('mxn');
+        $date = $rq->input('date');
+        $pmmt = $rq->input('pmmt');
+        $sfee = $rq->input('ship');
 
+        $ntotal = ($rq->input('newtt')) ?? 0;
+        $coupon = ($rq->input('magg')) ?? '';
+
+        $list = json_encode(session('cart')['list']);
+        $total = ($rq->input('magg')) ? session('cart')['total']+$sfee : session('cart')['total'];
+
+        Invoice::save_inv($name,$mail,$addr,$number,$notice,$mxn,$date,$list,$total,$pmmt,$ntotal,$coupon);
+        Mail::mailer('smtp')->to($mail)->send( new m_invoice($name,$mail,$addr,$number,$notice,$mxn,$date,$pmmt,$sfee,$total,$ntotal,$coupon) );
+
+        session()->forget('cart');
+        return route('dord');
     }
 }

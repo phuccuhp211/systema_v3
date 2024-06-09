@@ -53,13 +53,14 @@ return new class extends Migration
             $table->string('email',50);
             $table->text('address');
             $table->text('list');
-            $table->integer('price');
+            $table->bigInteger('price');
             $table->boolean('status')->default(0);
             $table->date('created')->default(date('Y-m-d'));
             $table->date('submited')->default(date('Y-m-d'));
-            $table->integer('in_num');
-            $table->string('coupon',30);
-            $table->string('method',30);
+            $table->string('in_num',40);
+            $table->string('coupon',30)->nullable();
+            $table->bigInteger('offers')->nullable();
+            $table->string('method',10);
         });
         Schema::create('products', function (Blueprint $table) {
             $table->id();

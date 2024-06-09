@@ -244,4 +244,8 @@ class user_controller extends Controller {
 
         Turn_rating::rate($id,$us,$rt);
     }
+
+    function dord() {
+        return view('client.complete_order', $this->datarp);
+    }
 }

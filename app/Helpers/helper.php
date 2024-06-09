@@ -3,8 +3,9 @@
         $chuoisp = "";
         $colums = ($col) ? $col : "col-3";
         foreach ($mangsp as $value => $item) {
-            if ($item['sale'] != 0) $sale ="<span>".gennum($item['price'])."</span>".gennum($item['sale']);
-            else { $sale = gennum($item['price']);}
+            $pfn = caldate($item['f_date'],$item['t_date'],$item['price'],$item['sale']);
+            if ($pfn['is_sale']) $price = "<span>".gennum($pfn['old'])."</span>".gennum($pfn['pfn']);
+            else { $price = gennum($pfn['pfn']);}
             $chuoisp.= "
             <div class=\"$colums text-center $advl\">
                 <div class=\"khungsp\">
@@ -14,7 +15,7 @@
                         </a>                               
                     </div>                                
                     <p class=\"tt tensp\">".$item['name']."</p>
-                    <p class=\"tt giasp\">".$sale."</p>
+                    <p class=\"tt giasp\">".$price."</p>
                     <div class=\"nut_sp\">
                         <a href=\"".genurl($item['id'],'cart/buy')."\" class=\"btn nutsp\">Mua Ngay</a>
                         <button class=\"btn nutsp addcart\" data-idsp=\"".$item['id']."\"><i class=\"fa-solid fa-cart-plus\"></i></button>
@@ -28,8 +29,9 @@
         $chuoisp = "";
         $colums = ($col) ? $col : "col-3";
         foreach ($mangsp as $value => $item) {
-            if ($item['sale'] != 0) $sale ="<span>".gennum($item['price'])."</span>".gennum($item['sale']);
-            else { $sale = gennum($item['price']);}
+            $pfn = caldate($item['f_date'],$item['t_date'],$item['price'],$item['sale']);
+            if ($pfn['is_sale']) $price = "<span>".gennum($pfn['old'])."</span>".gennum($pfn['pfn']);
+            else { $price = gennum($pfn['pfn']);}
             $chuoisp.= "
             <div class=\"$colums text-center $advl\">
                 <div class=\"khungsp2\">
@@ -43,7 +45,7 @@
                         </p>                               
                     </div>                                
                     <p class=\"tt tensp\">".$item['name']."</p>
-                    <p class=\"tt giasp\">".$sale."</p>
+                    <p class=\"tt giasp\">".$price."</p>
                     <div class=\"nut_sp\">
                         <a href=\"".genurl($item['id'],'cart/buy')."\" class=\"btn nutsp\">Mua Ngay</a>
                         <button class=\"btn nutsp addcart\" data-idsp=\"".$item['id']."\"><i class=\"fa-solid fa-cart-plus\"></i></button>
@@ -58,6 +60,22 @@
     }
     function genurl($url,$type='data') {
         return asset("$type/$url");
+    }
+    function caldate($from,$to,$price,$sale=0) {
+        $result['is_sale'] = false;
+        if ($sale == 0) $result['pfn'] = $price;
+        else {
+            $now = new DateTime();
+            $fd = new DateTime($from);
+            $td = new DateTime($to);
+            if ($fd > $now || $td < $now) $result['pfn'] = $price;
+            else {
+                $result['is_sale'] = true;
+                $result['pfn'] = $sale;
+                $result['old'] = $price;
+            }
+        } 
+        return $result;
     }
 
     function dumpdt($data) {
