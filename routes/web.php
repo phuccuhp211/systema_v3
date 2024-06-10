@@ -18,6 +18,8 @@ Route::get('/detail/{data}', [user_controller::class, 'detail'])->name('detail')
 Route::get('/config', [user_controller::class, 'config'])->name('config');
 Route::get('/pay', [user_controller::class, 'pay'])->name('pay');
 Route::get('/complete_order', [user_controller::class, 'dord'])->name('dord');
+Route::get('/reset_password', [user_controller::class, 'rspw'])->name('rspw');
+Route::match(['get','post'] ,'/invoice_check', [user_controller::class, 'inv_check'])->name('invoice');
 Route::post('/comment', [user_controller::class, 'comment'])->name('cmt');
 Route::post('/rating', [user_controller::class, 'rate'])->name('rate');
 

@@ -59,7 +59,7 @@
                             <a class="menu-chinh-li" href="{{ url('/vanchuyen/') }}">Vận Chuyển</a>
                             <a class="menu-chinh-li" href="{{ url('/lienhe/') }}">Liên Hệ</a>
                             <a class="menu-chinh-li" href="{{ url('/hotro/') }}">Hỗ Trợ</a>
-                            <a class="menu-chinh-li" href="{{ url('/ktbh/') }}">Tra Cứu Hóa Đơn</a>
+                            <a class="menu-chinh-li" href="{{ url('/invoice_check') }}">Tra Cứu Hóa Đơn</a>
                         </div>
                     </div>
                 </div>

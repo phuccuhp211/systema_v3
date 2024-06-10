@@ -18,6 +18,10 @@ class Invoice extends Model
         return self::where('number',$number)->orderBy('id','DESC')->get();
     }
 
+    public static function get_inv($number) {
+        return self::where('in_num',$number)->first();
+    }
+
     public static function save_inv($name,$mail,$addr,$number,$notice,$mxn,$date,$list,$total,$pmmt,$sfee,$ntotal=null,$coupon=null) {
         $create = [
             'name' => $name,

@@ -54,6 +54,10 @@ class User extends Authenticatable
         self::destroy($id);
     }
 
+    public static function newpw($mail,$pass) {
+        self::where('email',$mail)->update(['pass' => $pass]);
+    }
+
     public static function upcart($name) {
         self::where('account',$name)->update(['cart' => json_encode(session('cart'))]);
     }

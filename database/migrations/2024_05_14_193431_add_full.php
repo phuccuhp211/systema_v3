@@ -56,7 +56,7 @@ return new class extends Migration
             $table->bigInteger('price');
             $table->string('status',30)->default("Đanh chờ xác nhận");
             $table->date('created')->default(date('Y-m-d'));
-            $table->date('submited')->default(date('Y-m-d'));
+            $table->date('submited')->nullable();
             $table->string('in_num',40);
             $table->bigInteger('shipfee');
             $table->string('coupon',30)->nullable();

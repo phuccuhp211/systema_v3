@@ -13,7 +13,7 @@
                         <label>Mật Khẩu :</label>
                         <input type="password" name="pass">
                     </div>
-                    <div class="field-add"><a href="{{ url('/fgpass') }}" class="a-quenmk">Quên mật khẩu ?</a></div>
+                    <div class="field-add"><a href="{{ route('rspw') }}" class="a-quenmk">Quên mật khẩu ?</a></div>
                     <div class="field-add">
                         <button class="btn btn-success" type="submit">Đăng Nhập</button>
                     </div>

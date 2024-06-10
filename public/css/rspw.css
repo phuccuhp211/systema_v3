@@ -3,7 +3,7 @@
     border-radius: 15px;
     padding: 20px;
     color: white;
-    margin: 100px 0;
+    margin: 140px 0;
 }
 
 .f1 h3 {
@@ -48,7 +48,7 @@
     font-size: 16px;
 }
 
-.thongbao-thanhtoan {
+.thongbao {
     position: fixed;
     background: #80808082;
     width: 100%;

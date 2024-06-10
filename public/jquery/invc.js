@@ -11,14 +11,15 @@ $(function() {
 			}
 		}
 		else {
-			var duongdan_fix = duongdan+url_sub+"/ktbh/";
+			var duongdan_fix = duongdan+url_sub+"/invoice_check";
 			$.ajax({
 		        type: "POST",
 		        url: duongdan_fix,
-		        //dataType: 'json',
-		        data: {mahd: mahd},
+		        dataType: 'JSON',
+		        data: {in_num: mahd},
 		        success: function(data) {
-		        	if (data === "false") {
+		        	console.log(data);
+		        	if (!data.status) {
 		        		error = `<h3 class="popup popup-do" id="log-bh">Mã hóa đơn không tồn tại</h3>`;
 						if ($('.popup-do').length == 0) $('.baohanh').prepend(error);
 						else {
@@ -26,7 +27,7 @@ $(function() {
 							$('.baohanh').prepend(error);
 						}
 		        	}
-		        	else $('#baohanh').html(data);
+		        	else $('#baohanh').html(data.res);
 		        },
 		        error: function() {
 		            console.log("Có lỗi xảy ra.");

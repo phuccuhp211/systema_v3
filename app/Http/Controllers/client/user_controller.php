@@ -22,6 +22,7 @@ use App\Models\User;
 use App\Models\Voucher;
 
 use DateTime;
+use DateInterval;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
@@ -149,6 +150,7 @@ class user_controller extends Controller {
     }
 
     function detail($data) {
+        Access::uphomef();
         $this->datarp['dtpd'] = Product::get_dt($data);
         $this->datarp['dtpd']->brand = Brand::get_br($this->datarp['dtpd']->id_brand);
         $this->datarp['lcmt'] = Comment::get_ct($data);
@@ -211,6 +213,7 @@ class user_controller extends Controller {
     }
 
     function config() {
+        Access::uphomef();
         if (isset($this->datarp['header']['user'])) {
             $this->datarp['list_ins'] = Invoice::get_list($this->datarp['header']['user']['number']);
             return view('client.config', $this->datarp);
@@ -221,10 +224,12 @@ class user_controller extends Controller {
     }
 
     function cart() {
+        Access::uphomef();
         return view('client.cart', $this->datarp);
     }
 
     function pay() {
+        Access::uphomef();
         if (!session()->has('cart') || session('cart')['list'] == null) return redirect()->route('home');
         else return view('client.pay', $this->datarp);
     }
@@ -246,6 +251,148 @@ class user_controller extends Controller {
     }
 
     function dord() {
+        Access::uphomef();
         return view('client.complete_order', $this->datarp);
+    }
+
+    function inv_check(Request $rq) {
+        Access::uphomef();
+        if ($rq->input('in_num')) {
+            $invoice = Invoice::get_inv($rq->input('in_num'));
+            $data['status'] = false;
+
+            if(!$invoice) $data['res'] = 'Mã hóa đơn không đúng!';
+            else {
+                $created = new DateTime($invoice->created);
+
+                if ($invoice->submited != null) {
+                    $submited = new DateTime($invoice->submited);
+                    $warranty = clone $submited;
+                    $warranty->add(new DateInterval('P3Y'));
+
+                    $content_w = "
+                        <h5>Đơn hàng được bảo hành từ : 
+                            <strong style=\"color:red;\">".$submited->format('d/m/Y')."</strong> đến 
+                            <strong style=\"color:red;\">".$warranty->format('d/m/Y')."</strong>
+                        </h5>";
+
+                    $submited = $submited->format('d/m/Y');
+                }
+                else {
+                    $submited = "Đang chờ xác nhận";
+                    $content_w = "<h5>Đơn hàng đang chờ được xác nhận bởi quản trị viên</h5>";
+                }
+
+                $html = "";
+                $list = json_decode($invoice->list,true);
+
+                foreach ($list as $value => $item) {
+                    $html .= "
+                        <tr> 
+                            <td style=\"font-size: 16px; padding: 5px 0;text-align: center;\">".($value+1)."</td>
+                            <td style=\"font-size: 16px; padding: 5px 0 5px 10px;\">".$item['name']."</td>
+                            <td style=\"font-size: 16px; padding: 5px 0;text-align: center;\">".$item['num']."</td>
+                            <td style=\"font-size: 16px; padding: 5px; text-align: right;\">".gennum( $item['pfn'] )."</td>
+                            <td style=\"font-size: 16px; padding: 5px; text-align: right;\">".gennum( $item['sum'] )."</td>
+                        </tr>
+                    ";
+                }
+
+                if ($invoice->offers != null) {
+                    $final = "
+                        <tr>
+                            <td colspan=\"3\" class=\"tc-dssp\"><strong>Tạm Tính :</strong></td>
+                            <td colspan=\"2\" class=\"tc-dssp\"><strong>".gennum( $invoice->price )."</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan=\"3\" class=\"tc-dssp\"><strong>Giá Giảm :</strong></td>
+                            <td colspan=\"2\" class=\"tc-dssp\"><strong>".gennum( $invoice->price-$invoice->offers )."</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan=\"3\" class=\"tc-dssp\"><strong>Tổng Cộng :</strong></td>
+                            <td colspan=\"2\" class=\"tc-dssp\"><strong>".gennum( $invoice->offers )."</strong></td>
+                        </tr>
+                    ";
+                }
+                else {
+                    $final = "
+                        <tr>
+                            <td colspan=\"3\" class=\"tc-dssp\"><strong>Tổng Cộng :</strong></td>
+                            <td colspan=\"2\" class=\"tc-dssp\"><strong>".gennum( $invoice->price )."</strong></td>
+                        </tr>
+                    ";
+                }
+
+                $data['res'] = "
+                    <div class=\"col-8 offset-2 cthd\">
+                        <h2>Thông Tin Hóa Đơn</h2>
+                        <div class=\"tt-ngmua\">
+                            <table style=\"margin: 0 0 20px; font-size: 18px;\">
+                                <tr>
+                                    <td style=\"padding: 5px 0;width: 50%; border-bottom: 1px solid gray\" colspan=\"2\">
+                                        Mã Hóa Đơn : <strong style=\"color: #6246a8;\">".$invoice->in_num."</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style=\"padding: 5px 0;width:50%;\">Ngày Tạo Đơn : 
+                                        <strong style=\"color: #6246a8;\">".$created->format('d/m/Y')."</strong>
+                                    </td>
+                                    <td style=\"padding: 5px 0;\">Ngày Xác Nhận Đơn : 
+                                        <strong style=\"color: #6246a8;\">$submited</strong>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table class=\"tt-user\">
+                                <tr>
+                                    <td class=\"ttct-user\">Tên Người mua :</td>
+                                    <td><strong>".$invoice->name."</strong></td>
+                                </tr>
+                                <tr>
+                                    <td class=\"ttct-user\">Số Điện Thoại :</td>
+                                    <td><strong>".$invoice->number."</strong></td>
+                                </tr>
+                                <tr>
+                                    <td class=\"ttct-user\">Email : </td>
+                                    <td><strong>".$invoice->email."</strong></td>
+                                </tr>
+                                <tr>
+                                    <td class=\"ttct-user\">Địa Chỉ :</td>
+                                    <td><strong>".$invoice->address."</strong></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <table class=\"dssp\">
+                            <tr>
+                                <th style=\"width: 8%;\">STT</th>
+                                <th style=\"width: 50%;\">Tên Hàng Hóa, Dịch Vụ</th>
+                                <th style=\"width: 8%;\">SL</th>
+                                <th style=\"width: 17%;\">Đơn Giá</th>
+                                <th style=\"width: 17%;\">Thành Tiền</th>
+                            </tr>
+                            $html
+                            <tr>
+                                <td style=\"font-size: 16px; padding: 5px 0;text-align: center;\">X</td>
+                                <td style=\"font-size: 16px; padding: 5px 0 5px 10px\">Phí vận chuyển</td>
+                                <td style=\"font-size: 16px; padding: 5px 0;text-align: center;\">X</td>
+                                <td style=\"font-size: 16px; padding: 5px; text-align:right;\">".$invoice->shipfee."</td>
+                                <td style=\"font-size: 16px; padding: 5px; text-align:right;\">".$invoice->shipfee."</td>
+                            </tr>
+                            $final
+                        </table>
+                        $content_w
+                        <h6>Lưu ý : Bảo hành áp dụng cho toàn bộ sản phẩm có trong đơn hàng, khi đi bảo hành, quý khách vui lòng mang theo hộp (hoặc bao bì) của sản phẩm và kèm theo hóa đơn.</h6>
+                    </div>
+                ";
+
+                $data['status'] = true;
+            }
+            return response()->json($data);
+        }
+        return view('client.invoice_check', $this->datarp);
+    }
+
+    function rspw() {
+        Access::uphomef();
+        return view('client.reset_pw', $this->datarp);
     }
 }

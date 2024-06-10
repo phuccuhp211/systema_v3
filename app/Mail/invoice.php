@@ -30,7 +30,7 @@ class invoice extends Mailable
     }
 
     public function envelope(): Envelope {
-        return new Envelope( subject: 'Invoice', );
+        return new Envelope( subject: 'E-Invoice', );
     }
 
     public function content(): Content {
