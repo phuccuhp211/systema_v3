@@ -3,6 +3,8 @@
 @section('title', 'Tra Cứu Hóa Đơn')
 
 @section('ownlib')
+    <link rel="stylesheet" href="{{ asset('css/main.css')}}">
+    <script type="text/javascript" src="{{ asset('jquery/main.js')}}"></script>
     <link rel="stylesheet" href="{{ asset('css/invc.css') }}">
     <script type="text/javascript" src="{{ asset('jquery/invc.js') }}"></script>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
@@ -95,5 +96,15 @@ class Product extends Model
         else if ($type == 'search') $query->where([['name','like',"%$data%"],['hidden',0]]);
         else $query->get();
         return ceil($query->count() / 16);
+    }
+
+    public static function grap() {
+    $result = DB::table('catalog_1 as dm')
+            ->leftJoin('products as pd', 'dm.id', '=', 'pd.id_cata_1')
+            ->select('dm.name', DB::raw('COUNT(pd.id) as num'))
+            ->groupBy('dm.name')
+            ->get();
+
+    return $result;
     }
 }

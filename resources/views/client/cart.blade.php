@@ -3,6 +3,8 @@
 @section('title', 'Giỏ Hàng')
 
 @section('ownlib')
+    <link rel="stylesheet" href="{{ asset('css/main.css')}}">
+    <script type="text/javascript" src="{{ asset('jquery/main.js')}}"></script>
     <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
     <script type="text/javascript" src="{{ asset('jquery/cart.js') }}"></script>
 @endsection

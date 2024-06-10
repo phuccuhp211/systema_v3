@@ -3,6 +3,8 @@
 @section('title', 'Hoàn Tất Thanh Toán')
 
 @section('ownlib')
+    <link rel="stylesheet" href="{{ asset('css/main.css')}}">
+    <script type="text/javascript" src="{{ asset('jquery/main.js')}}"></script>
     <link rel="stylesheet" href="{{ asset('css/doneorder.css') }}">
     <script type="text/javascript" src="{{ asset('jquery/doneorder.js') }}"></script>
 @endsection

@@ -145,51 +145,93 @@ class sisu_controller extends Controller {
             else return redirect()->route('home');
         }
         else if ($type == 'fgpass') {
-            $data['status'] = false;
-            $account = $rq->input('name');
-            if ($account == '' || $account == null) $data['res'] = "Vui lòng nhập tên tài khoản";
-            else {
-                $find = User::get_us($account);
-                if(!$find) $data['res'] = "Tên tài khoản không đúng";
+            if ($rq->ajax()) {
+                $data['status'] = false;
+                $account = $rq->input('name');
+                if ($account == '' || $account == null) $data['res'] = "Vui lòng nhập tên tài khoản";
                 else {
-                    $data['status'] = true;
-                    $code = mt_rand(100000,999999);
-                    $data['res'] = "Đã gửi Mail, vui lòng kiểm tra";
-                    session(['is_mail' => ['mail' => $find->email ,'code' => $code, 'timestamp' => time() ] ]);
-                    Mail::mailer('smtp')->to($find->email)->send( new resetpw($find->id,$account,$code));
+                    $find = User::get_us($account);
+                    if(!$find) $data['res'] = "Tên tài khoản không đúng";
+                    else {
+                        $data['status'] = true;
+                        $code = mt_rand(100000,999999);
+                        $data['res'] = "Đã gửi Mail, vui lòng kiểm tra";
+                        session(['is_mail' => ['mail' => $find->email ,'code' => $code, 'timestamp' => time() ] ]);
+                        Mail::mailer('smtp')->to($find->email)->send( new resetpw($find->id,$account,$code));
+                    }
                 }
+                return response()->json($data);
             }
-            return response()->json($data);
+            else return redirect()->route('home');
         }
         else if ($type == 'checkc') {
-            $data['status'] = false;
-            $code = $rq->input('code');
-            if (!session('is_mail')) $data['res'] = "Mã hết đã hết hạn";
-            else {
-                if ($code == '' || $code == null) $data['res'] = "Vui lòng nhập mã";
-                else if (session('is_mail')['code'] != $code) $data['res'] = "Mã không đúng";
+            if ($rq->ajax()) {
+                $data['status'] = false;
+                $code = $rq->input('code');
+                if (!session('is_mail')) $data['res'] = "Mã hết đã hết hạn";
                 else {
-                    $data['status'] = true;
-                    $data['res'] = "Tiến hành nhập mật khẩu mới";
+                    if ($code == '' || $code == null) $data['res'] = "Vui lòng nhập mã";
+                    else if (session('is_mail')['code'] != $code) $data['res'] = "Mã không đúng";
+                    else {
+                        $data['status'] = true;
+                        $data['res'] = "Tiến hành nhập mật khẩu mới";
+                    }
                 }
+                return response()->json($data);
             }
-            return response()->json($data);
+            else return redirect()->route('home');    
         }
         else if ($type == 'newpw') {
-            $data['status'] = false;
-            $pass1 = $rq->input('pass1');
-            $pass2 = $rq->input('pass2');
-            
-            if ($pass1 == '' || $pass2 == '') $data['res'] = 'Vui lòng nhập mật khẩu';
-            else if ($pass1 != $pass2) $data['res'] = 'Mật khẩu không khớp';
-            else if (strlen($pass1) < 7) $data['res'] = 'Mật khẩu tối thiểu 8 kí tự';
-            else {
-                $data['status'] = true;
-                $data['res'] = "Đổi mật khẩu thành công <br> bạn sẽ chuyển về trang chủ sau 3 giây";
-                User::newpw(session('is_mail')['mail'],Hash::make($pass2));
+            if ($rq->ajax()) {
+                $data['status'] = false;
+                $pass1 = $rq->input('pass1');
+                $pass2 = $rq->input('pass2');
+                
+                if ($pass1 == '' || $pass2 == '') $data['res'] = 'Vui lòng nhập mật khẩu';
+                else if ($pass1 != $pass2) $data['res'] = 'Mật khẩu không khớp';
+                else if (strlen($pass1) < 7) $data['res'] = 'Mật khẩu tối thiểu 8 kí tự';
+                else {
+                    $data['status'] = true;
+                    $data['res'] = "Đổi mật khẩu thành công <br> bạn sẽ chuyển về trang chủ sau 3 giây";
+                    User::newpw(session('is_mail')['mail'],Hash::make($pass2));
+                }
+                return response()->json($data);
             }
+            else return redirect()->route('home');    
+        }
+    }
 
-            return response()->json($data);
+    function admin_lls(Request $rq, $type) {
+        if ($type == 'login') {
+            if ($rq->ajax()) {
+                $user = $rq->input('user');
+                $pass = $rq->input('pass');
+                $data['status'] = false;
+
+                if ($user == '') $data['res'] = 'Vui lòng nhập tên tài khoản!';
+                else if ($pass == '') $data['res'] = 'Vui lòng nhập mật khẩu!';
+                else {
+                    $find = User::get_ad($user);
+                    if ($find) {
+                        if ($find['lock'] == 1) $data['res'] = 'Tài khoản bị khóa!';
+                        else {
+                            if (Hash::check($pass, $find['pass'])) {
+                                $data['status'] = true;
+                                $data['res'] = route('manager');
+                                session(['admin_log' => $user]);
+                            }
+                            else $data['res'] = 'Mật khẩu không đúng!';
+                        }
+                    }
+                    else $data['res'] = 'Tài khoản không tồn tại!';
+                }
+                return response()->json($data);
+            }
+            else return redirect()->route('alog');   
+        }
+        else if ($type == 'logout') {
+            if (session()->has('admin_log')) session()->forget('admin_log');
+            return redirect()->route('alog');
         }
     }
 }

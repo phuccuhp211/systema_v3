@@ -1,10 +1,15 @@
 $(function() {
+	const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+	$.ajaxSetup({
+	    headers: {
+	        'X-CSRF-TOKEN': csrfToken
+	    }
+	});
+
 	var ccmh = $(window).height();
 	var cdmh = $(window).width();
-	//var duongdan = window.location.href;
 	var duongdan = window.location.origin;
 	var url_sub = ""; 
-	//var duongdan_fix = duongdan.replace(/(\/systema\/).*/, "$1"+"ktbh/");
 
 	tinymce.init({
         selector: '#ttct-sp',
@@ -18,7 +23,6 @@ $(function() {
 		ccmh = $(window).height();
 		cdmh = $(window).width();
 	})
-	console.log(ccmh , cdmh);
 
 	$('.bg-admin-log').height(ccmh);
 
@@ -399,4 +403,23 @@ $(function() {
 		var data = [{labels:xArray, values:yArray, type:"pie"}];
 		Plotly.newPlot("bieudo", data, layout);
 	}	
+
+	$(document).on('submit', '.log-f', function(event) {
+		event.preventDefault();
+		let form = $(this);
+		let user = form.find('input[name="user"]').val();
+		let pass = form.find('input[name="pass"]').val();
+		let duongdan_fix = form.attr('action');
+
+		$.ajax({
+			url: duongdan_fix,
+			type: 'POST',
+			dataType: 'JSON',
+			data: { user: user, pass: pass },
+			success: function (data) {
+				if (data.status) setTimeout(() => { location.href = data.res }, 1000);
+				else $('.errlog').text(data.res);
+			}
+		});
+	})
 })

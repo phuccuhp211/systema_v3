@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Invoice extends Model
 {
@@ -40,5 +41,29 @@ class Invoice extends Model
         if ($coupon != null) $create['coupon'] = $coupon;
 
         self::create($create);
+    }
+
+    public static function ttrev() {
+        $result = self::
+                select(
+                    DB::raw('SUM(CASE WHEN offers != 0 THEN offers ELSE price END) as expect'),
+                    DB::raw('SUM(CASE WHEN status = "Hoàn Thành" THEN (CASE WHEN offers != 0 THEN offers ELSE price END) ELSE 0 END) as revenue')
+                )
+                ->first();
+
+        return [
+            'expect' => $result->expect,
+            'total' => $result->revenue,
+        ];
+    }
+
+    public static function ttord() {
+        $sum = self::count();
+        $done = self::where('status', 'Hoàn Thành')->count();
+
+        return [
+            'sum' => $sum,
+            'done' => $done,
+        ];
     }
 }

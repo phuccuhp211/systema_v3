@@ -21,4 +21,8 @@ class Access extends Model {
         if (!$check_data) $check_data = self::create(['homet' => 0, 'homef' => 1, 'sum' => 0]);
         else $check_data->increment('homef');
     }
+
+    public static function count() {
+        return self::first();
+    }
 }

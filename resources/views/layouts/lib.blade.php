@@ -12,9 +12,7 @@
 	<link href="{{ asset('lib/css/solid.css')}}" rel="stylesheet">
 
 	<link rel="stylesheet" href="{{ asset('lib/css/bootstrap.css')}}">
-	<link rel="stylesheet" href="{{ asset('css/main.css')}}">
 	<script type="text/javascript" src="{{ asset('lib/js/all.js')}}"></script>
-	<script type="text/javascript" src="{{ asset('jquery/main.js')}}"></script>
 
 	
 

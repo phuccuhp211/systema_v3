@@ -3,6 +3,8 @@
 @section('title', $title)
 
 @section('ownlib')
+    <link rel="stylesheet" href="{{ asset('css/main.css')}}">
+    <script type="text/javascript" src="{{ asset('jquery/main.js')}}"></script>
     <link rel="stylesheet" href="{{ asset('css/products.css') }}">
     <script type="text/javascript" src="{{ asset('jquery/products.js') }}"></script>
 @endsection

@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -17,7 +18,11 @@ class User extends Authenticatable
     public $timestamps = true;
 
     public static function get_us($name) {
-        return self::where('account', $name)->first();
+        return self::where([['account', $name],['role', 0]])->first();
+    }
+
+    public static function get_ad($name) {
+        return self::where([['account', $name],['role', 1]])->first();
     }
 
     public static function add($user,$pass,$lname,$fname,$email,$addr,$phone,$role=0,$lock=0) {
@@ -60,5 +65,19 @@ class User extends Authenticatable
 
     public static function upcart($name) {
         self::where('account',$name)->update(['cart' => json_encode(session('cart'))]);
+    }
+
+    public static function count() {
+        $sut = self::where('role', 0)->count();
+        $suf = DB::table('invoices')->select('number')
+                ->whereNotIn('number', function($query) {$query->select('number')->from('users');})
+                ->groupBy('number')
+                ->get()
+                ->count();
+
+        return [
+            'sut' => $sut,
+            'suf' => $suf,
+        ];
     }
 }

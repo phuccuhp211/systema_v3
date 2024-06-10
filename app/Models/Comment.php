@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Comment extends Model
 {
@@ -28,5 +29,20 @@ class Comment extends Model
             'id_us' => $uid,
             'date' => $date
         ]);
+    }
+
+    public static function get_list() {
+        $innerQuery = DB::table('products as pd')
+            ->join('comments as cmt', 'pd.id', '=', 'cmt.id_pd')
+            ->select('pd.id', 'pd.name', DB::raw('COUNT(cmt.id_pd) as luot'), 'cmt.id_us')
+            ->groupBy('pd.id', 'pd.name', 'cmt.id_us');
+
+        $result = DB::table(DB::raw("({$innerQuery->toSql()}) as TB"))
+            ->mergeBindings($innerQuery)
+            ->select('TB.id', 'TB.name', DB::raw('SUM(TB.luot) as cmts'), DB::raw('COUNT(TB.id_us) as users'))
+            ->groupBy('TB.name', 'TB.id')
+            ->get();
+
+        return $result;
     }
 }

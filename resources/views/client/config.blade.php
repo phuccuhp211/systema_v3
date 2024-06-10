@@ -3,6 +3,8 @@
 @section('title', 'Tải Khoản')
 
 @section('ownlib')
+    <link rel="stylesheet" href="{{ asset('css/main.css')}}">
+    <script type="text/javascript" src="{{ asset('jquery/main.js')}}"></script>
     <link rel="stylesheet" href="{{ asset('css/config.css') }}">
     <script type="text/javascript" src="{{ asset('jquery/config.js') }}"></script>
 @endsection
