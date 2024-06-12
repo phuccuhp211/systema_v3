@@ -53,4 +53,5 @@ Route::middleware([adminlog::class])->group(function () {
 	Route::match(['get','post'] ,'manager/cm/{type}/{id?}', [admin_controller::class, 'cm_mng'])->name('manager.cm');
 	Route::match(['get','post'] ,'manager/in/{type}/{id?}', [admin_controller::class, 'in_mng'])->name('manager.in');
 	Route::match(['get','post'] ,'manager/cp/{type}/{id?}', [admin_controller::class, 'cp_mng'])->name('manager.cp');
+	Route::post('/manager/filter', [cart_controller::class, 'filter'])->name('manager.filter');
 });

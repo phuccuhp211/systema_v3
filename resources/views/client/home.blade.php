@@ -50,7 +50,7 @@
             <div class="row">
                 @foreach($casepcs as $value => $item)
                 <div class=" col-lg-6 poster_item">
-                    <div class="khung-poster" style="background: url({{ url('/data/rd/').mt_rand(1,4).'.jpg' }}) bottom; background-size: cover ;">
+                    <div class="khung-poster" style="background: url({{ $item->poster }}) bottom; background-size: cover ;">
                         <div class="bg-poster">
                             <img src="{{ $item['img'] }}" class="anh-poster" alt="">
                         </div>
@@ -77,7 +77,7 @@
                 @endif
 
                 @if ($item['title']['poster'] != "")
-                <div class="ss-poster"><img src="{{ url('/data').'/'.$item['title']['poster'] }}" alt=""></div>
+                <div class="ss-poster"><img src="{{ $item['title']['poster'] }}" alt=""></div>
                 @endif
 
                 @if ($item['title']['eb_img'] == "")

@@ -86,7 +86,7 @@ class Product extends Model
         if ($type == 'all') $query->where('hidden',0);
         else if ($type == 'cat1') $query->where([['id_cata_1',$data],['hidden',0]]);
         else if ($type == 'cat2') $query->where([['id_cata_2',$data],['hidden',0]]);
-        else if ($type == 'search') $query->where([['name','like',"%$data%"],['hidden',0]]);
+        else if ($type == 'search') $query->where([['name','like',"%$data%"],['hidden','=',0]]);
 
         if ($ord == 1) $query->orderBy('id', 'ASC');
         else if ($ord == 2) $query->orderBy('id', 'DESC');
@@ -107,12 +107,19 @@ class Product extends Model
     }
 
     public static function grap() {
-    $result = DB::table('catalog_1 as dm')
-            ->leftJoin('products as pd', 'dm.id', '=', 'pd.id_cata_1')
-            ->select('dm.name', DB::raw('COUNT(pd.id) as num'))
-            ->groupBy('dm.name')
-            ->get();
+        $result = DB::table('catalog_1 as dm')
+                ->leftJoin('products as pd', 'dm.id', '=', 'pd.id_cata_1')
+                ->select('dm.name', DB::raw('COUNT(pd.id) as num'))
+                ->groupBy('dm.name')
+                ->get();
+        return $result;
+    }
 
-    return $result;
+    public static function a_ajax($fil) {
+        if ($fil == 1) return self::orderBy('id','DESC')->get();
+        else if ($fil == 2) return self::orderBy('saled','DESC')->get();
+        else if ($fil == 3) return self::orderBy('viewed','DESC')->get();
+        else if ($fil == 4) return self::where('sale','IS NOT',null)->orderBy('id','DESC')->get();
+        else if ($fil == 5) return self::where('hidden',1)->orderBy('id','DESC')->get();
     }
 }

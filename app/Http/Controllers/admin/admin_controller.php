@@ -129,7 +129,7 @@ class admin_controller extends Controller {
         } 
         else {
             if ($rq->ajax()) {
-                if (!$rq->has('eb_img') || $rq->has('poster') && !$rq->has('eb_img')) {
+                if (!$rq->has('eb_img') && $type == 'add' || $rq->has('poster') && !$rq->has('eb_img') && $type == 'add') {
                     $new_rule['eb_img'] = 'required|image|mimes:jpeg,png,jpg,gif,webg|max:8192';
                     $new_msgs['eb_img'] = 'Vui lòng chọn ảnh nền cho sections';
                 }
@@ -203,7 +203,7 @@ class admin_controller extends Controller {
         } 
         else {
             if ($rq->ajax()) {
-                if (!$rq->has('img')) {
+                if (!$rq->has('img') && $type == 'add') {
                     $new_rule['img'] = 'required|image|mimes:jpeg,png,jpg,gif,webg|max:8192';
                     $new_msgs['img'] = 'Vui lòng chọn ảnh';
                 }
@@ -260,9 +260,48 @@ class admin_controller extends Controller {
             Product::destroy($id);
             return redirect()->route('manager', ['type' => 'products']);
         } 
+        else if ($type == 'fil') {
+            $fil = $rq->input('filter');
+
+            $list = Product::a_ajax($fil);
+
+            foreach ($list as $value => $item) {
+                $button ="";
+                if($item['hidden'] == 0) {
+                    $button = "<button class=\"btn btn-warning suaxoa hidden hidsp\" data-idsp=\"".$item['id']."\"><i class=\"fa-solid fa-eye-slash\"></i></button>";
+                } 
+                else {
+                    $button = "<button class=\"btn btn-success suaxoa hidden unhidsp\" data-idsp=\"".$item['id']."\"><i class=\"fa-solid fa-eye\"></i></button>";
+                }
+                $data['res'] .= "
+                    <tr class=\"sanpham\">
+                        <td rowspan=\"2\" class=\"text-center\">".$item->id."</td>
+                        <td rowspan=\"2\" class=\"text-center\"><img src=\"".$item->img."\" alt=\"\"></td>
+                        <td rowspan=\"2\" id=\"tensp\">".$item->name."</td>
+                        <td rowspan=\"2\" id=\"in4sp\" style=\"overflow-hidden\">".$item->info."</td>
+                        <td id=\"min4sp\" hidden>".$item->detail."</td>
+                        <td id=\"giasp\" class=\"text-center\">".gennum($item->price)."</td>
+                        <td id=\"salesp\" class=\"text-center\">".gennum($item->sale)."</td>
+                        <td rowspan=\"2\" class=\"text-center\">
+                            <button class=\"btn btn-primary suaxoa sua suasp\" data-idsp=\"".$item->id."\"><i class=\"fa-solid fa-gear\"></i></button>
+                            <button class=\"btn btn-danger suaxoa xoa xoasp\" data-idsp=\"".$item->id."\"><i class=\"fa-solid fa-trash\"></i></button>
+                            $button
+                        </td>
+                    </tr>
+                    <tr class=\"sanpham\">
+                        <td colspan=\"2\">Đã bán : ".$item->saled."</td>
+                    </tr>
+                ";
+            }
+
+            return response()->json($data);
+        }
+        else if ($type == 'hid') {
+            Product::where('id', $rq->input('id'))->update(['hidden' => $rq->input('data')]);
+        }
         else {
             if ($rq->ajax()) {
-                if (!$rq->has('img')) {
+                if (!$rq->has('img') && $type == 'add') {
                     $new_rule['img'] = 'required|image|mimes:jpeg,png,jpg,gif,webg|max:8192';
                     $new_msgs['img'] = 'Vui lòng chọn ảnh';
                 }
@@ -301,9 +340,6 @@ class admin_controller extends Controller {
                     Product::where('id', $rq->input('id'))->update($prod);
                     $data['status'] = true;
                     $data['res'] = "<span>Cập Nhật Thành Công</span>";
-                }
-                else if ($type == 'hid') {
-                    Product::where('id', $rq->input('id'))->update(['hidden' => $rq->input('data')]);
                 }
                 return response()->json($data);
             } 
@@ -405,6 +441,51 @@ class admin_controller extends Controller {
             User::destroy($id);
             return redirect()->route('manager', ['type' => 'usersmng']);
         }
+        else if ($type == 'fil') {
+            $fil = $rq->input('filter');
+
+            $list = User::a_ajax($fil);
+
+            foreach ($list as $value => $item) {
+                if($item['ban'] == 1) {
+                    $button = "
+                        <button class=\"btn btn-warning suaxoa ban banus\" data-idus=\"".$item->id."\">
+                            <i class=\"fa-solid fa-ban\"></i>
+                        </button>";
+                }
+                else {
+                    $button = "
+                        <button class=\"btn btn-success suaxoa ban unbanus\" data-idus=\"".$item->id."\">
+                            <i class=\"fa-solid fa-check\"></i>
+                        </button>";
+                }
+
+                $data['res'] .= "
+                    <tr class=\"taikhoan\">
+                        <td class=\"text-center\">".$item->id."</td>
+                        <td id=\"tenus\">".$item->account."</td>
+                        <td>".$item->f_name." ".$item->l_name."</td>
+                        <td id=\"sdtus\">".$item['sdt']."</td>
+                        <td id=\"emailus\" class=\"text-center\">".$item->email."</td>
+                        <td id=\"roleus\" class=\"text-center\">".$item->role."</td>
+                        <td class=\"text-center\">
+                            <button class=\"btn btn-primary suaxoa sua suaus\" data-idus=\"".$item->id."\">
+                                <i class=\"fa-solid fa-gear\"></i>
+                            </button>
+                            <button class=\"btn btn-danger suaxoa xoa xoaus\" data-idus=\"".$item->id."\">
+                                <i class=\"fa-solid fa-trash\"></i>
+                            </button>
+                            $button
+                        </td>
+                    </tr>
+                ";
+            }
+
+            return response()->json($data);
+        }
+        else if ($type == 'hid') {
+            User::where('id',$rq->input('id'))->update([ 'lock' => $rq->input('data') ]);
+        }
         else {
             if ($rq->ajax()) {
                 foreach ($this->rules as $key => $rule) {
@@ -437,9 +518,6 @@ class admin_controller extends Controller {
                     $data['status'] = true;
                     $data['res'] = "<span>Cập Nhật Thành Công</span>";
                 }
-                else if ($type == 'hid') {
-                    User::where('id',$rq->input('id'))->update([ 'lock' => $rq->input('data') ]);
-                }
                 return response()->json($data);
             }
             else return redirect()->route('manager', ['type' => 'usersmng']);
@@ -459,10 +537,58 @@ class admin_controller extends Controller {
 
     function in_mng (Request $rq, $type='', $id=null) {
         $data['status'] = false;
+        $data['res'] = '';
 
         if ($type == 'fix') {
-            
             return response()->json($data);
+        }
+        else if ($type == 'fil') {
+            $fil = $rq->input('filter');
+
+            $list = Invoice::a_ajax($fil);
+
+            foreach ($list as $value => $item) {
+                $prods = json_decode($item->list, true);
+                $rp = is_array($prods) ? count($prods) : 0;
+                $price = ($item['offers'] !== null) ?  gennum($item['offers']).`<br><span style="font-size: 12px; color: red;">`.$coupon.`</span>` : gennum($item['price']);
+                $coupon = $item['coupon'];
+
+                $data['res'] .= "
+                    <tr class=\"hoadon\">
+                        <td rowspan=\"$rp\" class=\"text-center p-0 id-hd\">".$item->id."</td>
+                        <td rowspan=\"$rp\" class=\"text-start\">".$item->name."</td>
+                        <td rowspan=\"$rp\" class=\"text-start\">
+                            Email: ".$item->email."<br>
+                            SĐT: ".$item->number."<br>
+                            Đ/C: ".$item->address."
+                        </td>
+                        <td class=\"text-start\">SL: ".$prods[0]['num']." | ".$prods[0]['name']."</td>
+                        <td rowspan=\"$rp\" class=\"text-center p-0\">$price</td>
+                        <td rowspan=\"$rp\" class=\"text-center stt-hd\">".$item->status."</td>
+                        <td rowspan=\"$rp\" class=\"text-center\">
+                            <select name=\"trangthai\" class=\"hd-stt\" id=\"hd-stt\">
+                                <option value=\"Chuẩn Bị\">Chuẩn Bị</option>
+                                <option value=\"Đang Giao\">Đang Giao</option>
+                                <option value=\"Hoàn Thành\">Hoàn Thành</option>
+                                <option value=\"Hủy\">Hủy</option>
+                            </select>
+                            <button class=\"btn btn-success d-block mt-1 mx-auto hd-update\" id=\"hd-update\">Cập Nhật</button>
+                        </td>
+                    </tr>
+                ";
+                for ($i = 1; $i < $rp ; ++$i) {
+                    $data['res'] .="
+                        <tr class=\"hoadon\">
+                            <td style=\"text-align: left;\">SL: ".$prods[$i]['num']." | ".$prods[$i]['name']."</td>
+                        </tr>
+                    ";
+                }
+            }
+
+            return response()->json($data);
+        }
+        else if ($type == 'upd') {
+            Invoice::up_stt($rq->input('id'),$rq->input('stt'));
         }
         else if ($type == 'del') {
             Invoice::destroy($id);
@@ -513,4 +639,5 @@ class admin_controller extends Controller {
             else return redirect()->route('manager', ['type' => 'offers']);
         }
     }
+
 }

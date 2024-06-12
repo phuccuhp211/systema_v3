@@ -24,6 +24,15 @@ $(function() {
 		cdmh = $(window).width();
 	})
 
+	function formatDate(dateString) {
+	    const date = new Date(dateString);
+	    const day = String(date.getDate()).padStart(2, '0');
+	    const month = String(date.getMonth() + 1).padStart(2, '0'); // Tháng trong JavaScript bắt đầu từ 0
+	    const year = date.getFullYear();
+
+	    return `${day}/${month}/${year}`;
+	}
+
 	$('.bg-admin-log').height(ccmh);
 
 /*-------------------- BACK --------------------*/
@@ -312,14 +321,14 @@ $(function() {
 	$(document).on('click', '.hd-update', function() {
 		let trangthai = $(this).siblings("select").val();
 		id = $(this).parent().siblings(".id-hd").text();
-		let duongdan_fix = duongdan+url_sub+"/adbl/";
+		let duongdan_fix = duongdan+url_sub+"/manager/in/upd";
 
 		$(this).parent().siblings(".stt-hd").text(trangthai);
 		console.log(trangthai+" "+id);
 		$.ajax({
 			type: "POST",
 			url: duongdan_fix,
-			data: {id: id, stt: trangthai, data: "hoadon"},
+			data: {id: id, stt: trangthai },
 			success: function(response) {
 
 			},
@@ -329,16 +338,17 @@ $(function() {
 		});
 	})
 	$('.boloc').on('click', '.btn-boloc', function() {
-		let boloc = $(this).attr("boloc");
-		let data_bl = $(this).attr("data");
-		let duongdan_fix = duongdan+url_sub+"/adbl/";
+		let filter = $(this).data("filter");
+		let type = $(this).data("type");
+		let obj = $(this).data("full");
+		let duongdan_fix = duongdan+url_sub+`/manager/${type}/fil`;
 		$.ajax({
 			type: "POST",
 			url: duongdan_fix,
-			data: {boloc: boloc, data: data_bl},
+			data: { filter: filter },
 			success: function(data) {
-				$('.show-data').find('.'+data_bl).remove();
-				$('.show-data').append(data);
+				$('.show-data').find('.'+obj).remove();
+				$('.show-data').append(data.res);
 			},
 			error: function() {
 				console.log("Có lỗi xảy ra");
@@ -365,7 +375,7 @@ $(function() {
 			<tr class="tr-bl">
 				<td>${dulieu[i].content}</td>
 				<td>${dulieu[i].id_us}</td>
-				<td>${dulieu[i].date}</td>
+				<td>${formatDate(dulieu[i].date)}</td>
 				<td><button class="btn btn-danger suaxoa xoabl" data-id="${dulieu[i].id}" data-type="cm"><i class="fa-solid fa-trash"></i></button></td>
 			</tr>
 			`;
@@ -399,7 +409,7 @@ $(function() {
 			dataType: 'JSON',
 			data: { user: user, pass: pass },
 			success: function (data) {
-				if (data.status) setTimeout(() => { location.href = data.res }, 1000);
+				if (data.status) setTimeout(() => { location.href = data.res }, 250);
 				else $('.errlog').text(data.res);
 			}
 		});

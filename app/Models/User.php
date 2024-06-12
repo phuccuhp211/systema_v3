@@ -80,4 +80,12 @@ class User extends Authenticatable
             'suf' => $suf,
         ];
     }
+
+    public static function a_ajax($fil) {
+        if ($fil == 1) return self::orderBy('id','DESC')->get();
+        else if ($fil == 2) return self::where('lock',1)->orderBy('id','DESC')->get();
+        else if ($fil == 3) return self::where('lock',0)->orderBy('id','DESC')->get();
+        else if ($fil == 4) return self::where('role',0)->orderBy('id','DESC')->get();
+        else if ($fil == 5) return self::where('role',1)->orderBy('id','DESC')->get();
+    }
 }

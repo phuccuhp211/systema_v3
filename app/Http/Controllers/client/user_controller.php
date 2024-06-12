@@ -130,7 +130,7 @@ class user_controller extends Controller {
 
         if ($rq->ajax()) {
             if ($rq->input('search_data')) {
-                $res = Product:: get_ao($type,$rq->input('search_data'),$page,$filter,$rq->input('limit'));
+                $res = Product::get_ao($type,$rq->input('search_data'),$page,$filter,$rq->input('limit'));
                 return response()->json(['res' => $res]);
             }
             else {

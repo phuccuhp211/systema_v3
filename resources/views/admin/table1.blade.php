@@ -190,7 +190,7 @@
 		<tr>
 			<th style="width: 30px;">ID</th>
 			<th style="width: 120px;">Tên</th>
-			<th style="width: 20%;">Liên Hệ</th>
+			<th style="width: 25%;">Liên Hệ</th>
 			<th style="width: auto;">Danh Sách Sản Phẩm</th>
 			<th style="width: 100px;">Thành tiền</th>
 			<th style="width: 100px;">Tình Trạng</th>
