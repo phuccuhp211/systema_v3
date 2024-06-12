@@ -1,7 +1,7 @@
 @if ($mng == "sections")
 	<div class="bg-add hide-bg-add">
 		<div class="af-mng">
-			<form action="{{ route('manager.ss',['type' => 'add']) }}" method="POST" enctype="multipart/form-data">
+			<form action="{{ route('manager.ss',['type' => 'add']) }}" method="POST" enctype="multipart/form-data" class="admin-add">
 				<div class="row">
 					<div class="col-6">
 						<div class="field-add">
@@ -11,8 +11,8 @@
 						<div class="db-field-add">
 	                        <div class="field-add">
 	                            <label>Phân Loại :</label>
-	                            <select name="phanloai">
-	                            	<option value="0">Không Chọn</option>
+	                            <select name="id_cata_1">
+	                            	<option value="">Không Chọn</option>
 	                            	<?php foreach ($cat1 as $value => $item) {
 	                            		echo "<option value=\"".$item['id']."\">".$item['name']."</option>";
 	                            	} ?>
@@ -20,8 +20,8 @@
 	                        </div>
 	                        <div class="field-add">
 	                            <label>Danh Mục :</label>
-	                            <select name="danhmuc">
-	                            	<option value="0">Không Chọn</option>
+	                            <select name="id_cata_2">
+	                            	<option value="">Không Chọn</option>
 	                            	<?php foreach ($cat2 as $value => $item) {
 	                            		echo "<option value=\"".$item['id']."\">".$item['name']."</option>";
 	                            	} ?>
@@ -31,7 +31,7 @@
 	                    <div class="db-field-add">
 	                        <div class="field-add">
 	                            <label>Mục Tham Chiếu :</label>
-	                            <select name="ref">
+	                            <select name="reference">
 	                            	<option value="id">ID</option>
 	                            	<option value="name">Tên</option>
 	                            	<option value="price">Giá</option>
@@ -42,7 +42,7 @@
 	                        </div>
 	                        <div class="field-add">
 	                            <label>Sắp Xếp Theo :</label>
-	                            <select name="ord">
+	                            <select name="orderby">
 	                            	<option value="1">A-Z 0-9</option>
 	                            	<option value="2">Z-A 9-0</option>
 	                            	<option value="3">Ngẫu Nhiên</option>
@@ -57,11 +57,11 @@
                         </div>
                         <div class="field-add">
                             <label>Ảnh Nền :</label>
-                            <input type="file" name="backgr">
+                            <input type="file" name="eb_img">
                         </div>  
                         <div class="field-add">
 	                        <label>Vị Trí :</label>
-	                        <input type="number" min="1" name="position">
+	                        <input type="number" min="1" name="index">
 	                    </div>    
 					</div>
 				</div>
@@ -76,7 +76,8 @@
 	</div>
 	<div class="bg-fix hide-bg-fix">
 		<div class="af-mng">
-			<form action="{{ route('manager.ss',['type' => 'fix']) }}" method="POST" enctype="multipart/form-data" id="form_fix_bc">
+			<form action="{{ route('manager.ss',['type' => 'fix']) }}" method="POST" enctype="multipart/form-data" class="admin-fix" id="form_fix_bc">
+				<input type="number" name="id" hidden id="id_fix">
 				<div class="row">
 					<div class="col-6">
 						<div class="field-add">
@@ -86,8 +87,8 @@
 						<div class="db-field-add">
 	                        <div class="field-add">
 	                            <label>Phân Loại :</label>
-	                            <select name="phanloai" id="fix_pl_bc">
-	                            	<option value="0">Không Chọn</option>
+	                            <select name="id_cata_1" id="fix_pl_bc">
+	                            	<option value="">Không Chọn</option>
 	                            	<?php foreach ($cat1 as $value => $item) {
 	                            		echo "<option value=\"".$item['id']."\">".$item['name']."</option>";
 	                            	} ?>
@@ -95,8 +96,8 @@
 	                        </div>
 	                        <div class="field-add">
 	                            <label>Danh Mục :</label>
-	                            <select name="danhmuc" id="fix_dm_bc">
-	                            	<option value="0">Không Chọn</option>
+	                            <select name="id_cata_2" id="fix_dm_bc">
+	                            	<option value="">Không Chọn</option>
 	                            	<?php foreach ($cat2 as $value => $item) {
 	                            		echo "<option value=\"".$item['id']."\">".$item['name']."</option>";
 	                            	} ?>
@@ -106,7 +107,7 @@
 	                    <div class="db-field-add">
 	                        <div class="field-add">
 	                            <label>Mục Tham Chiếu :</label>
-	                            <select name="ref" id="fix_ref_bc">
+	                            <select name="reference" id="fix_ref_bc">
 	                            	<option value="id">ID</option>
 	                            	<option value="name">Tên</option>
 	                            	<option value="price">Giá</option>
@@ -117,7 +118,7 @@
 	                        </div>
 	                        <div class="field-add">
 	                            <label>Sắp Xếp Theo :</label>
-	                            <select name="ord" id="fix_ord_bc">
+	                            <select name="orderby" id="fix_ord_bc">
 	                            	<option value="1">A-Z 0-9</option>
 	                            	<option value="2">Z-A 9-0</option>
 	                            	<option value="3">Ngẫu Nhiên</option>
@@ -127,18 +128,18 @@
 					</div>
 					<div class="col-6">
 						<div class="field-add">
-                            <label>Poster :</label>
-                            <input type="file" name="poster">
-                            <input type="text" name="old_img1" id="fix_pos_bc" hidden>
+                            <label>Poster : (không chọn nếu sử dụng ảnh cũ)</label>
+                            <input type="file" name="newposter">
+                            <input type="text" name="oldposter" id="fix_pos_bc" hidden>
                         </div>
                         <div class="field-add">
-                            <label>Ảnh Nền :</label>
-                            <input type="file" name="backgr">
-                            <input type="text" name="old_img2" id="fix_bgr_bc" hidden>
+                            <label>Ảnh Nền : (không chọn nếu sử dụng ảnh cũ)</label>
+                            <input type="file" name="neweb_img">
+                            <input type="text" name="oldeb_img" id="fix_bgr_bc" hidden>
                         </div>  
                         <div class="field-add">
 	                        <label>Vị Trí :</label>
-	                        <input type="number" min="1" name="position" id="fix_num_bc">
+	                        <input type="number" min="1" name="index" id="fix_num_bc">
 	                    </div>    
 					</div>
 				</div>
@@ -166,15 +167,15 @@
 @elseif ($mng == "slidebns")
 	<div class="bg-add hide-bg-add">
 		<div class="af-mng">
-			<form action="{{ route('manager.bn',['type' => 'add']) }}" method="POST" enctype="multipart/form-data">
+			<form action="{{ route('manager.bn',['type' => 'add']) }}" method="POST" class="admin-add" enctype="multipart/form-data">
 				<div class="row">
 					<div class="field-add">
 						<label>Tiêu Đề :</label>
-						<input type="text" name="ttbn">
+						<input type="text" name="tit">
 					</div>
 					<div class="field-add">
 						<label>Đoạn Văn Bản :</label>
-						<textarea name="txbn"></textarea>
+						<textarea name="ctn"></textarea>
 					</div>
 					<div class="field-add">
 	                    <label>Banner :</label>
@@ -192,20 +193,21 @@
 	</div>
 	<div class="bg-fix hide-bg-fix">
 		<div class="af-mng">
-			<form action="{{ route('manager.bn',['type' => 'fix']) }}" method="POST" enctype="multipart/form-data" id="form_fix_bn">
+			<form action="{{ route('manager.bn',['type' => 'fix']) }}" method="POST" class="admin-fix" enctype="multipart/form-data" id="form_fix_bn">
+				<input type="number" name="id" hidden id="id_fix">
 				<div class="row">
 					<div class="field-add">
 						<label>Tiêu Đề :</label>
-						<input type="text" name="ttbn" id="fix_tt_bn">
+						<input type="text" name="tit" id="fix_tt_bn">
 					</div>
 					<div class="field-add">
 						<label>Đoạn Văn Bản :</label>
-						<textarea name="txbn" id="fix_tx_bn"></textarea>
+						<textarea name="ctn" id="fix_tx_bn"></textarea>
 					</div>
 					<div class="field-add">
 	                    <label>Banner : (Không chọn nếu sử dụng ảnh cũ)</label>
-	                    <input type="file" name="img">
-	                    <input type="text" name="old_img" hidden id="fix_img_bn">
+	                    <input type="file" name="newimg">
+	                    <input type="text" name="oldimg" hidden id="fix_img_bn">
 	                </div>
 				</div>
 				<div class="field-add">
@@ -233,7 +235,7 @@
 	<div class="bg-add hide-bg-add">
 		<div class="af-mng">
 			<h3 class="text-center">Thêm Sản Phẩm</h3>
-			<form action="{{ route('manager.pd',['type' => 'add']) }}" method="POST" enctype="multipart/form-data">
+			<form action="{{ route('manager.pd',['type' => 'add']) }}" method="POST" class="admin-add" enctype="multipart/form-data">
 				<div class="row">
 					<div class="col-6">
 						<div class="field-add">
@@ -243,7 +245,7 @@
 						<div class="db-field-add">
 							<div class="field-add">
 								<label>Danh Mục :</label>
-								<select name="catalog" id="">
+								<select name="id_cata_2" id="">
 									<option value=""></option>
 									<?php foreach ($cat2 as $value => $item) { ?>
 										<option value="<?php echo $item['id'] ?>"><?php echo $item['name'] ?></option>
@@ -252,17 +254,17 @@
 							</div>
 							<div class="field-add">
 								<label>Thương Hiệu :</label>
-								<select name="brand" id="">
+								<select name="id_brand" id="">
 									<option value=""></option>
 									<?php foreach ($brands as $value => $item) { ?>
-										<option value="<?php echo $item['id_brand'] ?>"><?php echo $item['name'] ?></option>
+										<option value="<?php echo $item['id'] ?>"><?php echo $item['name'] ?></option>
 									<?php } ?>
 								</select>
 							</div>
 						</div>
 						<div class="field-add">
 							<label>Phân Loại :</label>
-							<select name="pdtype" id="">
+							<select name="id_cata_1" id="">
 								<option value=""></option>
 								<?php foreach ($cat1 as $value => $item) { ?>
 									<option value="<?php echo $item['id'] ?>"><?php echo $item['name'] ?></option>
@@ -284,11 +286,11 @@
 						<div class="db-field-add">
 							<div class="field-add">
 								<label>Sale từ ngày (nếu có) :</label>
-								<input type="date" name="salef">
+								<input type="date" name="f_date">
 							</div>
 							<div class="field-add">
 								<label>Sale đến ngày (nếu có) :</label>
-								<input type="date" name="salet">
+								<input type="date" name="t_date">
 							</div>
 						</div>
 						<div class="field-add">
@@ -319,7 +321,8 @@
 	<div class="bg-fix hide-bg-fix">
 		<div class="af-mng">
 			<h3 class="text-center">Sửa Sản Phẩm</h3>
-			<form action="{{ route('manager.pd',['type' => 'fix']) }}" method="POST" enctype="multipart/form-data" id="form_fix_pro">
+			<form action="{{ route('manager.pd',['type' => 'fix']) }}" method="POST" class="admin-fix" enctype="multipart/form-data" id="form_fix_pro">
+				<input type="number" name="id" hidden id="id_fix">
 				<div class="row">
 					<div class="col-6">
 						<div class="field-add">
@@ -329,7 +332,7 @@
 						<div class="db-field-add">
 							<div class="field-add">
 								<label>Danh Mục :</label>
-								<select name="catalog" id="fix_catalog_sp">
+								<select name="id_cata_2" id="fix_catalog_sp">
 									<option value=""></option>
 									<?php foreach ($cat2 as $value => $item) { ?>
 										<option value="<?php echo $item['id'] ?>"><?php echo $item['name'] ?></option>
@@ -338,17 +341,17 @@
 							</div>
 							<div class="field-add">
 								<label>Thương Hiệu :</label>
-								<select name="brand" id="fix_brand_sp">
+								<select name="id_brand" id="fix_brand_sp">
 									<option value=""></option>
 									<?php foreach ($brands as $value => $item) { ?>
-										<option value="<?php echo $item['id_brand'] ?>"><?php echo $item['name'] ?></option>
+										<option value="<?php echo $item['id'] ?>"><?php echo $item['name'] ?></option>
 									<?php } ?>
 								</select>
 							</div>
 						</div>
 						<div class="field-add">
 							<label>Phân Loại :</label>
-							<select name="pdtype" id="fix_pl_sp">
+							<select name="id_cata_1" id="fix_pl_sp">
 								<option value="" ></option>
 								<?php foreach ($cat1 as $value => $item) { ?>
 									<option value="<?php echo $item['id'] ?>"><?php echo $item['name'] ?></option>
@@ -370,11 +373,11 @@
 						<div class="db-field-add">
 							<div class="field-add">
 								<label>Sale từ ngày (nếu có) :</label>
-								<input type="date" name="salef" id="fix_salef_sp">
+								<input type="date" name="f_date" id="fix_salef_sp">
 							</div>
 							<div class="field-add">
 								<label>Sale đến ngày (nếu có) :</label>
-								<input type="date" name="salet" id="fix_salet_sp">
+								<input type="date" name="t_date" id="fix_salet_sp">
 							</div>
 						</div>
 						<div class="field-add">
@@ -389,8 +392,8 @@
 						</div>
 						<div class="field-add">
 							<label style="width:auto; margin: 0 30px 0 0;">Hình ảnh ( không chọn nếu sử dụng ảnh cũ ) :</label>
-							<input type="file" name="img">
-							<input type="text" name="old_img" id="fix_img_sp" hidden>
+							<input type="file" name="newimg">
+							<input type="text" name="oldimg" id="fix_img_sp" hidden>
 						</div>
 					</div>
 					<div class="col-12">
@@ -424,7 +427,7 @@
 		<div class="af-mng">
 			<div class="row">
 				<div class="col-6">
-					<form action="{{ route('manager.c2',['type' => 'add']) }}" method="POST" enctype="multipart/form-data">
+					<form action="{{ route('manager.c2',['type' => 'add']) }}" method="POST" class="admin-add" enctype="multipart/form-data">
 						<h3 class="text-center">Thêm Danh Mục</h3>
 						<div class="db-field-add">
 							<div class="field-add">
@@ -433,7 +436,7 @@
 							</div>
 							<div class="field-add">
 								<label>Mã Phân Loại</label>
-								<select name="phanloai" id="pl">
+								<select name="type" id="pl">
 									<?php foreach ($list1 as $value => $item) { ?>
 										<option value="<?php echo $item['id'] ?>">Mã : <?php echo $item['id'] ?> | <?php echo $item['name'] ?></option>
 									<?php } ?>
@@ -450,7 +453,7 @@
 					</form>
 				</div>
 				<div class="col-6">
-					<form action="{{ route('manager.c1',['type' => 'add']) }}" method="POST" enctype="multipart/form-data">
+					<form action="{{ route('manager.c1',['type' => 'add']) }}" method="POST" class="admin-add" enctype="multipart/form-data">
 						<h3 class="text-center">Thêm Phân Loại</h3>
 						<div class="field-add">
 							<label>Tên Phân Loại :</label>
@@ -471,7 +474,8 @@
 		<div class="af-mng">
 			<div class="row">
 				<div class="col-6">
-					<form action="{{ route('manager.c2',['type' => 'add']) }}" method="POST" enctype="multipart/form-data" id="form_fix_cat">
+					<form action="{{ route('manager.c2',['type' => 'add']) }}" method="POST" class="admin-fix" enctype="multipart/form-data" id="form_fix_cat">
+						<input type="number" name="id" hidden id="id_fix">
 						<h3 class="text-center">Cập Nhật Danh Mục</h3>
 						<div class="db-field-add">
 							<div class="field-add">
@@ -480,7 +484,7 @@
 							</div>
 							<div class="field-add">
 								<label>Mã Phân Loại</label>
-								<select name="phanloai" id="fix_name_pldm">
+								<select name="id_cata_1" id="fix_name_pldm">
 									<?php foreach ($list1 as $value => $item) { ?>
 										<option value="<?php echo $item['id'] ?>">Mã : <?php echo $item['id'] ?> | <?php echo $item['name'] ?></option>
 									<?php } ?>
@@ -498,7 +502,8 @@
 					</form>
 				</div>
 				<div class="col-6">
-					<form action="{{ route('manager.c1',['type' => 'add']) }}" method="POST" enctype="multipart/form-data" id="form_fix_pl">
+					<form action="{{ route('manager.c1',['type' => 'add']) }}" method="POST" class="admin-fix" enctype="multipart/form-data" id="form_fix_pl">
+						<input type="number" name="id" hidden id="id_fix">
 						<h3 class="text-center">Cập Nhật Phân Loại</h3>
 						<div class="field-add">
 							<label>Tên Phân Loại :</label>
@@ -530,21 +535,21 @@
 @elseif ($mng == "usersmng")
 	<div class="bg-add hide-bg-add">
 		<div class="af-mng">
-			<form action="{{ route('manager.us',['type' => 'add']) }}" method="POST" enctype="multipart/form-data">
+			<form action="{{ route('manager.us',['type' => 'add']) }}" method="POST" class="admin-add" enctype="multipart/form-data">
 				<div class="row">
 					<div class="col-6">
 						<div class="field-add">
 							<label>Tên Tài Khoản :</label>
-							<input type="text" name="name">
+							<input type="text" name="account">
 						</div>
 						<div class="db-field-add">
 	                        <div class="field-add">
 	                            <label>Họ :</label>
-	                            <input type="text" name="ho">
+	                            <input type="text" name="f_name">
 	                        </div>
 	                        <div class="field-add">
 	                            <label>Tên :</label>
-	                            <input type="text" name="ten">
+	                            <input type="text" name="l_name">
 	                        </div>        
 	                    </div>
 	                    <div class="field-add">
@@ -562,11 +567,11 @@
                         </div>
                         <div class="field-add">
                             <label>Số điện thoại :</label>
-                            <input type="number" name="phone">
+                            <input type="number" name="number">
                         </div>  
                         <div class="field-add">
 	                        <label>Địa chỉ :</label>
-	                        <input type="text" name="diachi">
+	                        <input type="text" name="address">
 	                    </div>    
 					</div>
 				</div>
@@ -585,21 +590,22 @@
 	</div>
 	<div class="bg-fix hide-bg-fix">
 		<div class="af-mng">
-			<form action="{{ route('manager.us',['type' => 'fix']) }}" method="POST" enctype="multipart/form-data" id="form_fix_us">
+			<form action="{{ route('manager.us',['type' => 'fix']) }}" method="POST" class="admin-fix" enctype="multipart/form-data" id="form_fix_us">
+				<input type="number" name="id" hidden id="id_fix">
 				<div class="row">
 					<div class="col-6">
 						<div class="field-add">
 							<label>Tên Tài Khoản :</label>
-							<input type="text" name="name" id="name_fix_us">
+							<input type="text" name="account" id="name_fix">
 						</div>
 						<div class="db-field-add">
 	                        <div class="field-add">
 	                            <label>Họ :</label>
-	                            <input type="text" name="ho" id="ho_fix_us">
+	                            <input type="text" name="f_name" id="ho_fix">
 	                        </div>
 	                        <div class="field-add">
 	                            <label>Tên :</label>
-	                            <input type="text" name="ten" id="ten_fix_us">
+	                            <input type="text" name="l_name" id="ten_fix">
 	                        </div>        
 	                    </div>
 	                    <div class="field-add">
@@ -613,21 +619,22 @@
 					<div class="col-6">
 						<div class="field-add">
                             <label>Email :</label>
-                            <input type="text" name="email" id="email_fix_us">
+                            <input type="text" name="email" id="email_fix">
                         </div>
                         <div class="field-add">
                             <label>Số điện thoại :</label>
-                            <input type="number" name="phone" id="phone_fix_us">
+                            <input type="number" name="number" id="phone_fix">
                         </div>  
 	                    <div class="field-add">
 	                        <label>Địa chỉ :</label>
-	                        <input type="text" name="diachi">
+	                        <input type="text" name="address" id="dc_fix">
 	                    </div>
 					</div>
 				</div>
 				<div class="field-add">
-					<label style="width:auto; margin: 0 30px 0 0;">Mật Khẩu :</label>
-					<input type="password" name="pass">
+					<label style="width:auto; margin: 0 30px 0 0;">Mật Khẩu: (Không nhập nếu không đổi)</label>
+					<input type="password" name="newpass" value="">
+					<input type="password" name="oldpass" hidden id="pw_fix">
 				</div>
 						
 				<div class="field-add">
@@ -684,7 +691,7 @@
 @elseif ($mng == "offers")
 	<div class="bg-add hide-bg-add">
 		<div class="af-mng">
-			<form action="{{ route('manager.cp',['type' => 'add']) }}" method="POST" enctype="multipart/form-data">
+			<form action="{{ route('manager.cp',['type' => 'add']) }}" method="POST" class="admin-add" enctype="multipart/form-data">
 				<div class="field-add">
 					<label>Nhập tên mã :</label>
 					<input type="text" name="name">
@@ -692,23 +699,30 @@
 				<div class="db-field-add">
                     <div class="field-add">
                         <label>Từ ngày :</label>
-                        <input type="date" name="fd">
+                        <input type="date" name="f_date">
                     </div>
                     <div class="field-add">
                         <label>Đến ngày :</label>
-                        <input type="date" name="td">
+                        <input type="date" name="t_date">
                     </div>        
                 </div>
                 <div class="db-field-add">
                 	<div class="field-add">
 						<label>Nhập số lượng :</label>
-						<input type="number" min="1" name="soluong">
+						<input type="number" min="1" name="amount">
 					</div>
 					<div class="field-add">
-						<label>Phần trăm giảm (%) :</label>
-						<input type="number" min="1" name="discount">
+						<label>Giảm :</label>
+						<input type="text" min="1" name="discount">
 					</div>
                 </div>
+                <div class="field-add">
+					<label>Loại :</label>
+					<select name="type" id="">
+						<option value="percent">Phần Trăm</option>
+						<option value="number">Số cụ thể</option>
+					</select>
+				</div>
 				<div class="field-add">
 					<button class="btn btn-success" type="submit">Thêm MGG</button>
 				</div>
@@ -720,7 +734,8 @@
 	</div>
 	<div class="bg-fix hide-bg-fix">
 		<div class="af-mng">
-			<form action="{{ route('manager.cp',['type' => 'fix']) }}" method="POST" enctype="multipart/form-data" id="form_fix_gg">
+			<form action="{{ route('manager.cp',['type' => 'fix']) }}" method="POST" class="admin-fix" enctype="multipart/form-data" id="form_fix_gg">
+				<input type="number" name="id" hidden id="id_fix">
 				<div class="field-add">
 					<label>Nhập tên mã :</label>
 					<input type="text" name="name" id="fix_name_gg">
@@ -728,22 +743,29 @@
 				<div class="db-field-add">
                     <div class="field-add">
                         <label>Từ ngày :</label>
-                        <input type="date" name="fd" id="fix_fd_gg">
+                        <input type="date" name="f_date" id="fix_fd_gg">
                     </div>
                     <div class="field-add">
                         <label>Đến ngày :</label>
-                        <input type="date" name="td" id="fix_td_gg">
+                        <input type="date" name="t_date" id="fix_td_gg">
                     </div>        
                 </div>
                 <div class="db-field-add">
 					<div class="field-add">
 						<label>Nhập số lượng :</label>
-						<input type="text" name="soluong" id="soluong" disabled>
+						<input type="text" name="amount" id="soluong" disabled>
 					</div>
 					<div class="field-add">
-						<label>Phần trăm giảm (%) :</label>
+						<label>Giảm :</label>
 						<input type="text" name="discount" id="fix_pt_gg">
 					</div>
+				</div>
+				<div class="field-add">
+					<label>Loại :</label>
+					<select name="type" id="">
+						<option value="percent">Phần Trăm</option>
+						<option value="number">Số cụ thể</option>
+					</select>
 				</div>
 				<div class="field-add">
 					<button class="btn btn-success" type="submit">Sửa MGG</button>
@@ -768,11 +790,8 @@
 
 @endif
 
-@if(session('msg'))
-	<div class="bg-err">
-		<div class="error">
-			<span>{{ session('msg') }}</span><hr>
-			<button class="btn btn-danger quaylai">Quay Lại</button>
-		</div>
+<div class="bg-err hide-bg-add-err">
+	<div class="error">
+		<span>{{ session('msg') }}</span>
 	</div>
-@endif
+</div>

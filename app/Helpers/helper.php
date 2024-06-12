@@ -11,7 +11,7 @@
                 <div class=\"khungsp\">
                     <div class=\"khungxam nav-item\">
                         <a href=\"".genurl($item['id'],'detail')."\" class=\"nav-link\">
-                            <img src=\"".genurl($item['img'],'data')."\" class=\"anhsp nav-link\" alt=\"\">
+                            <img src=\"".$item['img']."\" class=\"anhsp nav-link\" alt=\"\">
                         </a>                               
                     </div>                                
                     <p class=\"tt tensp\">".$item['name']."</p>
@@ -37,7 +37,7 @@
                 <div class=\"khungsp2\">
                     <div class=\"khungxam position-relative nav-item\">
                         <a href=\"".genurl($item['id'],'detail')."\" class=\"nav-link\">
-                            <img src=\"".genurl($item['img'],'data')."\" class=\"anhsp nav-link\" alt=\"\">
+                            <img src=\"".$item['img']."\" class=\"anhsp nav-link\" alt=\"\">
                         </a>
                         <p class=\"tt vnssp\">
                             <i class=\"fa-solid fa-eye\"></i> ".$item['viewed']."<br>
@@ -56,10 +56,14 @@
         return $chuoisp;
     }
     function gennum($number) {
+        if ($number == null) $number = 0;
         return Number::format($number, locale: 'vi');
     }
     function genurl($url,$type='data') {
         return asset("$type/$url");
+    }
+    function gendate($date) {
+        return date("d-m-Y",strtotime($date));
     }
     function caldate($from,$to,$price,$sale=0) {
         $result['is_sale'] = false;

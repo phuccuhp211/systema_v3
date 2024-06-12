@@ -14,7 +14,7 @@
 		<td style="text-align: center;" id="tenpl">{{ $item->name }}</td>
 		<td style="text-align: center;">
 			<button class="btn btn-primary suaxoa sua suapl" data-idpl="{{ $item->id }}"><i class="fa-solid fa-gear"></i></button>
-			<button class="btn btn-danger suaxoa xoa xoapl" data-idpl="{{ $item->id }}"><i class="fa-solid fa-trash"></i></button>
+			<button class="btn btn-danger suaxoa xoa xoapl" data-idpl="{{ $item->id }}" data-type="c1"><i class="fa-solid fa-trash"></i></button>
 		</td>
 	</tr>
 	@endforeach

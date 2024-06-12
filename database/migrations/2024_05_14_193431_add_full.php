@@ -21,8 +21,8 @@ return new class extends Migration
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
             $table->text('img');
-            $table->text('tit');
-            $table->text('ctn');
+            $table->text('tit')->nullable();
+            $table->text('ctn')->nullable();
         });
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
@@ -68,14 +68,14 @@ return new class extends Migration
             $table->string('name',30);
             $table->text('img');
             $table->text('info');
-            $table->text('detail');
+            $table->text('detail')->nullable();
             $table->unsignedBigInteger('id_cata_1');
-            $table->unsignedBigInteger('id_cata_2');
+            $table->unsignedBigInteger('id_cata_2')->nullable();
             $table->unsignedBigInteger('id_brand');
             $table->integer('price');
-            $table->integer('sale');
-            $table->date('f_date')->default(date('Y-m-d'));
-            $table->date('t_date')->default(date('Y-m-d'));
+            $table->integer('sale')->nullable();
+            $table->date('f_date')->nullable();
+            $table->date('t_date')->nullable();
             $table->integer('viewed')->default(0);
             $table->integer('saled')->default(0);
             $table->boolean('hidden')->default(0);
@@ -111,7 +111,7 @@ return new class extends Migration
             $table->date('f_date')->default(date('Y-m-d'));
             $table->date('t_date')->default(date('Y-m-d'));
             $table->string('type',15);
-            $table->integer('discount');
+            $table->float('discount', precision: 3);
         });
     }
 

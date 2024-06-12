@@ -21,7 +21,7 @@
                 <div class="carousel-inner">
                     @for ($i = 0; $i < count($banners); $i++)
                     <div class="carousel-item {{ ($i == 0) ? 'active' : ''}}">
-                        <img src="{{ url('/data').'/'.$banners[$i]['img'] }}" alt="Image {{ $i }}" class="w-100">
+                        <img src="{{ $banners[$i]['img'] }}" alt="Image {{ $i }}" class="w-100">
                         <div class="carousel-caption">
                             @if ($banners[$i]['title'] != "")
                                 <h3>{{ $banners[$i]['title'] }}</h3>

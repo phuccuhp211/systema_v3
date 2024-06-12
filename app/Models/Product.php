@@ -11,6 +11,14 @@ class Product extends Model
     use HasFactory;
 
     protected $table = 'Products';
+    protected $primaryKey = 'id';
+    protected $fillable = [ 'name', 'img', 'info', 'detail', 'id_cata_1', 'id_cata_2', 'id_brand', 'price', 'sale', 'f_date', 't_date' ];
+    public $timestamps = false;
+
+    protected $attributes = [
+        'img' => 'unko.jpg',
+        'sale' => 0,
+    ];
 
     public static function get_st() {
         return self::where('hidden',0)->limit(10)->get();

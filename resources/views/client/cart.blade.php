@@ -27,7 +27,7 @@
                     <tr class="sanpham" name="sanpham" id="sanpham">
                         <td hidden id="id">{{ $item['id'] }}</td>
                         <td style="width : 50px;" class="text-center" id="keysp">{{ $value+1 }}</td>
-                        <td style="width : 150px;" class="text-center"><img src="{{ genurl($item['img']) }}"></td>
+                        <td style="width : 150px;" class="text-center"><img src="{{ $item['img'] }}"></td>
                         <td style="width : auto;">{{ $item['name'] }}</td>
                         <td style="width : 150px;" name="giasp" id="giasp">{{ gennum($item['pfn']) }}</td>
                         <td style="width : 80px;" class="text-center">

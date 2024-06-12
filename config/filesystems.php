@@ -56,6 +56,12 @@ return [
             'throw' => false,
         ],
 
+        'custom' => [
+            'driver' => 'local',
+            'root' => base_path('public/data'),
+            'throw' => false,
+        ],
+
     ],
 
     /*

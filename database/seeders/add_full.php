@@ -51,7 +51,7 @@ class add_full extends Seeder
             DB::table('products')->insert([
                 [
                     'name'=> 'Sản Phẩm số '.$i, 
-                    'img' => 'unko.jpg',
+                    'img' => url('data/unko.jpg'),
                     'info' => 'Đây là tóm tắt SP số '.$i,
                     'detail' => 'Đây là chi tiết SP số '.$i,
                     'id_cata_1' => $cat1,
@@ -78,7 +78,7 @@ class add_full extends Seeder
                 
                     'name' => "SS tham chiếu $name",
                     'poster' => ($pt != 0) ? "pt$pt.webp" : "",
-                    'eb_img' => "rd$eb.jpg",
+                    'eb_img' => url("data/rd$eb.jpg"),
                     'id_cata_1' => $cat1,
                     'id_cata_2' => $cat2,
                     'index' => $i,
@@ -90,7 +90,7 @@ class add_full extends Seeder
         for ($i = 1; $i <= 4 ; $i++) {
             DB::table('banners')->insert([
                 
-                    'img' => "banner$i.jpg",                    
+                    'img' => url("data/banner$i.jpg"),                    
                     'tit' => "Tiêu đề $i",
                     'ctn' => "Nội dung của banner số $i"
                 

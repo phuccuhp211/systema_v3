@@ -15,7 +15,7 @@
             <div class="row phan-tt-tren">
                 <div class="col-12 col-md-6 col-lg-6">
                     <div class="khunganh-sp">
-                        <img src="{{ url('/data').'/'.$dtpd['img'] }}" class="anh-sp" alt="">
+                        <img src="{{ $dtpd['img'] }}" class="anh-sp" alt="">
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-6">

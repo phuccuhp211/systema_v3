@@ -110,6 +110,17 @@ table {
     border-radius: 15px;
 }
 
+.error > * {
+    margin: 0;
+}
+
+.error > ul {
+    padding: 0 0 0 15px;
+    color: #ff6060;
+}
+
+.error > span {color: #7bd87b;}
+
 .af-mng hr {
     margin: 6px 0;
 }

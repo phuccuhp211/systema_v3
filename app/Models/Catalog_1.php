@@ -10,6 +10,9 @@ class Catalog_1 extends Model
     use HasFactory;
 
     protected $table = 'Catalog_1';
+    protected $primaryKey = 'id';
+    protected $fillable = [ 'name' ];
+    public $timestamps = false;
 
     public static function full_cat($id=null) {
         if($id) return self::where('id', $id)->get();

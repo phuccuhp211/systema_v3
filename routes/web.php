@@ -44,13 +44,13 @@ Route::match(['get', 'post'], '/user/admin/{type}', [sisu_controller::class, 'ad
 Route::get('/admin', [admin_controller::class, 'login'])->name('alog');
 Route::middleware([adminlog::class])->group(function () {
 	Route::match(['get','post'] ,'/manager/{type?}', [admin_controller::class, 'manager'])->name('manager');
-	Route::match(['get','post'] ,'manager/ss/{type}', [admin_controller::class, 'ss_mng'])->name('manager.ss');
-	Route::match(['get','post'] ,'manager/bn/{type}', [admin_controller::class, 'bn_mng'])->name('manager.bn');
-	Route::match(['get','post'] ,'manager/pd/{type}', [admin_controller::class, 'pd_mng'])->name('manager.pd');
-	Route::match(['get','post'] ,'manager/c1/{type}', [admin_controller::class, 'c1_mng'])->name('manager.c1');
-	Route::match(['get','post'] ,'manager/c2/{type}', [admin_controller::class, 'c2_mng'])->name('manager.c2');
-	Route::match(['get','post'] ,'manager/us/{type}', [admin_controller::class, 'us_mng'])->name('manager.us');
-	Route::match(['get','post'] ,'manager/cm/{type}', [admin_controller::class, 'cm_mng'])->name('manager.cm');
-	Route::match(['get','post'] ,'manager/in/{type}', [admin_controller::class, 'in_mng'])->name('manager.in');
-	Route::match(['get','post'] ,'manager/cp/{type}', [admin_controller::class, 'cp_mng'])->name('manager.cp');
+	Route::match(['get','post'] ,'manager/ss/{type}/{id?}', [admin_controller::class, 'ss_mng'])->name('manager.ss');
+	Route::match(['get','post'] ,'manager/bn/{type}/{id?}', [admin_controller::class, 'bn_mng'])->name('manager.bn');
+	Route::match(['get','post'] ,'manager/pd/{type}/{id?}', [admin_controller::class, 'pd_mng'])->name('manager.pd');
+	Route::match(['get','post'] ,'manager/c1/{type}/{id?}', [admin_controller::class, 'c1_mng'])->name('manager.c1');
+	Route::match(['get','post'] ,'manager/c2/{type}/{id?}', [admin_controller::class, 'c2_mng'])->name('manager.c2');
+	Route::match(['get','post'] ,'manager/us/{type}/{id?}', [admin_controller::class, 'us_mng'])->name('manager.us');
+	Route::match(['get','post'] ,'manager/cm/{type}/{id?}', [admin_controller::class, 'cm_mng'])->name('manager.cm');
+	Route::match(['get','post'] ,'manager/in/{type}/{id?}', [admin_controller::class, 'in_mng'])->name('manager.in');
+	Route::match(['get','post'] ,'manager/cp/{type}/{id?}', [admin_controller::class, 'cp_mng'])->name('manager.cp');
 });
