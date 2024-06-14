@@ -21,7 +21,7 @@
                 <div class="carousel-inner">
                     @for ($i = 0; $i < count($banners); $i++)
                     <div class="carousel-item {{ ($i == 0) ? 'active' : ''}}">
-                        <img src="{{ $banners[$i]['img'] }}" alt="Image {{ $i }}" class="w-100">
+                        <img src="{{ genurl($banners[$i]['img']) }}" alt="Image {{ $i }}" class="w-100">
                         <div class="carousel-caption">
                             @if ($banners[$i]['title'] != "")
                                 <h3>{{ $banners[$i]['title'] }}</h3>
@@ -50,9 +50,9 @@
             <div class="row">
                 @foreach($casepcs as $value => $item)
                 <div class=" col-lg-6 poster_item">
-                    <div class="khung-poster" style="background: url({{ $item->poster }}) bottom; background-size: cover ;">
+                    <div class="khung-poster" style="background: url({{ genurl('rd'.mt_rand(1,4).'.jpg') }}) bottom; background-size: cover ;">
                         <div class="bg-poster">
-                            <img src="{{ $item['img'] }}" class="anh-poster" alt="">
+                            <img src="{{ genurl($item['img']) }}" class="anh-poster" alt="">
                         </div>
                         
                         <div class="chu-poster">

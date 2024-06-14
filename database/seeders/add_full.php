@@ -53,7 +53,7 @@ class add_full extends Seeder
             $pri2 = mt_rand(0, $pri1 - 90000);
             DB::table('products')->insert([
                 'name' => 'Sản Phẩm số ' . $i,
-                'img' => url('data/unko.jpg'),
+                'img' => 'unko.jpg',
                 'info' => 'Đây là tóm tắt SP số ' . $i,
                 'detail' => 'Đây là chi tiết SP số ' . $i,
                 'id_cata_1' => $cat1,
@@ -76,8 +76,8 @@ class add_full extends Seeder
             $name = $cat1 ? "Ms1 với id= $cat1" : "Ms2 với id= $cat2";
             DB::table('sections')->insert([
                 'name' => "SS tham chiếu $name",
-                'poster' => ($pt != 0) ? url("data/pt$pt.webp") : "",
-                'eb_img' => url("data/rd$eb.jpg"),
+                'poster' => ($pt != 0) ? "pt$pt.webp" : "",
+                'eb_img' => "rd$eb.jpg",
                 'id_cata_1' => $cat1,
                 'id_cata_2' => $cat2,
                 'index' => $i,
@@ -88,7 +88,7 @@ class add_full extends Seeder
 
         for ($i = 1; $i <= 4; $i++) {
             DB::table('banners')->insert([
-                'img' => url("data/banner$i.jpg"),
+                'img' => "banner$i.jpg",
                 'tit' => "Tiêu đề $i",
                 'ctn' => "Nội dung của banner số $i"
             ]);
