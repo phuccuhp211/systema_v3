@@ -77,7 +77,7 @@
                 @endif
 
                 @if ($item['title']['poster'] != "")
-                <div class="ss-poster"><img src="{{ $item['title']['poster'] }}" alt=""></div>
+                <div class="ss-poster"><img src="{{ genurl($item['title']['poster']) }}" alt=""></div>
                 @endif
 
                 @if ($item['title']['eb_img'] == "")
@@ -93,7 +93,7 @@
                 @else
                 <div class="row">
                     <div>
-                        <div class="ebd_img" style="background: url('{{ url('/data').'/'.$item['title']['eb_img'] }}') bottom; background-size:cover;">
+                        <div class="ebd_img" style="background: url({{ genurl($item['title']['eb_img']) }}) bottom; background-size:cover;">
                             <button class="click-pn click-prev"><i class="fa-solid fa-arrow-left"></i></button>
                             {!! showsp2($item['products'],'col-3','ss-1') !!}
                             <button class="click-pn click-next"><i class="fa-solid fa-arrow-right"></i></button>
