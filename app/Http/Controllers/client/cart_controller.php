@@ -36,12 +36,10 @@ class cart_controller extends Controller
         $id = $rq->input('id');
         $quantity = $rq->input('num');
         $cart = session('cart');
-        $repeated = false;
         foreach ($cart['list'] as $item) {
             if ($item['id'] == $id) {
                 $item['num'] = $quantity;
                 $item = $this->cal_price($item);
-                $repeated = true;
                 break;
             }
         }
