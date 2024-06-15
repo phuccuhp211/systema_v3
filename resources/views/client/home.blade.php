@@ -21,7 +21,7 @@
                 <div class="carousel-inner">
                     @for ($i = 0; $i < count($banners); $i++)
                     <div class="carousel-item {{ ($i == 0) ? 'active' : ''}}">
-                        <img src="{{ $banners[$i]['img'] }}" alt="Image {{ $i }}" class="w-100">
+                        <img src="{{ genurl($banners[$i]['img']) }}" alt="Image {{ $i }}" class="w-100">
                         <div class="carousel-caption">
                             @if ($banners[$i]['title'] != "")
                                 <h3>{{ $banners[$i]['title'] }}</h3>
@@ -50,9 +50,9 @@
             <div class="row">
                 @foreach($casepcs as $value => $item)
                 <div class=" col-lg-6 poster_item">
-                    <div class="khung-poster" style="background: url({{ $item->poster }}) bottom; background-size: cover ;">
+                    <div class="khung-poster" style="background: url({{ genurl('rd'.mt_rand(1,4).'.jpg') }}) bottom; background-size: cover ;">
                         <div class="bg-poster">
-                            <img src="{{ $item['img'] }}" class="anh-poster" alt="">
+                            <img src="{{ genurl($item['img']) }}" class="anh-poster" alt="">
                         </div>
                         
                         <div class="chu-poster">
@@ -77,7 +77,7 @@
                 @endif
 
                 @if ($item['title']['poster'] != "")
-                <div class="ss-poster"><img src="{{ $item['title']['poster'] }}" alt=""></div>
+                <div class="ss-poster"><img src="{{ genurl($item['title']['poster']) }}" alt=""></div>
                 @endif
 
                 @if ($item['title']['eb_img'] == "")
@@ -93,7 +93,7 @@
                 @else
                 <div class="row">
                     <div>
-                        <div class="ebd_img" style="background: url('{{ url('/data').'/'.$item['title']['eb_img'] }}') bottom; background-size:cover;">
+                        <div class="ebd_img" style="background: url({{ genurl($item['title']['eb_img']) }}) bottom; background-size:cover;">
                             <button class="click-pn click-prev"><i class="fa-solid fa-arrow-left"></i></button>
                             {!! showsp2($item['products'],'col-3','ss-1') !!}
                             <button class="click-pn click-next"><i class="fa-solid fa-arrow-right"></i></button>

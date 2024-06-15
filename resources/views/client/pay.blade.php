@@ -77,7 +77,7 @@
                     @foreach (session('cart')['list'] as $value => $item)
                     <div class="sp-giohang">
                         <div class="col-2 anh-giohang">
-                            <img src="{{ $item['img'] }}" class="hinhsp-giohang" alt="">
+                            <img src="{{ genurl($item['img']) }}" class="hinhsp-giohang" alt="">
                         </div>
                         <div class="col-7 chu-giohang">
                             <p class="p-tt-giohang tensp-nho">{{ $item['name'] }}</p>

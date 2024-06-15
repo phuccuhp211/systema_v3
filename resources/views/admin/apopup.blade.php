@@ -13,18 +13,19 @@
 	                            <label>Phân Loại :</label>
 	                            <select name="id_cata_1">
 	                            	<option value="">Không Chọn</option>
-	                            	<?php foreach ($cat1 as $value => $item) {
-	                            		echo "<option value=\"".$item['id']."\">".$item['name']."</option>";
-	                            	} ?>
+	                            	@foreach ($cat1 as $value => $item)
+	                            		<option value="{{$item['id']}}">{{$item['name']}}</option>
+	                            	@endforeach
+	                            	
 	                            </select>
 	                        </div>
 	                        <div class="field-add">
 	                            <label>Danh Mục :</label>
 	                            <select name="id_cata_2">
 	                            	<option value="">Không Chọn</option>
-	                            	<?php foreach ($cat2 as $value => $item) {
-	                            		echo "<option value=\"".$item['id']."\">".$item['name']."</option>";
-	                            	} ?>
+	                            	@foreach ($cat2 as $value => $item)
+	                            		<option value="{{$item['id']}}">{{$item['name']}}</option>
+	                            	@endforeach
 	                            </select>
 	                        </div>        
 	                    </div>
@@ -89,18 +90,18 @@
 	                            <label>Phân Loại :</label>
 	                            <select name="id_cata_1" id="fix_pl_bc">
 	                            	<option value="">Không Chọn</option>
-	                            	<?php foreach ($cat1 as $value => $item) {
-	                            		echo "<option value=\"".$item['id']."\">".$item['name']."</option>";
-	                            	} ?>
+	                            	@foreach ($cat1 as $value => $item)
+	                            		<option value="{{$item['id']}}">{{$item['name']}}</option>
+	                            	@endforeach
 	                            </select>
 	                        </div>
 	                        <div class="field-add">
 	                            <label>Danh Mục :</label>
 	                            <select name="id_cata_2" id="fix_dm_bc">
 	                            	<option value="">Không Chọn</option>
-	                            	<?php foreach ($cat2 as $value => $item) {
-	                            		echo "<option value=\"".$item['id']."\">".$item['name']."</option>";
-	                            	} ?>
+	                            	@foreach ($cat2 as $value => $item)
+	                            		<option value="{{$item['id']}}">{{$item['name']}}</option>
+	                            	@endforeach
 	                            </select>
 	                        </div>        
 	                    </div>
@@ -247,18 +248,18 @@
 								<label>Danh Mục :</label>
 								<select name="id_cata_2" id="">
 									<option value=""></option>
-									<?php foreach ($cat2 as $value => $item) { ?>
-										<option value="<?php echo $item['id'] ?>"><?php echo $item['name'] ?></option>
-									<?php } ?>
+									@foreach ($cat2 as $value => $item)
+	                            		<option value="{{$item['id']}}">{{$item['name']}}</option>
+	                            	@endforeach
 								</select>
 							</div>
 							<div class="field-add">
 								<label>Thương Hiệu :</label>
 								<select name="id_brand" id="">
 									<option value=""></option>
-									<?php foreach ($brands as $value => $item) { ?>
-										<option value="<?php echo $item['id'] ?>"><?php echo $item['name'] ?></option>
-									<?php } ?>
+									@foreach ($brands as $value => $item)
+	                            		<option value="{{$item['id']}}">{{$item['name']}}</option>
+	                            	@endforeach
 								</select>
 							</div>
 						</div>
@@ -266,9 +267,9 @@
 							<label>Phân Loại :</label>
 							<select name="id_cata_1" id="">
 								<option value=""></option>
-								<?php foreach ($cat1 as $value => $item) { ?>
-									<option value="<?php echo $item['id'] ?>"><?php echo $item['name'] ?></option>
-								<?php } ?>
+								@foreach ($cat1 as $value => $item)
+                            		<option value="{{$item['id']}}">{{$item['name']}}</option>
+                            	@endforeach
 							</select>
 						</div>
 					</div>
@@ -334,18 +335,18 @@
 								<label>Danh Mục :</label>
 								<select name="id_cata_2" id="fix_catalog_sp">
 									<option value=""></option>
-									<?php foreach ($cat2 as $value => $item) { ?>
-										<option value="<?php echo $item['id'] ?>"><?php echo $item['name'] ?></option>
-									<?php } ?>
+									@foreach ($cat2 as $value => $item)
+	                            		<option value="{{$item['id']}}">{{$item['name']}}</option>
+	                            	@endforeach
 								</select>
 							</div>
 							<div class="field-add">
 								<label>Thương Hiệu :</label>
 								<select name="id_brand" id="fix_brand_sp">
 									<option value=""></option>
-									<?php foreach ($brands as $value => $item) { ?>
-										<option value="<?php echo $item['id'] ?>"><?php echo $item['name'] ?></option>
-									<?php } ?>
+									@foreach ($brands as $value => $item)
+	                            		<option value="{{$item['id']}}">{{$item['name']}}</option>
+	                            	@endforeach
 								</select>
 							</div>
 						</div>
@@ -353,9 +354,9 @@
 							<label>Phân Loại :</label>
 							<select name="id_cata_1" id="fix_pl_sp">
 								<option value="" ></option>
-								<?php foreach ($cat1 as $value => $item) { ?>
-									<option value="<?php echo $item['id'] ?>"><?php echo $item['name'] ?></option>
-								<?php } ?>
+								@foreach ($cat1 as $value => $item)
+                            		<option value="{{$item['id']}}">{{$item['name']}}</option>
+                            	@endforeach
 							</select>
 						</div>
 					</div>
@@ -437,9 +438,9 @@
 							<div class="field-add">
 								<label>Mã Phân Loại</label>
 								<select name="type" id="pl">
-									<?php foreach ($list1 as $value => $item) { ?>
-										<option value="<?php echo $item['id'] ?>">Mã : <?php echo $item['id'] ?> | <?php echo $item['name'] ?></option>
-									<?php } ?>
+									@foreach ($list1 as $value => $item)
+	                            		<option value="{{$item['id']}}">Mã: {{$item['name']}} | {{$item->name}}</option>
+	                            	@endforeach
 								</select>
 							</div>
 						</div>
@@ -485,9 +486,9 @@
 							<div class="field-add">
 								<label>Mã Phân Loại</label>
 								<select name="id_cata_1" id="fix_name_pldm">
-									<?php foreach ($list1 as $value => $item) { ?>
-										<option value="<?php echo $item['id'] ?>">Mã : <?php echo $item['id'] ?> | <?php echo $item['name'] ?></option>
-									<?php } ?>
+									@foreach ($list1 as $value => $item)
+	                            		<option value="{{$item['id']}}">Mã: {{$item['name']}} | {{$item->name}}</option>
+	                            	@endforeach
 								</select>
 							</div>
 						</div>

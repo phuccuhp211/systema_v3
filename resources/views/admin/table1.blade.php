@@ -57,7 +57,7 @@
 		@foreach ($list as $value => $item)
 		<tr class="sldbn">
 			<td class="text-center p-0">{{ $item->id }}</td>
-			<td class="text-center"><img src="{{ $item->img }}" alt=""></td>
+			<td class="text-center"><img src="{{ genurl($item->img) }}" alt=""></td>
 			<td class="text-center" id="titbn">{{ $item->tit }}</td>
 			<td class="text-center" id="txtbn" hidden>{{ $item->ctn }}</td>
 			<td class="text-center">
@@ -84,7 +84,7 @@
 		@foreach ($list as $value => $item)
 		<tr class="sanpham">
 			<td rowspan="2" class="text-center">{{ $item->id }}</td>
-			<td rowspan="2" class="text-center"><img src="{{ $item->img }}" alt=""></td>
+			<td rowspan="2" class="text-center"><img src="{{ genurl($item->img) }}" alt=""></td>
 			<td rowspan="2" id="tensp">{{ $item->name }}</td>
 			<td rowspan="2" id="in4sp" style="overflow-hidden">{{ $item->info }}</td>
 			<td id="min4sp" hidden>{{ $item->detail }}</td>
@@ -123,7 +123,7 @@
 			<td style="text-align: center;">{{ $item->id }}</td>
 			<td style="text-align: center;" id="tendm">{{ $item->name }}</td>
 			<td style="text-align: center;" id="pldm">{{ $item->type }}</td>
-			<td style="text-align: center;" id="imgdm">{{ $item->img }}</td>
+			<td style="text-align: center;" id="imgdm">{{ genurl($item->img) }}</td>
 			<td style="text-align: center;">
 				<button class="btn btn-primary suaxoa sua suadm" data-id="{{ $item->id }}"><i class="fa-solid fa-gear"></i></button>
 				<button class="btn btn-danger suaxoa xoa xoadm" data-id="{{ $item->id }}" data-type="c2"><i class="fa-solid fa-trash"></i></button>

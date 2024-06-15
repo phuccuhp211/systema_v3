@@ -323,7 +323,7 @@ class admin_controller extends Controller {
                     Storage::disk('custom')->putFileAs($rq->file('img'), $name);
 
                     $prod = $rq->all();
-                    $prod['img'] = asset('data').'/'.$name;
+                    $prod['img'] = $name;
                     Product::create($prod);
                     $data['status'] = true;
                     $data['res'] = "<span>Thêm Thành Công</span>";
@@ -334,7 +334,7 @@ class admin_controller extends Controller {
                     else {
                         $name = $rq->file('newimg')->getClientOriginalName();
                         Storage::disk('custom')->putFileAs($rq->file('newimg'), $name);
-                        $prod['img'] = asset('data').'/'.$name;
+                        $prod['img'] = $name;
                     }
                     unset($prod['newimg'], $prod['oldimg']);
                     Product::where('id', $rq->input('id'))->update($prod);
