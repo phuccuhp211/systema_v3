@@ -65,6 +65,7 @@ class admin_controller extends Controller {
     function login() {
         return view('admin.login');
     }
+    
     function manager(Request $rq, $type='') {
         if ($type != '') {
             if ($type == 'sections') {
@@ -276,7 +277,7 @@ class admin_controller extends Controller {
                 $data['res'] .= "
                     <tr class=\"sanpham\">
                         <td rowspan=\"2\" class=\"text-center\">".$item->id."</td>
-                        <td rowspan=\"2\" class=\"text-center\"><img src=\"".$item->img."\" alt=\"\"></td>
+                        <td rowspan=\"2\" class=\"text-center\"><img src=\"".genurl($item->img)."\" alt=\"\"></td>
                         <td rowspan=\"2\" id=\"tensp\">".$item->name."</td>
                         <td rowspan=\"2\" id=\"in4sp\" style=\"overflow-hidden\">".$item->info."</td>
                         <td id=\"min4sp\" hidden>".$item->detail."</td>

@@ -75,16 +75,16 @@ class user_controller extends Controller {
         return $bl;
     }
 
-    function pagin($type=null, $data=null, $pg_count=null, $pg_cr, $filter=null) {
+    function pagin($type=null, $data=null, $pg_count=null, $pg_cr, $filters1=null, $filters2=null) {
         $lpt= "";
-        $filter = ($filter) ? "type=\"$filter\"" : '';
+        $filters1 = ($filters1) ? "type=\"$filters1\"" : '';
         $data = ($data) ? "data=\"$data\"" : '';
         for ($i = 1; $i <= $pg_count; $i++) {
             if ($i == $pg_cr) {
-                $lpt.= "<button class=\"a-pt a-move act\" data-type=\"products/$type\" page=\"$i\" $data $filter>$i</button>";
+                $lpt.= "<button class=\"a-pt a-move act\" data-type=\"products/$type\" page=\"$i\" $data $filters1>$i</button>";
             }
             else if ($i <= 3 || $i > $pg_count - 3 || ($i >= $pg_cr - 1 && $i <= $pg_cr + 1)) {
-                $lpt.= "<button class=\"a-pt a-move\" data-type=\"products/$type\" page=\"$i\" $data $filter>$i</button>";
+                $lpt.= "<button class=\"a-pt a-move\" data-type=\"products/$type\" page=\"$i\" $data $filters1>$i</button>";
             }
             else if ($i == 4 && $pg_cr > 4) {
                 $lpt.= "<button class=\"a-pt deact\">...</button>";
@@ -110,7 +110,6 @@ class user_controller extends Controller {
         $this->datarp['banners'] = Banner::get_bn();
         $this->datarp['full_ss'] = $arr_ss;
         $this->datarp['product'] = Product::get_st();
-        $this->datarp['casepcs'] = Product::get_ps();
 
         return view('client.home', $this->datarp);
     }
@@ -121,7 +120,8 @@ class user_controller extends Controller {
         $data = ($rq->input('data')) ?? $data;
         $page = ($rq->input('page')) ?? $page;
         $limit = ($rq->input('limit')) ?? 16;
-        $filter = ($rq->input('filter')) ??  null;
+        $filters1 = ($rq->input('filters1')) ??  null;
+        $filters2 = ($rq->input('filters2')) ??  null;
 
         if ($type == 'all') $this->datarp['title'] = 'Tất Cả Sản Phẩm';
         else if ($type == 'search') $this->datarp['title'] = $this->datarp['pgpd'] = 'Tìm kiếm: '.$rq->input('search_data');
@@ -130,20 +130,20 @@ class user_controller extends Controller {
 
         if ($rq->ajax()) {
             if ($rq->input('search_data')) {
-                $res = Product::get_ao($type,$rq->input('search_data'),$page,$filter,$rq->input('limit'));
+                $res = Product::get_ao($type,$rq->input('search_data'),$page,$filters1,$filters2,$rq->input('limit'));
                 return response()->json(['res' => $res]);
             }
             else {
-                $res = Product::get_ao($type,$data,$page,$filter,$limit);
+                $res = Product::get_ao($type,$data,$page,$filters1,$filters2,$limit);
                 $col = ($rq->input('showsp')) ? $rq->input('showsp') : null;
                 $rp['prods'] = showsp($res, $col);
-                $rp['pagin'] = $this->pagin($type,$data,Product::pagin($type,$data),$page,$filter);
+                $rp['pagin'] = $this->pagin($type,$data,Product::pagin($type,$data),$page,$filters1,$filters2);
                 return response()->json(['res' => $rp]);
             }
         }
         else {
-            $this->datarp['dtpd'] = Product::get_ao($type,$data,$page,$filter,$limit);
-            $this->datarp['pagi'] = $this->pagin($type,$data,Product::pagin($type,$data),$page,$filter);
+            $this->datarp['dtpd'] = Product::get_ao($type,$data,$page,$filters1,$filters2,$limit);
+            $this->datarp['pagi'] = $this->pagin($type,$data,Product::pagin($type,$data),$page,$filters1,$filters2);
             $this->datarp['filter'] = $this->genfil($type,$data);
             return view('client.product', $this->datarp);
         }

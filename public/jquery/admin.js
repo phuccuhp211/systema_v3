@@ -80,12 +80,6 @@ $(function() {
 		$('#fix_tx_bn').val(old_text);
 		$('#fix_img_bn').val(old_img);
 	})
-	$(document).on('click', '.xoabn', function() {
-		id = $(this).data('id');
-		let type = $(this).data('type');
-		let duongdan_del = duongdan+url_sub+"/manager/"+type+"/del/"+id;
-		$('#acp-del').attr("href", duongdan_del);
-	})
 	$(document).on('click', '.suabc', function() {
 		id = $(this).data('id');
 		let duongdan_fix = duongdan+url_sub+"/lay/fix/"+id+"/";
@@ -106,13 +100,6 @@ $(function() {
 		$('#fix_bgr_bc').val(old_bgr);
 		$(`#fix_ord_bc option[value=${old_ord}]`).prop("selected", true);
 		$(`#fix_ref_bc option[value=${old_ref}]`).prop("selected", true);
-	})
-	$(document).on('click', '.xoabc', function() {
-		id = $(this).data('id');
-		let type = $(this).data('type');
-		let duongdan_del = duongdan+url_sub+"/manager/"+type+"/del/"+id;
-		$('#acp-del').attr("href", duongdan_del);
-		console.log(id);
 	})
 	$(document).on('click', '.suasp', function() {
 		id = $(this).data('id');
@@ -145,13 +132,6 @@ $(function() {
 		if (old_cata != '') $(`#fix_catalog_sp option[value=${old_cata}]`).prop("selected", true);
 		if (old_brand != '') $(`#fix_brand_sp option[value=${old_brand}]`).prop("selected", true);
 	})
-	$(document).on('click', '.xoasp', function() {
-		id = $(this).data('id');
-		let type = $(this).data('type');
-		let duongdan_del = duongdan+url_sub+"/manager/"+type+"/del/"+id;
-		$('#acp-del').attr("href", duongdan_del);
-		console.log(id);
-	})
 	$(document).on('click', '.suadm', function() {
 		id = $(this).data('id');
 		let ae_td = $(this).parent().siblings("td:has(img)");
@@ -165,13 +145,6 @@ $(function() {
 		$('#fix_name_pldm').val(pldm);
 		$('#fix_name_pl').val("");
 	})
-	$(document).on('click', '.xoadm', function() {
-		id = $(this).data('id');
-		let type = $(this).data('type');
-		let duongdan_del = duongdan+url_sub+"/manager/"+type+"/del/"+id;
-		$('#acp-del').attr("href", duongdan_del);
-		console.log(id);
-	})
 	$(document).on('click', '.suapl', function() {
 		id = $(this).data('id');
 
@@ -181,13 +154,6 @@ $(function() {
 		$('#fix_name_pl').val(old_name);
 		$('#fix_name_pldm').val("");
 		$('#fix_name_dm').val("");
-	})
-	$(document).on('click', '.xoapl', function() {
-		id = $(this).data('id');
-		let type = $(this).data('type');
-		let duongdan_del = duongdan+url_sub+"/manager/"+type+"/del/"+id;
-		$('#acp-del').attr("href", duongdan_del);
-		console.log(id);
 	})
 	$(document).on('click', '.suaus', function() {
 		id = $(this).data('id');
@@ -217,13 +183,6 @@ $(function() {
 			$("#role_fix_us option[value='1']").prop("selected", true);
 		}
 	})
-	$(document).on('click', '.xoaus', function() {
-		id = $(this).data('id');
-		let type = $(this).data('type');
-		let duongdan_del = duongdan+url_sub+"/manager/"+type+"/del/"+id;
-		$('#acp-del').attr("href", duongdan_del);
-		console.log(id);
-	})
 	$(document).on('click', '.suagg', function() {
 		id = $(this).data('id');
 		let duongdan_fix = duongdan+url_sub+"/dis/fix/"+id+"/";
@@ -241,7 +200,8 @@ $(function() {
 		$('#fix_td_gg').val(old_tgg);
 		$('#fix_pt_gg').val(old_ptg);
 	})
-	$(document).on('click', '.xoagg', function() {
+
+	$(document).on('click', '.xoa', function() {
 		id = $(this).data('id');
 		let type = $(this).data('type');
 		let duongdan_del = duongdan+url_sub+"/manager/"+type+"/del/"+id;
@@ -355,16 +315,7 @@ $(function() {
 			}
 		});
 	})
-	$(document).on('click', '.xoabl', function() {
-		$('.bg-del').removeClass('hide-bg-del');
-		id = $(this).data('id');
-		let type = $(this).data('type');
-		let duongdan_del = duongdan+url_sub+"/manager/"+type+"/del/"+id;
-		$('#acp-del').attr("href", duongdan_del);
-		console.log(id);
-	})
 	/*-------------------- BACK --------------------*/
-	
 
 	function show_cmt(data) {
 		let dulieu = data;
@@ -376,7 +327,7 @@ $(function() {
 				<td>${dulieu[i].content}</td>
 				<td>${dulieu[i].id_us}</td>
 				<td>${formatDate(dulieu[i].date)}</td>
-				<td><button class="btn btn-danger suaxoa xoabl" data-id="${dulieu[i].id}" data-type="cm"><i class="fa-solid fa-trash"></i></button></td>
+				<td><button class="btn btn-danger suaxoa xoa" data-id="${dulieu[i].id}" data-type="cm"><i class="fa-solid fa-trash"></i></button></td>
 			</tr>
 			`;
 		}
@@ -446,9 +397,38 @@ $(function() {
 	    });
 	});
 
-
-
 	$(document).on('submit', '.admin-fix', function(event) {
+		event.preventDefault();
+		let form = $(this)[0];
+		let url = $(this).attr('action');
+		let formData = new FormData(form);
+
+		$.ajax({
+	        url: url,
+	        type: 'POST',
+	        dataType: 'JSON',
+	        data: formData,
+	        contentType: false,
+	        processData: false,
+	        success: function(data) {
+	            console.log(data);
+	            if (!data.status) {
+	                $('.bg-err').removeClass('hide-bg-add-err');
+	                $('.bg-err').find('div').html('<ul>' + data.res + '</ul>');
+	                setTimeout(function() { $('.bg-err').addClass('hide-bg-add-err') }, 5000);
+	            } else {
+	                $('.bg-err').removeClass('hide-bg-add-err');
+	                $('.bg-err').find('div').html(data.res);
+	                setTimeout(function() { location.reload(); }, 3000);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.log(xhr.responseText);
+	        }
+	    });
+	});
+
+	$(document).on('submit', '.admin-del', function(event) {
 		event.preventDefault();
 		let form = $(this)[0];
 		let url = $(this).attr('action');

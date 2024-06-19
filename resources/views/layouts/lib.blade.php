@@ -13,7 +13,3 @@
 
 	<link rel="stylesheet" href="{{ asset('lib/css/bootstrap.css')}}">
 	<script type="text/javascript" src="{{ asset('lib/js/all.js')}}"></script>
-
-	
-
-

@@ -24,20 +24,6 @@ class Product extends Model
         return self::where('hidden',0)->limit(10)->get();
     }
 
-    public static function get_ps() {
-        $casepcs = self::select('id','name','img','detail')
-            ->where([['hidden',0],['id_cata_1',3]])
-            ->inRandomOrder()
-            ->limit(2)
-            ->get();
-        for ($i = 0; $i < 2; $i++) {
-            $asd = $casepcs[$i]['detail'];
-            $qwe = json_decode(stripslashes($asd));
-            $casepcs[$i]['html'] = (is_array($qwe)) ? htmlspecialchars_decode($qwe[0]) : '';
-        }
-        return $casepcs;
-    }
-
     public static function get_sp($cat1=null, $cat2=null,$ref,$ord) {
         $query = self::query();
 
@@ -80,7 +66,7 @@ class Product extends Model
             ->get();
     }
 
-    public static function get_ao($type=null,$data=null,$page,$ord=null,$limit) {
+    public static function get_ao($type=null,$data=null,$page,$ord=null,$filter=null,$limit) {
         $query = self::query();
 
         if ($type == 'all') $query->where('hidden',0);

@@ -9,7 +9,7 @@ $(function() {
 		var data_trave = {
 			xacthuc2: randomParam,
 	        type: data_type,
-	        filter: phanloai
+	        filters1: phanloai
 		};
 
 		if (dulieu) data_trave.data = dulieu;
@@ -41,7 +41,7 @@ $(function() {
 		var requestData = { 
 			type: data_type,
 			page: page,
-			filter: phanloai
+			filters1: phanloai
 		};
 		
 	    if (data) requestData.data = data;

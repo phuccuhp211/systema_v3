@@ -17,14 +17,14 @@
 			<td rowspan="2" class="text-center" id="tenbc">{{ $item->name }}</td>
 			<td rowspan="2" class="text-center" id="posbc">
 				@if ($item->poster != null)
-				<img src="{{ $item->poster }}">
+				<img src="{{ genurl($item->poster) }}">
 				@else
 				Chưa Thiết Lập
 				@endif
 			</td>
 			<td rowspan="2" class="text-center" id="bgrbc">
 				@if ($item->eb_img != null)
-				<img src="{{ $item->eb_img }}">
+				<img src="{{ genurl($item->eb_img) }}">
 				@else
 				Chưa Thiết Lập
 				@endif
@@ -34,7 +34,7 @@
 			<td rowspan="2" class="text-center" id="idobc">{{ $item->index }}</td>
 			<td rowspan="2" class="text-center">
 				<button class="btn btn-primary suaxoa sua suabc" data-id="{{ $item->id }}"><i class="fa-solid fa-gear"></i></button>
-				<button class="btn btn-danger suaxoa xoa xoabc" data-id="{{ $item->id }}" data-type="ss"><i class="fa-solid fa-trash"></i></button>
+				<button class="btn btn-danger suaxoa xoa" data-id="{{ $item->id }}" data-type="ss"><i class="fa-solid fa-trash"></i></button>
 			</td>
 		</tr>
 		<tr>
@@ -62,7 +62,7 @@
 			<td class="text-center" id="txtbn" hidden>{{ $item->ctn }}</td>
 			<td class="text-center">
 				<button class="btn btn-primary suaxoa sua suabn" data-id="{{ $item->id }}"><i class="fa-solid fa-gear"></i></button>
-				<button class="btn btn-danger suaxoa xoa xoabn" data-id="{{ $item->id }}" data-type="bn"><i class="fa-solid fa-trash"></i></button>
+				<button class="btn btn-danger suaxoa xoa" data-id="{{ $item->id }}" data-type="bn"><i class="fa-solid fa-trash"></i></button>
 			</td>
 		</tr>
 		@endforeach
@@ -93,7 +93,7 @@
 			<td id="salesp" class="text-center">{{ gennum($item->sale) }}</td>
 			<td rowspan="2" class="text-center">
 				<button class="btn btn-primary suaxoa sua suasp" data-id="{{ $item->id }}"><i class="fa-solid fa-gear"></i></button>
-				<button class="btn btn-danger suaxoa xoa xoasp" data-id="{{ $item->id }}" data-type="pd"><i class="fa-solid fa-trash"></i></button>
+				<button class="btn btn-danger suaxoa xoa" data-id="{{ $item->id }}" data-type="pd"><i class="fa-solid fa-trash"></i></button>
 				@if ($item->hidden == 0)
 				<button class="btn btn-warning suaxoa hidden hidsp" data-hid="{{ $item->hidden }}" data-id="{{ $item->id }}"><i class="fa-solid fa-eye-slash"></i></button>
 				@else
@@ -126,7 +126,7 @@
 			<td style="text-align: center;" id="imgdm">{{ genurl($item->img) }}</td>
 			<td style="text-align: center;">
 				<button class="btn btn-primary suaxoa sua suadm" data-id="{{ $item->id }}"><i class="fa-solid fa-gear"></i></button>
-				<button class="btn btn-danger suaxoa xoa xoadm" data-id="{{ $item->id }}" data-type="c2"><i class="fa-solid fa-trash"></i></button>
+				<button class="btn btn-danger suaxoa xoa" data-id="{{ $item->id }}" data-type="c2"><i class="fa-solid fa-trash"></i></button>
 			</td>
 		</tr>
 		@endforeach
@@ -156,7 +156,7 @@
 			<td id="roleus" class="text-center">{{ $item->role }}</td>
 			<td class="text-center">
 				<button class="btn btn-primary suaxoa sua suaus" data-id="{{ $item->id }}"><i class="fa-solid fa-gear"></i></button>
-				<button class="btn btn-danger suaxoa xoa xoaus" data-id="{{ $item->id }}" data-type="us"><i class="fa-solid fa-trash"></i></button>
+				<button class="btn btn-danger suaxoa xoa" data-id="{{ $item->id }}" data-type="us"><i class="fa-solid fa-trash"></i></button>
 				@if ($item->lock == 0)
 				<button class="btn btn-warning suaxoa ban banus" data-id="{{ $item->id }}" data-lock="{{ $item->lock }}"><i class="fa-solid fa-ban"></i></button>
 				@else
@@ -274,7 +274,7 @@
 				</td>
 				<td>
 					<button class="btn btn-primary suaxoa sua suagg" data-id="{{ $item->id }}"><i class="fa-solid fa-gear"></i></button>
-					<button class="btn btn-danger suaxoa xoa xoagg" data-id="{{ $item->id }}" data-type="cp"><i class="fa-solid fa-trash"></i></button>
+					<button class="btn btn-danger suaxoa xoa" data-id="{{ $item->id }}" data-type="cp"><i class="fa-solid fa-trash"></i></button>
 				</td>
 			</tr>
 		@endforeach

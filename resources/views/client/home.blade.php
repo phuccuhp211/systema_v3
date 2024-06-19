@@ -44,29 +44,14 @@
             </div>
         </div>
     </div>
-    <div class="poster">    
-        <div class="container">
-            <h1>Sản phẩm được quan tâm nhất </h1>
-            <div class="row">
-                @foreach($casepcs as $value => $item)
-                <div class=" col-lg-6 poster_item">
-                    <div class="khung-poster" style="background: url({{ genurl('rd'.mt_rand(1,4).'.jpg') }}) bottom; background-size: cover ;">
-                        <div class="bg-poster">
-                            <img src="{{ genurl($item['img']) }}" class="anh-poster" alt="">
-                        </div>
-                        
-                        <div class="chu-poster">
-                            {!! $item['html'] !!}
-                            <a href="{{ url('/sanpham/chitiet/').$item['id'] }}" class="btn btn-outline-light">Xem thêm &raquo;</a>
-                        </div>
-                    </div>                    
-                </div>
-                @endforeach
-            </div>               
-        </div>
-    </div>
     <div class="container pad_1" id="list-sanpham">
         @foreach ($full_ss as $value => $item)
+            @php
+                $xemthem = '';
+                if ($item['title']['id_cata_1'] != '') $xemthem = route('show', ['type' => 'cat1', 'data' => $item['title']['id_cata_1']]);
+                else if ($item['title']['id_cata_2'] != '') $xemthem = route('show', ['type' => 'cat2', 'data' => $item['title']['id_cata_2']]);
+                else $xemthem = route('show', ['type' => 'all']);
+            @endphp
             <div class="ss-sp">
                 @if ($item['title']['eb_img'] == "")
                 <h2 class="tieude">{{ $item['title']['name'] }}</h2>
@@ -80,27 +65,16 @@
                 <div class="ss-poster"><img src="{{ genurl($item['title']['poster']) }}" alt=""></div>
                 @endif
 
-                @if ($item['title']['eb_img'] == "")
-                <div class="row">
-                    <div>
-                        <div class="ebd_img">
-                            <button class="click-pn click-prev"><i class="fa-solid fa-arrow-left"></i></button>
-                            {!! showsp2($item['products'],'col-20pt') !!}
-                            <button class="click-pn click-next"><i class="fa-solid fa-arrow-right"></i></button>
-                        </div>
-                    </div>
-                </div>
-                @else
                 <div class="row">
                     <div>
                         <div class="ebd_img" style="background: url({{ genurl($item['title']['eb_img']) }}) bottom; background-size:cover;">
                             <button class="click-pn click-prev"><i class="fa-solid fa-arrow-left"></i></button>
                             {!! showsp2($item['products'],'col-3','ss-1') !!}
                             <button class="click-pn click-next"><i class="fa-solid fa-arrow-right"></i></button>
+                            <a href="{{ $xemthem }}" class="xemthem">Xem Thêm</a>
                         </div>
                     </div>
                 </div>
-                @endif
             </div>
         @endforeach      
         <div class="static-ss">
