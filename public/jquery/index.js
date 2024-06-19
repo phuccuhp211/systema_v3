@@ -2,26 +2,30 @@ $(function() {
     $('body').scrollspy({ target: '#mnm', offset: 50 });
 
     $(document).on('click', '.click-pn', function(event) {
-    	var cdai = $(this).parent().width();
-        var slides = $(this).siblings("div");
-        var margin = parseInt(slides.eq(0).css('margin-left')) || 0;
+    	let cdai = $(this).parent().width();
+        let num = $(this).parent().find('.col-3').length;
+        let one_c = cdai/4;
+        let mul_c = (one_c * num) - one_c;
+        let slides = $(this).siblings("div");
+        let margin = parseInt(slides.eq(0).css('margin-left')) || 0;
 
         if ($(this).hasClass('click-prev')) {
-            margin = Math.min(0, margin + cdai);
+            margin = Math.min(0, margin + one_c);
         } else {
-            margin = Math.max(-(cdai*4), margin - cdai);
+            margin = Math.max(-(one_c*(num-4)), margin - one_c);
         }
         slides.eq(0).css('margin-left', margin + 'px');
+        console.log(num);
     });
 
     $('.index-cat').on('click', function() {
-        var randomParam = Math.random().toString(36).substring(7);
-        var data_type = $(this).attr("data-type");
-        var dulieu = $(this).attr("data");
+        let randomParam = Math.random().toString(36).substring(7);
+        let data_type = $(this).attr("data-type");
+        let dulieu = $(this).attr("data");
 
-        var duongdan_fix = duongdan+url_sub+`/${data_type}${dulieu ? `/${dulieu}` : ''}`;
+        let duongdan_fix = duongdan+url_sub+`/${data_type}${dulieu ? `/${dulieu}` : ''}`;
 
-        var data_trave = {
+        let data_trave = {
             xacthuc2: randomParam,
             type: data_type,
             data: dulieu,
@@ -49,13 +53,13 @@ $(function() {
         });
     })
     $('.index-fil').on('click', function() {
-        var randomParam = Math.random().toString(36).substring(7);
-        var data_type = $(this).attr("data-type");
-        var dulieu = $(this).attr("data");
-        var phanloai = $(this).attr("data-phanloai");
+        let randomParam = Math.random().toString(36).substring(7);
+        let data_type = $(this).attr("data-type");
+        let dulieu = $(this).attr("data");
+        let phanloai = $(this).attr("data-phanloai");
 
-        var duongdan_fix = duongdan+url_sub+`/${data_type}${dulieu ? `/${dulieu}` : ''}`;
-        var data_trave = {
+        let duongdan_fix = duongdan+url_sub+`/${data_type}${dulieu ? `/${dulieu}` : ''}`;
+        let data_trave = {
             xacthuc2: randomParam,
             type: data_type,
             filter: phanloai,

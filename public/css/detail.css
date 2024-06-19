@@ -46,6 +46,13 @@
     text-align: center;
 }
 
+.gia-sp span {
+    text-decoration: line-through;
+    width: auto;
+    font-size: 16px;
+    color: gray;
+}
+
 .ten-sp {
     margin: 0 0 3%;
 }

@@ -137,13 +137,14 @@ class user_controller extends Controller {
                 $res = Product::get_ao($type,$data,$page,$filters1,$filters2,$limit);
                 $col = ($rq->input('showsp')) ? $rq->input('showsp') : null;
                 $rp['prods'] = showsp($res, $col);
-                $rp['pagin'] = $this->pagin($type,$data,Product::pagin($type,$data),$page,$filters1,$filters2);
+                $rp['pagin'] = $this->pagin($type,$data,Product::pagin($type,$data,$filters2),$page,$filters1,$filters2);
                 return response()->json(['res' => $rp]);
             }
         }
         else {
+            $this->datarp['brands'] = Brand::all();
             $this->datarp['dtpd'] = Product::get_ao($type,$data,$page,$filters1,$filters2,$limit);
-            $this->datarp['pagi'] = $this->pagin($type,$data,Product::pagin($type,$data),$page,$filters1,$filters2);
+            $this->datarp['pagi'] = $this->pagin($type,$data,Product::pagin($type,$data,$filters2),$page,$filters1,$filters2);
             $this->datarp['filter'] = $this->genfil($type,$data);
             return view('client.product', $this->datarp);
         }

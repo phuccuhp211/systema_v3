@@ -26,13 +26,16 @@
                             <li>Xuất xứ: Chính hãng</li>
                             <li>Thương hiệu: {{ $dtpd['brand'] }}</li>
                         </ul>
-                        <span class="mieuta-sp">Đã Bán : {{ $dtpd['saled'] }}</span><br>
+                        <span class="mieuta-sp">Đã Bán: {{ $dtpd['saled'] }}</span><br>
                         <span class="mieuta-sp">{{ $dtpd['info'] }}</span>
                         <div class="gia-mua-sp">
-                            @if ($dtpd['sale'] == 0)
-                                <h2 class="gia-sp">Giá : {{ number_format($dtpd['price'],0,'','.') }}</h2>
+                            @php
+                                $sale = issale($dtpd);
+                            @endphp
+                            @if (!$sale)
+                                <h2 class="gia-sp">Giá: {{ gennum($dtpd['price']) }}</h2>
                             @else
-                                <h2 class="gia-sp">Giá : {{ number_format($dtpd['sale'],0,'','.') }}</h2>
+                                <h2 class="gia-sp">Giá: <span>{{ gennum($dtpd['price']) }}</span> {{ gennum($dtpd['sale']) }}</h2>
                             @endif
                             <div style="margin: 15px 0;">
                                 <label for="">Số Lượng : </label><input type="number" min="1" value="1" class="ctsp-sl">

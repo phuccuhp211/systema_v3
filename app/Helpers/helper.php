@@ -62,6 +62,13 @@
     function genurl($url,$type='data') {
         return asset("$type/$url");
     }
+    function issale($prod) {
+        $now = new DateTime();
+        $f_date = new DateTime($prod->f_date);
+        $t_date = new DateTime($prod->t_date);
+        if ($f_date > $now || $t_date < $now) return false;
+        else return true;
+    }
     function gendate($date) {
         return date("d-m-Y",strtotime($date));
     }

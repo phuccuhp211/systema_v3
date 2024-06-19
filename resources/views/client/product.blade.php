@@ -14,30 +14,54 @@
         <div class="container">
             <div class="row">
                 <div class="col-3 menu-trai d-none d-lg-block d-md-block">
-                    <h2 class="h2-title">Danh Mục</h2>
-                    <div class="menu-trai-tong">
-                        <div class="menu-khungboc">
-                            @foreach ($header['cat1'] as $value => $item)
-                            <div class="list-cap1">
-                                <a href="{{ url('products/cat1').'/'.$item['id'] }}">{{ ucwords($item['name']) }}</a>
-                                @foreach($header['cat2'] as $value2 => $item2)
-                                    @if ($item['id'] == $item2['type'])
-                                    <button class="show-list-btn">+</button>
-                                    <div class="list-cap2">
-                                        <ul>
-                                            @foreach ($header['cat2'] as $value3 => $item3)
-                                                @if ($item['id'] == $item3['type'])
-                                                <li><a href="{{ url('products/cat2').'/'.$item3['id'] }}">{{ strtoupper($item3['name']) }}</a></li>
-                                                @endif
-                                            @endforeach
+                    <div class="mb-4">
+                        <h2 class="h2-title">Danh Mục</h2>
+                        <div class="menu-trai-tong">
+                            <div class="menu-khungboc">
+                                @foreach ($header['cat1'] as $value => $item)
+                                <div class="list-cap1">
+                                    <a href="{{ url('products/cat1').'/'.$item['id'] }}">{{ ucwords($item['name']) }}</a>
+                                    @foreach($header['cat2'] as $value2 => $item2)
+                                        @if ($item['id'] == $item2['type'])
+                                        <button class="show-list-btn">+</button>
+                                        <div class="list-cap2">
+                                            <ul>
+                                                @foreach ($header['cat2'] as $value3 => $item3)
+                                                    @if ($item['id'] == $item3['type'])
+                                                    <li><a href="{{ url('products/cat2').'/'.$item3['id'] }}">{{ strtoupper($item3['name']) }}</a></li>
+                                                    @endif
+                                                @endforeach
 
-                                        </ul>
-                                    </div>
-                                    @break
-                                    @endif
+                                            </ul>
+                                        </div>
+                                        @break
+                                        @endif
+                                    @endforeach
+                                </div>
                                 @endforeach
                             </div>
-                            @endforeach
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="h2-title">Bộ Lọc</h2>
+                        <div class="menu-trai-tong">
+                            <div class="menu-khungboc">
+                                <div class="form-control mb-3">
+                                    <label class="form-label">Thương Hiệu</label>
+                                    <select id="brand"  class="form-select">
+                                        <option value="">Không Chọn</option>
+                                        @foreach ($brands as $value => $item)
+                                        <option value="{{ $item['id'] }}">{{ $item['name'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-control mb-3">
+                                    <label>Giá</label>
+                                    <input type="text" id="from-p" class="ftp form-control mb-2" placeholder="Từ...">
+                                    <input type="text" id="to-p" class="ftp form-control" placeholder="Đến...">
+                                </div>
+                                <button class="filter">Áp Dụng</button>
+                            </div>
                         </div>
                     </div>
                 </div>

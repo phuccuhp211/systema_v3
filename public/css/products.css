@@ -1,5 +1,18 @@
 *{padding: 0;margin: 0;}
 
+.filter {
+    background: #745caf;
+    color: white;
+    width: 100%;
+    border: none;
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.filter:hover, .filter:focus {
+    background: #6246a8;
+}
+
 .boloc {
     float: right;
     padding: 7px 35px;

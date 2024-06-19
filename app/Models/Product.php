@@ -66,29 +66,46 @@ class Product extends Model
             ->get();
     }
 
-    public static function get_ao($type=null,$data=null,$page,$ord=null,$filter=null,$limit) {
+    public static function get_ao($type=null,$data=null,$page,$ord,$filter,$limit) {
         $query = self::query();
+        $where = '';
 
         if ($type == 'all') $query->where('hidden',0);
         else if ($type == 'cat1') $query->where([['id_cata_1',$data],['hidden',0]]);
         else if ($type == 'cat2') $query->where([['id_cata_2',$data],['hidden',0]]);
         else if ($type == 'search') $query->where([['name','like',"%$data%"],['hidden','=',0]]);
 
-        if ($ord == 1) $query->orderBy('id', 'ASC');
-        else if ($ord == 2) $query->orderBy('id', 'DESC');
-        else if ($ord == 3) $query->orderBy('price','ASC');
-        else if ($ord == 4) $query->orderBy('price','DESC');
+        if ($filter) {
+            if ($filter['brand'] != '') $query->where('id_brand', $filter['brand']);
+            if ($filter['to'] != '') $query->where('price', '<=', $filter['to']);
+            if ($filter['from'] != '') $query->where('price', '>=', $filter['from']);
+        }
+            
+        if ($ord) {
+            if ($ord == 1) $query->orderBy('id', 'ASC');
+            else if ($ord == 2) $query->orderBy('id', 'DESC');
+            else if ($ord == 3) $query->orderBy('price','ASC');
+            else if ($ord == 4) $query->orderBy('price','DESC');
+        }
+            
 
         return $query->offset(($page*$limit)-$limit)->limit($limit)->get();
     }
 
-    public static function pagin($type=null,$data=null) {
+    public static function pagin($type=null,$data=null,$filter) {
         $query = self::query();
+        
         if ($type == 'all') $query->where('hidden',0);
         else if ($type == 'cat1') $query->where([['id_cata_1',$data],['hidden',0]]);
         else if ($type == 'cat2') $query->where([['id_cata_2',$data],['hidden',0]]);
         else if ($type == 'search') $query->where([['name','like',"%$data%"],['hidden',0]]);
         else $query->get();
+
+        if ($filter) {
+            if ($filter['brand'] != '') $query->where('id_brand', $filter['brand']);
+            if ($filter['to'] != '') $query->where('price', '<=', $filter['to']);
+            if ($filter['from'] != '') $query->where('price', '>=', $filter['from']);
+        }
         return ceil($query->count() / 16);
     }
 
