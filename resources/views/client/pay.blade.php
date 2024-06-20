@@ -62,11 +62,13 @@
                 <div class="col-12 khungto-khttdh">
                     <div class="td-khttdh">hình thức thanh toán</div>
                     <div class="khung-khttdh">
-                        <input class="giatien" data-val="true" id="amount" name="amount" type="number" hidden/>
-                        <input type="radio" id="language" Checked="True" name="language" value="vn" hidden>
-                        <p><input type="radio" id="bankCode" name="bankCode" value="INTCARD" class="nut-cb-giohang"> Thanh toán qua Visa/Master Card.</p>
-                        <p><input type="radio" id="bankCode" name="bankCode" value="VNBANK" class="nut-cb-giohang"> Thanh toán qua ATM/Thẻ ghi nợ.</p>
-                        <p><input type="radio" id="bankCode" name="bankCode" class="nut-cb-giohang" value="COD" checked>Thanh toán khi nhận hàng(COD).</p>
+                        <form action="{{ route('vnpay.payment') }}" id="payment_methods" method="POST">
+                            @csrf
+                            <input data-val="true" id="amount" name="amount" type="number" value="{{session('cart')['total']}}" class="price" hidden/>
+                            <p><input type="radio" name="bankCode" value="INTCARD" class="nut-cb-giohang"> Thanh toán qua thẻ quốc tế.</p>
+                            <p><input type="radio" name="bankCode" value="VNBANK" class="nut-cb-giohang"> Thanh toán qua ATM ngân hàng.</p>
+                            <p><input type="radio" name="bankCode" value="COD"class="nut-cb-giohang" checked>Thanh toán khi nhận hàng(COD).</p>
+                        </form>
                     </div>     
                 </div>
             </div>

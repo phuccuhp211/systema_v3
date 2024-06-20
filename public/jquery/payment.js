@@ -103,7 +103,6 @@ $(function() {
 		check_input().then((check_vl) => {
 			if (check_vl.status) {
 				let randomParam = Math.random().toString(36).substring(7);
-				
 				let d = new Date();
 				let gio = String((d.getHours()));
 				let phut = String((d.getMinutes()));
@@ -136,24 +135,38 @@ $(function() {
 
 				$('.thongbao-thanhtoan').removeClass('hide-tbtt');
 
-				let duongdan_fix = duongdan+url_sub+"/payment/order";
-
-				$.ajax({
-					type: "POST",
-					method: "POST",
-					url: duongdan_fix,
-					data: data_trave,
-					success: function(data) {
-						location.href = data;
-					},
-					error: function() {
-						console.log("Có lỗi xảy ra.");
-					}
-				});
+				if ($('input[name="bankCode"]:checked').val() == 'COD') {
+					let duongdan_fix = duongdan+url_sub+"/payment/order";
+					$.ajax({
+						type: "POST",
+						url: duongdan_fix,
+						data: data_trave,
+						dataType: 'JSON',
+						success: function(data) {
+							location.href = data;
+						},
+						error: function() {
+							console.log("Có lỗi xảy ra.");
+						}
+					});
+				}
+				else {
+					let duongdan_fix = duongdan+url_sub+'/payment/store';
+					$.ajax({
+						url: duongdan_fix,
+						type: 'POST',
+						data: data_trave,
+						dataType: 'JSON',
+						success: function (data) {
+							$('#payment_methods').submit();
+						}
+					});
+				}
 			}
 			else console.log('thieu thong tin kia thang ngu');
 		})
 	})
+
 	$('#apply-mgg').on('submit', function(event) {
 		event.preventDefault();
 		let mgg = $(this).find("input").val();
@@ -182,15 +195,14 @@ $(function() {
 					if (data.type == 'number') {
 						price_discount = discount;
 						total_price = base_price - price_discount;
-						msgmgg = `-${getnumber(price_discount)}`; 
+						msgmgg = `-${getnumber(price_discount)}`;
 					}
 					else {
 						price_discount = Math.ceil((base_price * ( discount / 100 )));
 						total_price = base_price - price_discount;
-						msgmgg = `(-${discount}%) -${getnumber(price_discount)}`; 
+						msgmgg = `(-${discount}%) -${getnumber(price_discount)}`;
 					}
-
-
+					$('#amount').val(total_price);
 					$('.giamgia').find('.p-gia').text(msgmgg);
 					$('.giamgia').removeClass('hide-gg');
 					$('#tongtien').text(getnumber(total_price));

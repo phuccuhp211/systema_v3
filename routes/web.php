@@ -7,6 +7,7 @@ use App\Http\Controllers\Client\cart_controller;
 use App\Http\Controllers\Client\user_controller;
 use App\Http\Controllers\Client\pay_controller;
 use App\Http\Controllers\Admin\admin_controller;
+use App\Http\Controllers\Client\pmmt_controller;
 
 use App\Http\Middleware\cart;
 use App\Http\Middleware\payment;
@@ -28,6 +29,7 @@ Route::middleware([payment::class])->group(function () {
 	Route::post('/payment/checkip', [pay_controller::class, 'validation'])->name('payment.vli');
 	Route::post('/payment/addcp', [pay_controller::class, 'applycoupon'])->name('payment.dcp');
 	Route::post('/payment/order', [pay_controller::class, 'order'])->name('payment.ord');
+	Route::post('/payment/store', [pay_controller::class, 'store'])->name('payment.str');
 });
 
 Route::middleware([cart::class])->group(function () {
@@ -55,3 +57,6 @@ Route::middleware([adminlog::class])->group(function () {
 	Route::match(['get','post'] ,'manager/cp/{type}/{id?}', [admin_controller::class, 'cp_mng'])->name('manager.cp');
 	Route::post('/manager/filter', [cart_controller::class, 'filter'])->name('manager.filter');
 });
+
+Route::post('/vnpay_payment', [pmmt_controller::class, 'vnpay_payment'])->name('vnpay.payment');
+Route::get('/vnpay_result', [pmmt_controller::class, 'vnpay_result'])->name('vnpay.result');

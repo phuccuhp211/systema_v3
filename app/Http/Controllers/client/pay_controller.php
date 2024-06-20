@@ -73,18 +73,18 @@ class pay_controller extends Controller
     }
 
     function order(Request $rq) {
-        $name = $rq->input('name');
-        $mail = $rq->input('mail');
-        $addr = $rq->input('addr');
-        $number = $rq->input('number');
-        $notice = $rq->input('notice');
-        $mxn = $rq->input('mxn');
-        $date = $rq->input('date');
-        $pmmt = $rq->input('pmmt');
-        $sfee = $rq->input('ship');
+        $name = ($rq->ajax()) ? $rq->input('name') : session('user-temp')['name'];
+        $mail = ($rq->ajax()) ? $rq->input('mail') : session('user-temp')['mail'];
+        $addr = ($rq->ajax()) ? $rq->input('addr') : session('user-temp')['addr'];
+        $number = ($rq->ajax()) ? $rq->input('number') : session('user-temp')['number'];
+        $notice = ($rq->ajax()) ? $rq->input('notice') : session('user-temp')['notice'];
+        $mxn = ($rq->ajax()) ? $rq->input('mxn') : session('user-temp')['mxn'];
+        $date = ($rq->ajax()) ? $rq->input('date') : session('user-temp')['date'];
+        $pmmt = ($rq->ajax()) ? $rq->input('pmmt') : session('user-temp')['pmmt'];
+        $sfee = ($rq->ajax()) ? $rq->input('ship') : session('user-temp')['ship'];
 
-        $ntotal = ($rq->input('newtt')) ?? 0;
-        $coupon = ($rq->input('magg')) ?? '';
+        $ntotal = ($rq->ajax()) ? (($rq->input('newtt')) ?? 0) : ((session('user-temp')['newtt']) ?? 0);
+        $coupon = ($rq->ajax()) ? (($rq->input('magg')) ?? '') : ((session('user-temp')['magg']) ?? '');
 
         $list = json_encode(session('cart')['list']);
         $total = ($rq->input('magg')) ? session('cart')['total'] : session('cart')['total']+$sfee;
@@ -94,6 +94,13 @@ class pay_controller extends Controller
         Mail::mailer('smtp')->to($mail)->send( new m_invoice($name,$mail,$addr,$number,$notice,$mxn,$date,$pmmt,$sfee,$total,$ntotal,$coupon) );
 
         session()->forget('cart');
-        return route('dord');
+        if ($rq->ajax()) return route('dord');
+    }
+
+    function store(Request $rq) {
+        $data = $rq->all();
+        unset($data['randomParam']);
+        session(['user-temp'=> $data]);
+        return true;
     }
 }

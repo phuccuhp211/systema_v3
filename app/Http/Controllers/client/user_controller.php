@@ -35,6 +35,10 @@ class user_controller extends Controller {
         $this->datarp['header'] = $this->header;
     }
 
+    public function get_base() {
+        return $this->datarp;
+    }
+
     function header() {
         $cat_1 = Catalog_1::full_cat();
         $cat_2 = Catalog_2::full_cat();
