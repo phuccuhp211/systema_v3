@@ -551,27 +551,31 @@ class admin_controller extends Controller {
             foreach ($list as $value => $item) {
                 $prods = json_decode($item->list, true);
                 $rp = is_array($prods) ? count($prods) : 0;
-                $price = ($item['offers'] !== null) ?  gennum($item['offers']).`<br><span style="font-size: 12px; color: red;">`.$coupon.`</span>` : gennum($item['price']);
                 $coupon = $item['coupon'];
+                $price = ($item['offers'] !== null) ?  gennum($item['offers'])."<br><span style=\"font-size: 12px; color: red;\">".$coupon."</span>" : gennum($item['price']);
 
                 $data['res'] .= "
                     <tr class=\"hoadon\">
                         <td rowspan=\"$rp\" class=\"text-center p-0 id-hd\">".$item->id."</td>
-                        <td rowspan=\"$rp\" class=\"text-start\">".$item->name."</td>
-                        <td rowspan=\"$rp\" class=\"text-start\">
-                            Email: ".$item->email."<br>
-                            SĐT: ".$item->number."<br>
-                            Đ/C: ".$item->address."
+                        <td rowspan=\"$rp\" class=\"text-start\" style=\"font-size:14px;\">
+                            ".$item->name."<br>
+                            ".$item->email."<br>
+                            0".$item->number."<br>
+                            ".$item->address."
                         </td>
                         <td class=\"text-start\">SL: ".$prods[0]['num']." | ".$prods[0]['name']."</td>
                         <td rowspan=\"$rp\" class=\"text-center p-0\">$price</td>
-                        <td rowspan=\"$rp\" class=\"text-center stt-hd\">".$item->status."</td>
                         <td rowspan=\"$rp\" class=\"text-center\">
-                            <select name=\"trangthai\" class=\"hd-stt\" id=\"hd-stt\">
-                                <option value=\"Chuẩn Bị\">Chuẩn Bị</option>
-                                <option value=\"Đang Giao\">Đang Giao</option>
-                                <option value=\"Hoàn Thành\">Hoàn Thành</option>
-                                <option value=\"Hủy\">Hủy</option>
+                            <select name=\"trangthai\" class=\"hd-stt form-control mb-1\" id=\"hd-stt\">
+                                <option ".(($item->status == 'Đanh chờ xác nhận') ? 'selected' : '')." value=\"Đanh chờ xác nhận\">Đanh chờ xác nhận</option>
+                                <option ".(($item->status == 'Chuẩn Bị') ? 'selected' : '')." value=\"Chuẩn Bị\">Chuẩn Bị</option>
+                                <option ".(($item->status == 'Đang Giao') ? 'selected' : '')." value=\"Đang Giao\">Đang Giao</option>
+                                <option ".(($item->status == 'Hoàn Thành') ? 'selected' : '')." value=\"Hoàn Thành\">Hoàn Thành</option>
+                                <option ".(($item->status == 'Hủy') ? 'selected' : '')." value=\"Hủy\">Hủy</option>
+                            </select>
+                            <select name=\"thanhtoan\" class=\"hd-stt form-control mb-1\" id=\"hd-pstt\">
+                                <option ".(($item->p_status == 0) ? 'selected' : '')." value=\"0\">Chưa Thanh Toán</option>
+                                <option ".(($item->p_status == 1) ? 'selected' : '')." value=\"1\">Đã Thanh Toán</option>
                             </select>
                             <button class=\"btn btn-success d-block mt-1 mx-auto hd-update\" id=\"hd-update\">Cập Nhật</button>
                         </td>
@@ -589,7 +593,7 @@ class admin_controller extends Controller {
             return response()->json($data);
         }
         else if ($type == 'upd') {
-            Invoice::up_stt($rq->input('id'),$rq->input('stt'));
+            Invoice::up_stt($rq->input('id'),$rq->input('stt'),$rq->input('pstt'));
         }
         else if ($type == 'del') {
             Invoice::destroy($id);

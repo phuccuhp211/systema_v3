@@ -189,12 +189,10 @@
 	@elseif ($mng == 'invoices')
 		<tr>
 			<th style="width: 30px;">ID</th>
-			<th style="width: 120px;">Tên</th>
-			<th style="width: 25%;">Liên Hệ</th>
+			<th style="width: 20%;">Liên Hệ</th>
 			<th style="width: auto;">Danh Sách Sản Phẩm</th>
-			<th style="width: 100px;">Thành tiền</th>
-			<th style="width: 100px;">Tình Trạng</th>
-			<th style="width: 100px;">Thao tác</th>
+			<th style="width: 12.5%;">Thành tiền</th>
+			<th style="width: 25%;">Tình Trạng</th>
 		</tr>
 		@foreach ($list as $value => $item)
 			@php
@@ -205,11 +203,11 @@
 			@endphp
 			<tr class="hoadon">
 				<td rowspan="<?php echo $rp ?>" class="text-center p-0 id-hd">{{ $item['id'] }}</td>
-				<td rowspan="<?php echo $rp ?>" class="text-start">{{ $item['name'] }}</td>
-				<td rowspan="<?php echo $rp ?>" class="text-start">
-					Email: {{ $item['email'] }}<br>
-					SĐT: {{ $item['number'] }}<br>
-					Đ/C: {{ $item['address'] }}
+				<td rowspan="<?php echo $rp ?>" class="text-start" style="font-size:14px;">
+					{{ $item['name'] }}<br>
+					{{ $item['email'] }}<br>
+					0{{ $item['number'] }}<br>
+					{{ $item['address'] }}
 				</td>
 				<td class="text-start">SL: {{ $list[0]['num'] }} | {{ $list[0]['name'] }}</td>
 				<td rowspan="{{ $rp }}" class="text-center p-0">
@@ -221,13 +219,17 @@
 				        {!! $price !!}
 				    @endif
 				</td>
-				<td rowspan="{{ $rp }}" class="text-center stt-hd">{{ $item['status'] }}</td>
 				<td rowspan="{{ $rp }}" class="text-center">
-					<select name="trangthai" class="hd-stt" id="hd-stt">
-						<option value="Chuẩn Bị">Chuẩn Bị</option>
-						<option value="Đang Giao">Đang Giao</option>
-						<option value="Hoàn Thành">Hoàn Thành</option>
-						<option value="Hủy">Hủy</option>
+					<select name="trangthai" class="hd-stt form-control mb-1" id="hd-stt">
+						<option {{ $item['status'] == 'Đanh chờ xác nhận' ? 'selected' : '' }} value="Đanh chờ xác nhận">Đanh chờ xác nhận</option>
+						<option {{ $item['status'] == 'Chuẩn Bị' ? 'selected' : '' }} value="Chuẩn Bị">Chuẩn Bị</option>
+						<option {{ $item['status'] == 'Đang Giao' ? 'selected' : '' }} value="Đang Giao">Đang Giao</option>
+						<option {{ $item['status'] == 'Hoàn Thành' ? 'selected' : '' }} value="Hoàn Thành">Hoàn Thành</option>
+						<option {{ $item['status'] == 'Hủy' ? 'selected' : '' }} value="Hủy">Hủy</option>
+					</select>
+					<select name="thanhtoan" class="hd-stt form-control mb-1" id="hd-pstt">
+						<option {{ $item['p_status'] == 0 ? 'selected' : '' }} value="0">Chưa Thanh Toán</option>
+						<option {{ $item['p_status'] == 1 ? 'selected' : '' }} value="1">Đã Thanh Toán</option>
 					</select>
 					<button class="btn btn-success d-block mt-1 mx-auto hd-update" id="hd-update">Cập Nhật</button>
 				</td>

@@ -85,12 +85,13 @@ class pay_controller extends Controller
 
         $ntotal = ($rq->ajax()) ? (($rq->input('newtt')) ?? 0) : ((session('user-temp')['newtt']) ?? 0);
         $coupon = ($rq->ajax()) ? (($rq->input('magg')) ?? '') : ((session('user-temp')['magg']) ?? '');
+        $p_stt = ($pmmt != 'COD') ? 1 : 0;
 
         $list = json_encode(session('cart')['list']);
         $total = ($rq->input('magg')) ? session('cart')['total'] : session('cart')['total']+$sfee;
 
         if ($coupon != '') Voucher::devine($coupon); 
-        Invoice::save_inv($name,$mail,$addr,$number,$notice,$mxn,$date,$list,$total,$pmmt,$sfee,$ntotal,$coupon);
+        Invoice::save_inv($name,$mail,$addr,$number,$notice,$mxn,$date,$list,$total,$pmmt,$sfee,$ntotal,$coupon,$p_stt);
         Mail::mailer('smtp')->to($mail)->send( new m_invoice($name,$mail,$addr,$number,$notice,$mxn,$date,$pmmt,$sfee,$total,$ntotal,$coupon) );
 
         session()->forget('cart');

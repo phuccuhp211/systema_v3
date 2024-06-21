@@ -789,6 +789,11 @@
 		</div>
 	</div>
 
+@elseif ($mng == "invoices")
+	<div class="popup-small hide-popup">
+		<span>Cập Nhật Đơn Hàng Thành Công</span>
+	</div>
+
 @endif
 
 <div class="bg-err hide-bg-add-err">

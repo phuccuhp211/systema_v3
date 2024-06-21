@@ -55,6 +55,7 @@ return new class extends Migration
             $table->text('list');
             $table->bigInteger('price');
             $table->string('status',30)->default("Đanh chờ xác nhận");
+            $table->boolean('p_status');
             $table->date('created')->default(date('Y-m-d'));
             $table->date('submited')->nullable();
             $table->string('in_num',40);

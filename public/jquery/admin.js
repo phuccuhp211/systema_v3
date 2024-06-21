@@ -279,18 +279,18 @@ $(function() {
 		setTimeout(function() {$('.popup-small').addClass('hide-popup');},1000);
 	})
 	$(document).on('click', '.hd-update', function() {
-		let trangthai = $(this).siblings("select").val();
+		let trangthai = $('#hd-stt').val();
+		let thanhtoan = $('#hd-pstt').val();
 		id = $(this).parent().siblings(".id-hd").text();
 		let duongdan_fix = duongdan+url_sub+"/manager/in/upd";
 
-		$(this).parent().siblings(".stt-hd").text(trangthai);
-		console.log(trangthai+" "+id);
 		$.ajax({
 			type: "POST",
 			url: duongdan_fix,
-			data: {id: id, stt: trangthai },
+			data: {id: id, stt: trangthai, pstt: thanhtoan },
 			success: function(response) {
-
+				$('.popup-small').removeClass('hide-popup');
+				setTimeout(() => { $('.popup-small').addClass('hide-popup') }, 1000);
 			},
 			error: function() {
 
@@ -360,7 +360,7 @@ $(function() {
 			dataType: 'JSON',
 			data: { user: user, pass: pass },
 			success: function (data) {
-				if (data.status) setTimeout(() => { location.href = data.res }, 250);
+				if (data.status) setTimeout(() => { location.href = data.res }, 100);
 				else $('.errlog').text(data.res);
 			}
 		});
@@ -385,7 +385,8 @@ $(function() {
 	                $('.bg-err').removeClass('hide-bg-add-err');
 	                $('.bg-err').find('div').html('<ul>' + data.res + '</ul>');
 	                setTimeout(function() { $('.bg-err').addClass('hide-bg-add-err') }, 5000);
-	            } else {
+	            } 
+	            else {
 	                $('.bg-err').removeClass('hide-bg-add-err');
 	                $('.bg-err').find('div').html(data.res);
 	                setTimeout(function() { location.reload(); }, 3000);

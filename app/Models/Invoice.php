@@ -12,7 +12,7 @@ class Invoice extends Model
 
     protected $table = 'Invoices';
     protected $primaryKey = 'id';
-    protected $fillable = ['name','number','email','address','list','price','created','submited','in_num','shipfee','coupon','offers','method'];
+    protected $fillable = ['name','number','email','address','list','price','status','p_status','created','submited','in_num','shipfee','coupon','offers','method'];
     public $timestamps = false;
 
     public static function get_list($number) {
@@ -23,7 +23,7 @@ class Invoice extends Model
         return self::where('in_num',$number)->first();
     }
 
-    public static function save_inv($name,$mail,$addr,$number,$notice,$mxn,$date,$list,$total,$pmmt,$sfee,$ntotal=null,$coupon=null) {
+    public static function save_inv($name,$mail,$addr,$number,$notice,$mxn,$date,$list,$total,$pmmt,$sfee,$ntotal=null,$coupon=null,$p_stt) {
         $create = [
             'name' => $name,
             'number' => $number,
@@ -31,6 +31,7 @@ class Invoice extends Model
             'address' => $addr,
             'list' => $list,
             'price' => $total,
+            'p_status' => $p_stt,
             'created' => $date,
             'in_num' => $mxn,
             'shipfee' => $sfee,
@@ -76,12 +77,12 @@ class Invoice extends Model
         else if ($fil == 6) return self::where('status', 'Đã Hủy')->orderBy('id','DESC')->get();
     }
 
-    public static function up_stt($id,$stt) {
+    public static function up_stt($id,$stt,$pstt) {
         $date = now()->format('Y-m-d');
         $hoadon = self::find($id);
         if ($hoadon->submited == "0000-00-00") {
-            $hoadon->where('id', $id)->update([ 'status' => $stt, 'submited' => $date ]);
+            $hoadon->where('id', $id)->update([ 'status' => $stt, 'submited' => $date ,'p_status' => $pstt]);
         } 
-        else $hoadon->where('id', $id)->update(['status' => $stt]);
+        else $hoadon->where('id', $id)->update(['status' => $stt, 'p_status' => $pstt]);
     }
 }

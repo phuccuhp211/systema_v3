@@ -92,7 +92,7 @@ table, th, td {
 }
 th { text-align:center; padding: 10px 0; color: white; background: #927ec4;}
 
-td{text-align: center;padding: 5px 0 5px 5px;}
+td{text-align: center;padding: 4px;}
 table {
     background: white;
     width: 100%;
