@@ -6,6 +6,7 @@ use App\Models\Voucher;
 use App\Models\Invoice;
 use App\Mail\invoice as m_invoice;
 use DateTime;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
@@ -95,6 +96,8 @@ class pay_controller extends Controller
         Mail::mailer('smtp')->to($mail)->send( new m_invoice($name,$mail,$addr,$number,$notice,$mxn,$date,$pmmt,$sfee,$total,$ntotal,$coupon) );
 
         session()->forget('cart');
+        if(session()->has('user_log')) User::upcart(session('user_log'));
+        if(session()->has('user-temp')) session()->forget('user-temp');
         if ($rq->ajax()) return route('dord');
     }
 

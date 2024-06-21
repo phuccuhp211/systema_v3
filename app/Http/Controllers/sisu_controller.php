@@ -30,7 +30,18 @@ class sisu_controller extends Controller {
                         else {
                             if (Hash::check($pass, $find['pass'])) {
                                 session(['user_log' => $user]);
-                                if ($find['cart'] != null) session([ 'cart' => json_decode($find['cart'], true)]);
+                                if (!is_null($find['cart'])) {
+                                    $cart = json_decode($find['cart'], true);
+                                    if (session()->has('cart')) {
+                                        $sessionCart = session('cart');
+                                        $sessionCart['list'] = array_merge($sessionCart['list'], $cart['list']);
+                                        $sessionCart['total'] += $cart['total'];
+                                        session(['cart' => $sessionCart]);
+                                    } else {
+                                        session(['cart' => $cart]);
+                                    }
+                                } 
+                                else User::upcart(session('user_log'));
                                 return true;
                             }
                             else return response()->json(['err' => 'Sai mật khẩu']);

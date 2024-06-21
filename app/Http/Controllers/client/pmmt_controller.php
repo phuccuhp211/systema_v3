@@ -93,12 +93,12 @@ class pmmt_controller extends Controller {
         }
         $datarp['secureHash'] = hash_hmac('sha512', $hashData, $this->vnp_HashSecret);
 
-        if ($datarp['secureHash'] == $datarp['vnp_SecureHash']) {
-            $pay_ctrl = new pay_controller;
-            $pay_ctrl->order($rq);
-            session()->forget('user-temp');
+        if (session()->has('user-temp')) {
+            if ($datarp['secureHash'] == $datarp['vnp_SecureHash']) {
+                $pay_ctrl = new pay_controller;
+                $pay_ctrl->order($rq);
+            }
         }
-
         return view('payment.vnpay_result', $datarp);
     }
 }

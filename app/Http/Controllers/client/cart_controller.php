@@ -18,7 +18,7 @@ class cart_controller extends Controller
         $prod->num = $quantity;
         $prod = $this->cal_price($prod);
         $repeated = false;
-        foreach ($cart['list'] as $item) {
+        foreach ($cart['list'] as &$item) {
             if ($item['id'] == $id) {
                 $item['num'] += $quantity;
                 $item = $this->cal_price($item);
@@ -36,7 +36,7 @@ class cart_controller extends Controller
         $id = $rq->input('id');
         $quantity = $rq->input('num');
         $cart = session('cart');
-        foreach ($cart['list'] as $item) {
+        foreach ($cart['list'] as &$item) {
             if ($item['id'] == $id) {
                 $item['num'] = $quantity;
                 $item = $this->cal_price($item);
@@ -69,7 +69,7 @@ class cart_controller extends Controller
         $prod->num = $quantity;
         $prod = $this->cal_price($prod);
         $repeated = false;
-        foreach ($cart['list'] as $item) {
+        foreach ($cart['list'] as &$item) {
             if ($item['id'] == $id) {
                 $item['num'] += $quantity;
                 $item = $this->cal_price($item);
@@ -86,7 +86,7 @@ class cart_controller extends Controller
 
     function total($cart) {
         $total = 0;
-        foreach ($cart['list'] as $value => $item) {
+        foreach ($cart['list'] as &$item) {
             $item = $this->cal_price($item);
             $total += $item->sum;
         }

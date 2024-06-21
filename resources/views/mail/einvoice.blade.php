@@ -18,9 +18,9 @@
         @foreach (session('cart')['list'] as $value => $item)
 	    <tr>
 	        <td style="padding: 3px; font-size: 15px; border: 1px solid black; width: 50px; text-align: center;">{{$value+1}}</td>
-	        <td style="padding: 3px 5px; font-size: 15px; border: 1px solid black; width: 400px">{{$item->name}}</td>
-	        <td style="padding: 3px; font-size: 15px; border: 1px solid black; width: 100px; text-align: center;">{{$item->num}}</td>
-	        <td style="padding: 3px 10px; font-size: 15px; border: 1px solid black; width: 150px; text-align: right;">{{gennum($item->sum)}}</td>
+	        <td style="padding: 3px 5px; font-size: 15px; border: 1px solid black; width: 400px">{{$item['name']}}</td>
+	        <td style="padding: 3px; font-size: 15px; border: 1px solid black; width: 100px; text-align: center;">{{$item['num']}}</td>
+	        <td style="padding: 3px 10px; font-size: 15px; border: 1px solid black; width: 150px; text-align: right;">{{gennum($item['sum'])}}</td>
 	    </tr>
 		@endforeach
 

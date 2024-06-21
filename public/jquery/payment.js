@@ -64,39 +64,6 @@ $(function() {
 	$(window).on('load' ,function() {
 		$('#phiship').text(getnumber(ship_price));
 		$('#tongtien').text(getnumber(total_price));
-
-		if ($('.pmsv').length > 0) {
-			var duongdan_fix1 = duongdan+url_sub+"/hoadon/";
-			var duongdan_fix2 = duongdan+url_sub+"/sendmail/";
-			var randomParam = Math.random().toString(36).substring(7);
-
-			var data_trave = {
-				randomParam: randomParam
-			}
-
-			$.ajax({
-				type: "POST",
-				method: "POST",
-				url: duongdan_fix1,
-				data: data_trave,
-				success: function(response) {
-					$.ajax({
-						type: "POST",
-						method: "POST",
-						url: duongdan_fix2,
-						data: data_trave,
-						success: function(response) {
-						},
-						error: function() {
-							console.log("Có lỗi xảy ra.");
-						}
-					});
-				},
-				error: function() {
-					console.log("Có lỗi xảy ra.");
-				}
-			});
-		}
 	})
 
 	$('.thanhtoansp').on('click', function() {
@@ -141,12 +108,11 @@ $(function() {
 						type: "POST",
 						url: duongdan_fix,
 						data: data_trave,
-						dataType: 'JSON',
 						success: function(data) {
 							location.href = data;
 						},
-						error: function() {
-							console.log("Có lỗi xảy ra.");
+						error: function(error) {
+							console.log("Error: ", error);
 						}
 					});
 				}
@@ -159,6 +125,9 @@ $(function() {
 						dataType: 'JSON',
 						success: function (data) {
 							$('#payment_methods').submit();
+						},
+						error: function(error) {
+							console.log("Error: ", error);
 						}
 					});
 				}

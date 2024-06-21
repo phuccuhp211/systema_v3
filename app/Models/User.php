@@ -64,7 +64,8 @@ class User extends Authenticatable
     }
 
     public static function upcart($name) {
-        self::where('account',$name)->update(['cart' => json_encode(session('cart'))]);
+        if(session()->has('cart')) self::where('account',$name)->update(['cart' => json_encode(session('cart'))]);
+        else self::where('account',$name)->update(['cart' => NULL]);
     }
 
     public static function count() {
