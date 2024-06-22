@@ -9,6 +9,7 @@ use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\resetpw;
 use App\Models\User;
+use App\Http\Controllers\Client\cart_controller;
 
 class sisu_controller extends Controller {
     function __construct() {
@@ -32,14 +33,9 @@ class sisu_controller extends Controller {
                                 session(['user_log' => $user]);
                                 if (!is_null($find['cart'])) {
                                     $cart = json_decode($find['cart'], true);
-                                    if (session()->has('cart')) {
-                                        $sessionCart = session('cart');
-                                        $sessionCart['list'] = array_merge($sessionCart['list'], $cart['list']);
-                                        $sessionCart['total'] += $cart['total'];
-                                        session(['cart' => $sessionCart]);
-                                    } else {
-                                        session(['cart' => $cart]);
-                                    }
+                                    $cart_ctrl = new cart_controller();
+                                    if (session()->has('cart')) $cart = $cart_ctrl->merge_cart($cart);
+                                    else session(['cart' => $cart]);
                                 } 
                                 else User::upcart(session('user_log'));
                                 return true;

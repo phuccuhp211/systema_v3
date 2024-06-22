@@ -14,8 +14,8 @@ class cart_controller extends Controller
         $id = $rq->input('id');
         $quantity = $rq->input('num', 1);
         $cart = session('cart');
-        $prod = Product::get_sc($id);
-        $prod->num = $quantity;
+        $prod = Product::get_sc($id)->toArray();
+        $prod['num'] = $quantity;
         $prod = $this->cal_price($prod);
         $repeated = false;
         foreach ($cart['list'] as &$item) {
@@ -65,8 +65,8 @@ class cart_controller extends Controller
     function buy($id) {
         $quantity = 1;
         $cart = session('cart');
-        $prod = Product::get_sc($id);
-        $prod->num = $quantity;
+        $prod = Product::get_sc($id)->toArray();
+        $prod['num'] = $quantity;
         $prod = $this->cal_price($prod);
         $repeated = false;
         foreach ($cart['list'] as &$item) {
@@ -88,7 +88,7 @@ class cart_controller extends Controller
         $total = 0;
         foreach ($cart['list'] as &$item) {
             $item = $this->cal_price($item);
-            $total += $item->sum;
+            $total += $item['sum'];
         }
         $cart['total'] = $total;
         return $cart;
@@ -96,20 +96,48 @@ class cart_controller extends Controller
 
     function cal_price($prod) {
         $now = new DateTime();
-        $f_date = new DateTime($prod->f_date);
-        $t_date = new DateTime($prod->t_date);
-        if ($f_date > $now || $t_date < $now) {
-            $prod->pfn = $prod->price;
-            $prod->sum = $prod->num * $prod->pfn;
-        } 
+        if ($prod['f_date'] == NULL && $prod['t_date'] == NULL) {
+            $prod['pfn'] = $prod['price'];
+            $prod['sum'] = $prod['num'] * $prod['pfn'];
+        }
         else {
-            $prod->pfn = $prod->sale;
-            $prod->sum = $prod->num * $prod->pfn;
-        } 
+            $f_date = new DateTime($prod['f_date']);
+            $t_date = new DateTime($prod['t_date']);
+            if ($f_date > $now || $t_date < $now) {
+                $prod['pfn'] = $prod['price'];
+                $prod['sum'] = $prod['num'] * $prod['pfn'];
+            } 
+            else {
+                $prod['pfn'] = $prod['sale'];
+                $prod['sum'] = $prod['num'] * $prod['pfn'];
+            } 
+        }
+            
         return $prod;
     }
 
     function storage_cart() {
         if(session()->has('user_log')) User::upcart(session('user_log'));
+    }
+
+    public function merge_cart($us_cart) {
+        $session = session('cart');
+
+        foreach ($us_cart['list'] as $item2) {
+            $repeated = false;
+            foreach ($session['list'] as &$item1) {
+                if ($item1['id'] == $item2['id']) {
+                    $item1['num'] += $item2['num'];
+                    $item1 = $this->cal_price($item1);
+                    $repeated = true;
+                    break;
+                }
+            }
+            if (!$repeated) $session['list'][] = $this->cal_price($item2);
+        }
+
+        $session = $this->total($session);
+        session(['cart' => $session]);
+        User::upcart(session('user_log'));
     }
 }
