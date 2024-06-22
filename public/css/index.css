@@ -290,3 +290,7 @@ body {
 .xemthem:hover {
     background: red;
 }
+
+.carousel-item {
+    height: 50vh;
+}

@@ -23,7 +23,7 @@
                                 <a href="{{ route('cart') }}" class="nav-link menu-chinh-li giohang">
                                     <i class="fa fa-shopping-cart"></i> Giỏ Hàng
                                 </a>
-                                <div class="popup-cart off-pocart" data-user="{{ (session()->has('udone')) ? 'yes' : '' }}">
+                                <div class="popup-cart off-pocart" data-user="{{ (session()->has('user_log')) ? 'yes' : '' }}" data-cart="{{ (session()->has('cart')) ? 'yes' : '' }}">
                                     <span>Có Sản Phẩm Trong Giỏ Hàng</span>
                                 </div>
                             </li>

@@ -644,5 +644,4 @@ class admin_controller extends Controller {
             else return redirect()->route('manager', ['type' => 'offers']);
         }
     }
-
 }

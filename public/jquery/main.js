@@ -5,7 +5,7 @@ var url_sub = "";
 
 $(document).ready(function () {
   	$('#carousel-id').carousel();
-  	if ($('.popup-cart').data("user") == "yes") {
+  	if ($('.popup-cart').data("user") == "yes" && $('.popup-cart').data("cart") == "yes") {
 		$('.popup-cart').removeClass('off-pocart');
 		setTimeout(function() {
 			$('.popup-cart').addClass('off-pocart');
