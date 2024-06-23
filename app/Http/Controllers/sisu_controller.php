@@ -67,8 +67,14 @@ class sisu_controller extends Controller {
                     return response()->json(['err' => 'Vui lòng nhập đầy đủ thông tin !']);
                 }
                 else {
-                    $find = User::get_us($user);
-                    if ($find) return response()->json(['err' => 'Tên tài khoản đã được sử dụng !']);
+                    $account = User::get_us($user);
+                    $mail = User::get_em($email);
+                    $number = User::get_pn($phone);
+                    if ($account || $mail || $number) {
+                        if ($account) return response()->json(['err' => 'Tên tài khoản đã được sử dụng !']);
+                        if ($mail) return response()->json(['err' => 'Email đã được sử dụng !']);
+                        if ($number) return response()->json(['err' => 'Số điện thoại đã được sử dụng !']);
+                    }
                     else {
                         if ($pass1 != $pass2) return response()->json(['err' => 'Mật khẩu không khớp !']);
                         else if (strlen($pass1) < 7) return response()->json(['err' => 'Mật khẩu tối thiểu 8 kí tự !']);

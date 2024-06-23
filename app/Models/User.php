@@ -20,6 +20,12 @@ class User extends Authenticatable
     public static function get_us($name) {
         return self::where([['account', $name],['role', 0]])->first();
     }
+    public static function get_em($mail) {
+        return self::where([['email', $mail],['role', 0]])->first();
+    }
+    public static function get_pn($phone) {
+        return self::where([['number', $phone],['role', 0]])->first();
+    }
 
     public static function get_ad($name) {
         return self::where([['account', $name],['role', 1]])->first();
