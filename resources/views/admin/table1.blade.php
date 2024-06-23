@@ -123,7 +123,11 @@
 			<td style="text-align: center;">{{ $item->id }}</td>
 			<td style="text-align: center;" id="tendm">{{ $item->name }}</td>
 			<td style="text-align: center;" id="pldm">{{ $item->type }}</td>
-			<td style="text-align: center;" id="imgdm">{{ genurl($item->img) }}</td>
+			<td style="text-align: center;" id="imgdm">
+				@if ($item->img != '')
+				<img src="{{ genurl($item->img) }}" alt="">
+				@endif
+			</td>
 			<td style="text-align: center;">
 				<button class="btn btn-primary suaxoa sua suadm" data-id="{{ $item->id }}"><i class="fa-solid fa-gear"></i></button>
 				<button class="btn btn-danger suaxoa xoa" data-id="{{ $item->id }}" data-type="c2"><i class="fa-solid fa-trash"></i></button>

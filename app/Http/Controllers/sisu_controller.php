@@ -17,34 +17,36 @@ class sisu_controller extends Controller {
     }
 
     function client_lls(Request $rq, $type) {
+        $data['status'] = false;
         if ($type == 'login') {
             if ($rq->ajax()) {
                 $user = $rq->input('user');
                 $pass = $rq->input('pass');
 
-                if ($user == '') return response()->json(['err' => 'Vui lòng nhập tài khoản !']);
-                else if ($pass == '') return response()->json(['err' => 'Vui lòng nhập mật khẩu !']);
+                if ($user == '') $data['res'] = 'Vui lòng nhập tài khoản !';
+                else if ($pass == '') $data['res'] =  'Vui lòng nhập mật khẩu !';
                 else {
                     $find = User::get_us($user);
                     if ($find) {
-                        if ($find['lock'] == 1) return response()->json(['err' => 'Tài Khoản bị khóa !']);
+                        if ($find['lock'] == 1) $data['res'] = 'Tài Khoản bị khóa !';
                         else {
                             if (Hash::check($pass, $find['pass'])) {
                                 session(['user_log' => $user]);
                                 if (!is_null($find['cart'])) {
                                     $cart = json_decode($find['cart'], true);
                                     $cart_ctrl = new cart_controller();
-                                    if (session()->has('cart')) $cart = $cart_ctrl->merge_cart($cart);
+                                    if (session()->has('cart')) $cart_ctrl->merge_cart($cart);
                                     else session(['cart' => $cart]);
-                                } 
+                                }
                                 else User::upcart(session('user_log'));
-                                return true;
+                                $data['status'] = true;
                             }
-                            else return response()->json(['err' => 'Sai mật khẩu']);
+                            else $data['res'] =  'Sai mật khẩu';
                         }
-                    }
-                    else return response()->json(['err' => 'Sai tên tài khoản !']);
+                    } 
+                    else return $data['res'] =  'Sai tên tài khoản !';
                 }
+                return response()->json($data);
             }
             else return redirect()->route('home');
         }
@@ -64,32 +66,42 @@ class sisu_controller extends Controller {
                 $phone = $rq->input('phone');
 
                 if ($user==''||$addr==''||$pass1==''||$pass2==''||$lname==''||$fname==''||$phone==''|| $email=='') {
-                    return response()->json(['err' => 'Vui lòng nhập đầy đủ thông tin !']);
+                    $data['res'] =  'Vui lòng nhập đầy đủ thông tin !';
                 }
                 else {
                     $account = User::get_us($user);
                     $mail = User::get_em($email);
                     $number = User::get_pn($phone);
                     if ($account || $mail || $number) {
-                        if ($account) return response()->json(['err' => 'Tên tài khoản đã được sử dụng !']);
-                        if ($mail) return response()->json(['err' => 'Email đã được sử dụng !']);
-                        if ($number) return response()->json(['err' => 'Số điện thoại đã được sử dụng !']);
+                        if ($account) $data['res'] =  'Tên tài khoản đã được sử dụng !';
+                        if ($mail) $data['res'] =  'Email đã được sử dụng !';
+                        if ($number) $data['res'] =  'Số điện thoại đã được sử dụng !';
                     }
                     else {
-                        if ($pass1 != $pass2) return response()->json(['err' => 'Mật khẩu không khớp !']);
-                        else if (strlen($pass1) < 7) return response()->json(['err' => 'Mật khẩu tối thiểu 8 kí tự !']);
+                        if ($pass1 != $pass2) $data['res'] =  'Mật khẩu không khớp !';
+                        else if (strlen($pass1) < 7) $data['res'] =  'Mật khẩu tối thiểu 8 kí tự !';
                         else {
-                            $rule = [ 'email' => 'required|email|regex:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/' ];
-                            $c_email = Validator::make(['email' => $email], $rule );
-                            if ($c_email->fails()) return response()->json(['err' => 'Email không hợp lệ !']);
-                            else if (strlen($phone) < 7 || strlen($phone) > 11) return response()->json(['err' => 'Số điện thoại không hợp lệ !']);
+                            $rule = [ 
+                                'email' => 'required|email|regex:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/',
+                                'phone' => 'required|numeric|digits:10'
+                            ];
+                            $msgs = [
+                                'email' => 'Email không đúng định dạng',
+                                'phone' => 'Số điện thoại không hợp lệ.'
+                            ];
+                            $validator = Validator::make($rq->all(), $rule, $msgs);
+                            if ($validator->fails()) {
+                                $errors = $validator->errors()->all();
+                                $data['res'] = $errors[0];
+                            }
                             else {
                                 User::add($user,Hash::make($pass1),$lname,$fname,$email,$addr,$phone);
-                                return true;
+                                $data['status'] = true;
                             }
                         }
                     }
                 }
+                return response()->json($data);
             }
             else return redirect()->route('home');
         }
@@ -102,64 +114,60 @@ class sisu_controller extends Controller {
                 $em = $rq->input('em');
                 $ad = $rq->input('ad');
 
-                $rs = [ 'status' => false ];
                 $rule = [ 'email' => 'required|email|regex:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/' ];
                 $c_email = Validator::make(['email' => $em], $rule );
 
-                if ($ln==''||$fn==''||$pn==''||$em==''||$ad=='') $rs['res'] = 'Vui lòng điền đẩy đủ thông tin !';
-                else if($c_email->fails()) $rs['res'] = 'Email không hợp lệ !';
-                else if(strlen($pn) < 7  || strlen($pn) > 11) $rs['res'] = 'Số điện thoại không hợp lệ !';
+                if ($ln==''||$fn==''||$pn==''||$em==''||$ad=='') $data['res'] = 'Vui lòng điền đẩy đủ thông tin !';
+                else if($c_email->fails()) $data['res'] = 'Email không hợp lệ !';
+                else if(strlen($pn) < 7  || strlen($pn) > 11) $data['res'] = 'Số điện thoại không hợp lệ !';
                 else {
                     User::fix($id,'','',$ln,$fn,$em,$ad,$pn);
 
-                    $rs['status'] = true;
-                    $rs['res'] = 'Cập nhật thông tin thành công ! <br> Trang web sẽ tự động tải lại sau 3 giây';   
+                    $data['status'] = true;
+                    $data['res'] = 'Cập nhật thông tin thành công ! <br> Trang web sẽ tự động tải lại sau 3 giây';   
                 }
-                return response()->json($rs);
+                return response()->json($data);
             }
             else return redirect()->route('home');
         }
         else if ($type == 'checkp') {
             if ($rq->ajax()) {
-                $rs = [ 'status' => false ];
                 $pw = $rq->input('oldpw');
                 
-                if ($pw == '') $rs['res'] = 'Vui lòng nhập mật khẩu';
+                if ($pw == '') $data['res'] = 'Vui lòng nhập mật khẩu';
                 else {
                     $user = User::get_us(session('user_log'));
                     if (Hash::check($pw, $user->pass)) {
-                        $rs['status'] = true;
-                        $rs['res'] = 'Mật khẩu đúng';
-                        return response()->json($rs);
+                        $data['status'] = true;
+                        $data['res'] = 'Mật khẩu đúng';
+                        return response()->json($data);
                     }
-                    else $rs['res'] = 'Sai mật khẩu';
+                    else $data['res'] = 'Sai mật khẩu';
                 }
-                return response()->json($rs);
+                return response()->json($data);
             }
             else return redirect()->route('home');
         }
         else if ($type == 'fixpw') {
             if ($rq->ajax()) {
-                $rs = [ 'status' => false ];
                 $pw1 = $rq->input('newp1');
                 $pw2 = $rq->input('newp2');
                 
-                if ($pw1 == '' || $pw2 == '') $rs['res'] = 'Vui lòng nhập mật khẩu';
-                else if ($pw1 != $pw2) $rs['res'] = 'Mật khẩu không khớp';
-                else if (strlen($pw1) < 7) $rs['res'] = 'Mật khẩu tối thiểu 8 kí tự';
+                if ($pw1 == '' || $pw2 == '') $data['res'] = 'Vui lòng nhập mật khẩu';
+                else if ($pw1 != $pw2) $data['res'] = 'Mật khẩu không khớp';
+                else if (strlen($pw1) < 7) $data['res'] = 'Mật khẩu tối thiểu 8 kí tự';
                 else {
-                    $rs['status'] = true;
-                    $rs['res'] = "Đổi mật khẩu thành công <br> trang web sẽ tự động tải lại sau 3 giây";
+                    $data['status'] = true;
+                    $data['res'] = "Đổi mật khẩu thành công <br> trang web sẽ tự động tải lại sau 3 giây";
                     $user = User::get_us(session('user_log'));
                     User::fix($user['id'],$user['account'],Hash::make($pw1));
                 }
-                return response()->json($rs);
+                return response()->json($data);
             }
             else return redirect()->route('home');
         }
         else if ($type == 'fgpass') {
             if ($rq->ajax()) {
-                $data['status'] = false;
                 $account = $rq->input('name');
                 if ($account == '' || $account == null) $data['res'] = "Vui lòng nhập tên tài khoản";
                 else {
@@ -179,7 +187,6 @@ class sisu_controller extends Controller {
         }
         else if ($type == 'checkc') {
             if ($rq->ajax()) {
-                $data['status'] = false;
                 $code = $rq->input('code');
                 if (!session('is_mail')) $data['res'] = "Mã hết đã hết hạn";
                 else {
@@ -196,7 +203,6 @@ class sisu_controller extends Controller {
         }
         else if ($type == 'newpw') {
             if ($rq->ajax()) {
-                $data['status'] = false;
                 $pass1 = $rq->input('pass1');
                 $pass2 = $rq->input('pass2');
                 

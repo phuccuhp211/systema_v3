@@ -118,6 +118,13 @@ class cart_controller extends Controller
 
     function storage_cart() {
         if(session()->has('user_log')) User::upcart(session('user_log'));
+        $this->echo_cart();
+    }
+
+    function echo_cart() {
+        echo "<pre>";
+        var_dump(session('cart'));
+        echo "</pre>";
     }
 
     public function merge_cart($us_cart) {

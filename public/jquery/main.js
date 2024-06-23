@@ -193,7 +193,7 @@ $(function() {
 			dataType: 'JSON',
 			data: data_trave,
 			success: function (data) {
-				if (data != true) form.find('h4.sisu-err').text(data.err);
+				if (data.status != true) form.find('h4.sisu-err').text(data.res);
 				else window.location.reload();
 			},
 			error: function(xhr, status) { 
@@ -233,7 +233,7 @@ $(function() {
 			dataType: 'JSON',
 			data: data_trave,
 			success: function (data) {
-				if (data != true) form.find('h4.sisu-err').text(data.err);
+				if (data.status != true) form.find('h4.sisu-err').text(data.res);
 				else {
 					console.log('xong');
 					form.find('h4.sisu-err').removeClass('bg-danger').addClass('bg-info');

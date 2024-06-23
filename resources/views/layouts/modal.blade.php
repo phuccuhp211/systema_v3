@@ -53,7 +53,7 @@
                         </div>
                         <div class="field-add">
                             <label>Số điện thoại :</label>
-                            <input type="number" name="phone">
+                            <input type="text" name="phone">
                         </div>        
                     </div>
                     <div class="field-add">
