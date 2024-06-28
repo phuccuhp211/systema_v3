@@ -14,14 +14,14 @@ class User extends Authenticatable
 
     protected $table = 'Users';
     protected $primaryKey = 'id';
-    protected $fillable = [ 'account', 'pass', 'l_name', 'f_name', 'email', 'address', 'number', 'img', 'cart', 'role', 'lock' ];
+    protected $fillable = [ 'account', 'pass', 'name', 'email', 'address', 'number', 'img', 'cart', 'role', 'permission', 'lock' ];
     public $timestamps = true;
 
     public static function get_us($name) {
         return self::where([['account', $name],['role', 0]])->first();
     }
     public static function get_em($mail) {
-        return self::where([['email', $mail],['role', 0]])->first();
+        return self::where('email', $mail)->first();
     }
     public static function get_pn($phone) {
         return self::where([['number', $phone],['role', 0]])->first();
@@ -31,12 +31,11 @@ class User extends Authenticatable
         return self::where([['account', $name],['role', 1]])->first();
     }
 
-    public static function add($user,$pass,$lname,$fname,$email,$addr,$phone,$role=0,$lock=0) {
+    public static function add($user,$pass,$name,$email,$addr,$phone,$role=0,$lock=0) {
         self::create([
             'account' => $user,
             'pass' => $pass,
-            'l_name' => $lname,
-            'f_name' => $fname,
+            'name' => $name,
             'email' => $email,
             'address' => $addr,
             'number' => $phone,
@@ -45,13 +44,12 @@ class User extends Authenticatable
         ]);
     }
 
-    public static function fix($id,$user=null,$pass=null,$lname=null,$fname=null,$email=null,$addr=null,$phone=null,$role=null,$lock=null) {
+    public static function fix($id,$user=null,$pass=null,$name=null,$email=null,$addr=null,$phone=null,$role=null,$lock=null) {
         $dt_update = [ ];
 
         if ($user != null) $dt_update['account'] = $user;
         if ($pass != null) $dt_update['pass'] = $pass;
-        if ($lname != null) $dt_update['l_name'] = $lname;
-        if ($fname != null) $dt_update['f_name'] = $fname;
+        if ($lname != null) $dt_update['name'] = $name;
         if ($email != null) $dt_update['email'] = $email;
         if ($addr != null) $dt_update['address'] = $addr;
         if ($phone != null) $dt_update['number'] = $phone;
@@ -76,7 +74,7 @@ class User extends Authenticatable
         else self::where('account',$name)->update(['cart' => NULL]);
     }
 
-    public static function count() {
+    public static function ttus() {
         $sut = self::where('role', 0)->count();
         $suf = DB::table('invoices')->select('number')
                 ->whereNotIn('number', function($query) {$query->select('number')->from('users');})
@@ -88,13 +86,5 @@ class User extends Authenticatable
             'sut' => $sut,
             'suf' => $suf,
         ];
-    }
-
-    public static function a_ajax($fil) {
-        if ($fil == 1) return self::orderBy('id','DESC')->get();
-        else if ($fil == 2) return self::where('lock',1)->orderBy('id','DESC')->get();
-        else if ($fil == 3) return self::where('lock',0)->orderBy('id','DESC')->get();
-        else if ($fil == 4) return self::where('role',0)->orderBy('id','DESC')->get();
-        else if ($fil == 5) return self::where('role',1)->orderBy('id','DESC')->get();
     }
 }

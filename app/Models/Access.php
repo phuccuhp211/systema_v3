@@ -22,7 +22,7 @@ class Access extends Model {
         else $check_data->increment('homef');
     }
 
-    public static function count() {
+    public static function tttf() {
         return self::first();
     }
 }

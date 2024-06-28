@@ -11,6 +11,7 @@
 </head>
 <body style="padding: 0 !important;">
 	<div class="menu">
+		<p class="text-white">Xin chào {{ session('admin_log') }}</p>
 		<a class="text-start btn w-100 btn-info" href="{{ route('manager') }}">Trang Chủ</a>
 		<hr>
 		<a class="text-start btn w-100 btn-success" href="{{ route('manager', ['type' => 'sections']) }}">Sections Home</a>

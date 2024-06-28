@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->renameColumn('name', 'account');
             $table->renameColumn('password', 'pass');
-            $table->string('l_name',30);
-            $table->string('f_name',30);
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('name',50);
             $table->text('address');
             $table->bigInteger('number');
             $table->text('img')->default('');
             $table->text('cart')->nullable();
             $table->boolean('role')->default(0);
+            $table->string('permission',10)->nullable();
             $table->boolean('lock')->default(0);
         });
         Schema::table('catalog_2', function(Blueprint $table) {

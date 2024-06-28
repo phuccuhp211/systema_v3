@@ -45,7 +45,7 @@ Route::match(['get', 'post'], '/user/admin/{type}', [sisu_controller::class, 'ad
 
 Route::get('/admin', [admin_controller::class, 'login'])->name('alog');
 Route::middleware([adminlog::class])->group(function () {
-	Route::match(['get','post'] ,'/manager/{type?}', [admin_controller::class, 'manager'])->name('manager');
+	Route::match(['get','post'] ,'manager/{type?}', [admin_controller::class, 'manager'])->name('manager');
 	Route::match(['get','post'] ,'manager/ss/{type}/{id?}', [admin_controller::class, 'ss_mng'])->name('manager.ss');
 	Route::match(['get','post'] ,'manager/bn/{type}/{id?}', [admin_controller::class, 'bn_mng'])->name('manager.bn');
 	Route::match(['get','post'] ,'manager/pd/{type}/{id?}', [admin_controller::class, 'pd_mng'])->name('manager.pd');
@@ -55,7 +55,8 @@ Route::middleware([adminlog::class])->group(function () {
 	Route::match(['get','post'] ,'manager/cm/{type}/{id?}', [admin_controller::class, 'cm_mng'])->name('manager.cm');
 	Route::match(['get','post'] ,'manager/in/{type}/{id?}', [admin_controller::class, 'in_mng'])->name('manager.in');
 	Route::match(['get','post'] ,'manager/cp/{type}/{id?}', [admin_controller::class, 'cp_mng'])->name('manager.cp');
-	Route::post('/manager/filter', [cart_controller::class, 'filter'])->name('manager.filter');
+	Route::post('manager/check/permission', [admin_controller::class, 'check_permission'])->name('manager.checkpm');
+	Route::post('manager/filter/ajax', [admin_controller::class, 'filter'])->name('manager.filter');
 });
 
 Route::post('/vnpay_payment', [pmmt_controller::class, 'vnpay_payment'])->name('vnpay.payment');

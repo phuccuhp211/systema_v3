@@ -57,13 +57,20 @@ class pay_controller extends Controller
 
         if (!$coupon) $response['res'] = 'Mã không tồn tại!';
         else {
-            $f_date = new DateTime($coupon->f_date);
-            $t_date = new DateTime($coupon->t_date);
+            if ($coupon->f_date != NULL && $coupon->t_date != NULL) {
+                $f_date = new DateTime($coupon->f_date);
+                $t_date = new DateTime($coupon->t_date);
 
-            if ($now < $f_date) $response['res'] = 'Mã không khả dụng vào lúc này!';
-            else if ($now > $t_date) $response['res'] = 'Mã đã hết hạn sử dụng!';
-            else if ($coupon->remaining == 0) $response['res'] = 'Mã đã hết lượt sử dụng!';
-            else if (!session()->has('user_log')) $response['res'] = 'Vui lòng đăng nhập hoặc đăng ký để sử dụng khuyến mãi!';
+                if ($now < $f_date) $response['res'] = 'Mã không khả dụng vào lúc này!';
+                else if ($now > $t_date) $response['res'] = 'Mã đã hết hạn sử dụng!';
+                else if ($coupon->remaining == 0) $response['res'] = 'Mã đã hết lượt sử dụng!';
+                else if (!session()->has('user_log')) $response['res'] = 'Vui lòng đăng nhập hoặc đăng ký để sử dụng khuyến mãi!';
+                else {
+                    $response['status'] = true;
+                    $response['type'] = $coupon->type;
+                    $response['disc'] = $coupon->discount;
+                }
+            } 
             else {
                 $response['status'] = true;
                 $response['type'] = $coupon->type;

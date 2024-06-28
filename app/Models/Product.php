@@ -117,12 +117,4 @@ class Product extends Model
                 ->get();
         return $result;
     }
-
-    public static function a_ajax($fil) {
-        if ($fil == 1) return self::orderBy('id','DESC')->get();
-        else if ($fil == 2) return self::orderBy('saled','DESC')->get();
-        else if ($fil == 3) return self::orderBy('viewed','DESC')->get();
-        else if ($fil == 4) return self::where('sale','IS NOT',null)->orderBy('id','DESC')->get();
-        else if ($fil == 5) return self::where('hidden',1)->orderBy('id','DESC')->get();
-    }
 }

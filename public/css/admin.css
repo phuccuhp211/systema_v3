@@ -5,6 +5,29 @@
     transition: all ease 0.3s;
 }
 
+.record {
+    color: black;
+}
+
+.button-pagin {
+    border: 1px solid #927ec4;
+    font-size: 20px;
+    line-height: 20px;
+    width: 32px;
+    padding: 5px 0;
+    color: #927ec4;
+}
+
+.button-pagin:hover {
+    background: #aa99d6;
+    color: white;
+}
+
+.page-act {
+    background: #927ec4 !important;
+    color: white;
+}
+
 .bg-admin-log {
     width: 100%;
     display: flex;
@@ -201,7 +224,7 @@ table {
     border-radius: 10px;
 }
 
-.suaxoa {
+.btn-mini {
     display: inline-block;
     width: 30px !important;
     padding: 3px;
@@ -226,8 +249,7 @@ table {
     z-index: 1;
 }
 
-.hide-bg-add, .hide-bg-fix, .hide-bg-del, .hide-bg-inf,
-.hide-bg-add-err, .hide-bg-fix-err, .hide-bg-del-err {
+.hide-bg {
     visibility: hidden;
     opacity: 0;
 }
@@ -286,16 +308,13 @@ table {
     background: #dfdfdf;
 }
 
-.boloc {
-    display: flex;
-    justify-content: space-evenly;
+.filter {
     border: 1px solid #dc3545;
-    padding: 15px;
-    border-radius: 0 0 15px 15px;
+    padding: 1vh;
     background: white;
 }
 
-.boloc button {
+.btn-filter {
     border: 1px solid #dc3545;
     font-size: 20px;
     padding: 5px 25px;
@@ -304,8 +323,13 @@ table {
     color: #dc3545;
 }
 
-.boloc button:hover {
-    background: #dc3545;
+.btn-filter:hover {
+    background: #ff8994;
+    color: white;
+}
+
+.btn-filter-act {
+    background: #dc3545 !important;
     color: white;
 }
 

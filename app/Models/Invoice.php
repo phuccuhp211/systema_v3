@@ -68,15 +68,6 @@ class Invoice extends Model
         ];
     }
 
-    public static function a_ajax($fil) {
-        if ($fil == 1) return self::orderBy('id','DESC')->get();
-        else if ($fil == 2) return self::where('status', 'Đanh chờ xác nhận')->orderBy('id', 'desc')->get();
-        else if ($fil == 3) return self::where('status', 'Chuẩn Bị')->orderBy('id','DESC')->get();
-        else if ($fil == 4) return self::where('status', 'Đang Giao')->orderBy('id','DESC')->get();
-        else if ($fil == 5) return self::where('status', 'Hoàn Thành')->orderBy('id','DESC')->get();
-        else if ($fil == 6) return self::where('status', 'Đã Hủy')->orderBy('id','DESC')->get();
-    }
-
     public static function up_stt($id,$stt,$pstt) {
         $date = now()->format('Y-m-d');
         $hoadon = self::find($id);

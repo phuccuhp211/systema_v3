@@ -26,7 +26,7 @@
                     <div class="khung-khttdh fip">
                         @if (session()->has('user_log'))
                         <div class="khungchu">
-                            <p>Họ tên :</p><input type="text" id="tenkh" value="{{ $header['user']['f_name'].' '.$header['user']['l_name'] }}">
+                            <p>Họ tên :</p><input type="text" id="tenkh" value="{{ $header['user']['name']}}">
                         </div>
                         <div class="khungchu">
                             <p>Email :</p><input type="text" id="emailkh" value="{{ $header['user']['email'] }}">

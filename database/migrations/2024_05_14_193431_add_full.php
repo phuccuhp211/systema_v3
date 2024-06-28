@@ -37,7 +37,7 @@ return new class extends Migration
             $table->id();
             $table->string('name',30);
             $table->unsignedBigInteger('type');
-            $table->text('img');
+            $table->text('img')->nullable();
         });
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
@@ -96,7 +96,7 @@ return new class extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->string('name',40);
-            $table->text('poster');
+            $table->text('poster')->nullable();
             $table->text('eb_img');
             $table->unsignedBigInteger('id_cata_1')->nullable();
             $table->unsignedBigInteger('id_cata_2')->nullable();
@@ -109,8 +109,8 @@ return new class extends Migration
             $table->string('name',30);
             $table->integer('amount');
             $table->integer('remaining');
-            $table->date('f_date')->default(date('Y-m-d'));
-            $table->date('t_date')->default(date('Y-m-d'));
+            $table->date('f_date')->nullable()->default(date('Y-m-d'));
+            $table->date('t_date')->nullable()->default(date('Y-m-d'));
             $table->string('type',15);
             $table->float('discount', precision: 3);
         });

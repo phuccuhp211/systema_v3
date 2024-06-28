@@ -51,12 +51,8 @@
                                     <input type="text" class="cf_all cf_user" disabled value="{{ $header['user']['account'] }}">
                                 </div>
                                 <div class="box-cf">
-                                    <label>Họ</label>
+                                    <label>Họ và Têm</label>
                                     <input type="text" class="cf_all cf_fn" value="{{ $header['user']['f_name'] }}">
-                                </div>
-                                <div class="box-cf">
-                                    <label>Tên </label>
-                                    <input type="text" class="cf_all cf_ln" value="{{ $header['user']['l_name'] }}">
                                 </div>
                             </div>
                             <div class="col-6">
@@ -68,6 +64,8 @@
                                     <label>Email :</label>
                                     <input type="text" class="cf_all cf_em" value="{{ $header['user']['email'] }}">
                                 </div>
+                            </div>
+                            <div class="col-12">
                                 <div class="box-cf">
                                     <label>Địa Chỉ :</label>
                                     <input type="text" class="cf_all cf_ad" value="{{ $header['user']['address'] }}">

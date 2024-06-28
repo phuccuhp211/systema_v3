@@ -97,16 +97,26 @@ class add_full extends Seeder
         $h = ['Nguyễn', 'Lê', 'Đinh', 'Võ', 'Hoàng', 'Phạm', 'Lý', 'Bùi'];
         $d = ['Thị', 'Văn', 'Anh', 'Hoàng', 'Mỹ', 'Thanh', 'Ngọc', 'Gia'];
         $t = ['Hoa', 'Kỳ', 'Tuấn', 'Trúc', 'Thanh', 'Hiền', 'An', 'Kiệt'];
-        for ($i = 1; $i <= 100; $i++) {
+        DB::table('users')->insert([
+            'account' => 'root',
+            'pass' => Hash::make('hihi'),
+            'name' => 'Quản Lý',
+            'email' => Str::random(5) . '@gmail.com',
+            'address' => 'Tại Website',
+            'number' => '999999999',
+            'role' => 1,
+            'permission' => 'Admin',
+            'lock' => 0
+        ]);
+        for ($i = 2; $i <= 25; $i++) {
             DB::table('users')->insert([
                 'account' => 'usernumber' . $i,
                 'pass' => Hash::make('hehe'),
-                'f_name' => Arr::random($h) . ' ' . Arr::random($d),
-                'l_name' => Arr::random($t),
+                'name' => Arr::random($h) . ' ' . Arr::random($d). ' ' .Arr::random($t),
                 'email' => Str::random(5) . '@gmail.com',
                 'address' => $i . ' Quốc lộ 1A',
                 'number' => mt_rand(100000000, 999999999),
-                'role' => mt_rand(0, 1),
+                'role' => 0,
                 'lock' => mt_rand(0, 1)
             ]);
         }
@@ -132,7 +142,7 @@ class add_full extends Seeder
         $turnrt = [];
         for ($i = 1; $i <= 250; $i++) {
             $id_pd = mt_rand(1, 500);
-            $id_us = mt_rand(1, 100);
+            $id_us = mt_rand(2, 25);
             $stars = mt_rand(1, 5);
 
             // Lưu đánh giá của từng người dùng
@@ -163,7 +173,7 @@ class add_full extends Seeder
         /*comment*/
         for ($i = 1; $i <= 500; $i++) {
             $id_pd = DB::table('products')->inRandomOrder()->first()->id ?? 1;
-            $id_us = DB::table('users')->inRandomOrder()->first()->id ?? 1;
+            $id_us = DB::table('users')->inRandomOrder()->first()->id ?? 2;
             DB::table('comments')->insert([
                 'content' => 'Nội dung bình luận ' . $i,
                 'id_pd' => $id_pd,

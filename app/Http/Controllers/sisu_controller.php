@@ -60,12 +60,11 @@ class sisu_controller extends Controller {
                 $addr = $rq->input('addr');
                 $pass1 = $rq->input('pass1');
                 $pass2 = $rq->input('pass2');
-                $lname = $rq->input('lname');
-                $fname = $rq->input('fname');
+                $name = $rq->input('name');
                 $email = $rq->input('email');
                 $phone = $rq->input('phone');
 
-                if ($user==''||$addr==''||$pass1==''||$pass2==''||$lname==''||$fname==''||$phone==''|| $email=='') {
+                if ($user==''||$addr==''||$pass1==''||$pass2==''||$name==''||$phone==''|| $email=='') {
                     $data['res'] =  'Vui lòng nhập đầy đủ thông tin !';
                 }
                 else {
@@ -95,7 +94,7 @@ class sisu_controller extends Controller {
                                 $data['res'] = $errors[0];
                             }
                             else {
-                                User::add($user,Hash::make($pass1),$lname,$fname,$email,$addr,$phone);
+                                User::add($user,Hash::make($pass1),$name,$email,$addr,$phone);
                                 $data['status'] = true;
                             }
                         }

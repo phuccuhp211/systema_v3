@@ -36,15 +36,9 @@
                         <label>Tài Khoản :</label>
                         <input type="text" name="acc">
                     </div>
-                    <div class="db-field-add">
-                        <div class="field-add">
-                            <label>Họ :</label>
-                            <input type="text" name="fname">
-                        </div>
-                        <div class="field-add">
-                            <label>Tên :</label>
-                            <input type="text" name="lname">
-                        </div>        
+                    <div class="field-add">
+                        <label>Họ và Tên:</label>
+                        <input type="text" name="name">
                     </div>
                     <div class="db-field-add">
                         <div class="field-add">
