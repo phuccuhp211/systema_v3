@@ -44,7 +44,7 @@
                     <div class="w-100"><h5 class="popup text-center text-white rounded p-2 m-0"></h5></div>
     
                     <div class="mt-4">
-                        <div style="display: flex;background: #e0e0e0;padding: 30px 15px;border-radius: 10px;">
+                        <div style="display: flex;background: #e0e0e0;padding: 30px 15px;border-radius: 10px;flex-wrap: wrap;">
                             <div class="col-6">
                                 <div class="box-cf">
                                     <label>Tên Tài Khoản :</label>

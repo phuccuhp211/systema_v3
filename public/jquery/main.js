@@ -28,14 +28,14 @@ function reset_cc() {
 	$(".tensp").height(chieucao_cu);
 }
 
-const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': csrfToken
-    }
-});
-
 $(function() {
+	const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+	$.ajaxSetup({
+	    headers: {
+	        'X-CSRF-TOKEN': csrfToken
+	    }
+	});
+	
 	reset_cc();
 
 	var cc_gia_sp = $('.giasp').height();
@@ -193,6 +193,7 @@ $(function() {
 			dataType: 'JSON',
 			data: data_trave,
 			success: function (data) {
+				console.log(data);
 				if (data.status != true) form.find('h4.sisu-err').text(data.res);
 				else window.location.reload();
 			},

@@ -17,6 +17,7 @@ class Comment extends Model
 
     public static function get_ct($data) {
         return self::join('users','comments.id_us','=','users.id')
+            ->select('comments.*','users.name','users.img')
             ->where('id_pd',$data)
             ->orderBy('comments.id','DESC')
             ->get();

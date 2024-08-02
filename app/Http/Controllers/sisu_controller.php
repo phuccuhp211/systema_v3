@@ -44,7 +44,7 @@ class sisu_controller extends Controller {
                             else $data['res'] =  'Sai mật khẩu';
                         }
                     } 
-                    else return $data['res'] =  'Sai tên tài khoản !';
+                    else $data['res'] =  'Sai tên tài khoản !';
                 }
                 return response()->json($data);
             }

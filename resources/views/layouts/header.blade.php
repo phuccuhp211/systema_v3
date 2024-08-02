@@ -40,12 +40,11 @@
             </div>
             @if (session()->has('user_log'))
                 <span class="span-popup">Xin chào<strong>
-                    {{ $header['user']['f_name']." ".$header['user']['l_name'] }}</strong>,
+                    {{ $header['user']['name'] }}</strong>,
                     <a href="{{ route('config') }}" class="fa-solid fa-gear"></a> | 
                     <a href="{{ route('client', ['type' => 'logout']) }}" class="fa-solid fa-right-from-bracket"></a>
                 </span>
-                <span hidden id="ufn">{{ $header['user']['f_name'] }}</span>
-                <span hidden id="uln">{{ $header['user']['l_name'] }}</span>
+                <span hidden id="ufn">{{ $header['user']['name'] }}</span>
                 <span hidden id="uid">{{ $header['user']['id'] }}</span>
             @endif  
         </nav>

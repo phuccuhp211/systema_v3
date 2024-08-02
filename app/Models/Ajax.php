@@ -10,8 +10,7 @@ class Ajax extends Model
 {
     use HasFactory;
 
-    public static function filter($db, $page, $fil, $rcs, $sch, $ord, $target)
-    {
+    public static function filter($db, $page, $fil, $rcs, $sch, $ord, $target) {
         $table = [
             'bn' => 'banners',
             'br' => 'brands',
@@ -64,6 +63,5 @@ class Ajax extends Model
             return $query->get();
         }
         else return ceil($query->count() / $rcs);
-        
     }
 }

@@ -101,11 +101,11 @@
                                 @if ($item['img'] != '')
                                 <div class="avt-img"><img src="{{ $item['img'] }}" alt=""></div>
                                 @else
-                                <h5 class="avt-text">{{ substr($item['l_name'], 0, 1) }}</h5>
+                                <h5 class="avt-text">{{ substr($item['name'], 0, 1) }}</h5>
                                 @endif
                             </div>
                             <div class="user-cmt">
-                                <p class="uname-cmt">{{ $item['f_name']." ".$item['l_name'] }}</p>
+                                <p class="uname-cmt">{{ $item['name'] }}</p>
                                 <p class="date-cmt">{{ date("d-m-Y", strtotime($item['date'])) }}</p>
                             </div>
                             <div class="content-cmt">
